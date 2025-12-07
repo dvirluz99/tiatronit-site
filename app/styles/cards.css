@@ -100,7 +100,7 @@ figcaption {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* מובייל */
+/* מובייל לכרטיסיות */
 @media (max-width: 768px) {
     .continer_main_for_all {
         grid-template-columns: 1fr;
@@ -132,34 +132,35 @@ figcaption {
 }
 
 
+/* --- עיצוב דף אוסף (Collection) --- */
+
 .collection-header-wrapper {
     text-align: center;
     max-width: 1000px;
-    margin: 2rem auto 3rem auto; /* רווח מלמעלה ורווח גדול מלמטה לפני הכרטיסים */
+    margin: 2rem auto 3rem auto; 
     padding: 0 1.5rem;
 }
 
 .collection-title {
     font-size: 3rem;
     font-weight: 800;
-    color: #1a4f7c; /* כחול כהה עמוק */
+    color: #1a4f7c; 
     margin: 0 0 1.5rem 0;
     position: relative;
-    display: inline-block; /* כדי שהקו התחתון יהיה ברוחב הטקסט */
+    display: inline-block; 
     z-index: 1;
 }
 
-/* אפקט דקורטיבי: קו תחתון מודרני */
 .collection-title::after {
     content: '';
     display: block;
-    width: 70%; /* הקו תופס 70% מרוחב הכותרת */
+    width: 70%; 
     height: 8px;
-    background: linear-gradient(to right, #8ec5fc, #e0f2fe); /* גרדיאנט תכלת */
+    background: linear-gradient(to right, #8ec5fc, #e0f2fe); 
     position: absolute;
-    bottom: 5px; /* יושב קצת מאחורי הטקסט */
-    left: 15%; /* ממורכז */
-    z-index: -1; /* מאחורי הטקסט */
+    bottom: 5px; 
+    left: 15%; 
+    z-index: -1; 
     border-radius: 4px;
     opacity: 0.8;
 }
@@ -167,34 +168,43 @@ figcaption {
 .collection-description {
     font-size: 1.25rem;
     line-height: 1.6;
-    color: #4a5568; /* אפור-כחול */
+    color: #4a5568; 
     
-    /* עיצוב "בועה" עדינה */
     background-color: #f8fbff;
     border: 1px solid #eef6ff;
     padding: 1rem 2.5rem;
+    
+    /* הבעיה הייתה פה - המרג'ין הזה יבוטל במובייל */
     margin-right: 2rem;
+    
     border-radius: 50px;
-    display: inline-block; /* הבועה עוטפת את הטקסט */
+    display: inline-block; 
     max-width: 800px;
     
-    box-shadow: 0 4px 15px rgba(0, 50, 100, 0.03); /* צל עדין מאוד */
+    box-shadow: 0 4px 15px rgba(0, 50, 100, 0.03); 
 }
 
-/* התאמה למובייל */
+/* --- התאמה למובייל של הכותרת והתיאור (התיקון) --- */
 @media (max-width: 768px) {
     .collection-header-wrapper {
         margin: 1.5rem auto 2rem auto;
+        padding: 0 10px; /* פחות ריווח בצדדים */
     }
 
     .collection-title {
-        font-size: 2.2rem; /* כותרת קטנה יותר */
+        font-size: 2.2rem; 
     }
 
     .collection-description {
         font-size: 1.1rem;
         padding: 1rem 1.5rem;
-        border-radius: 20px; /* במובייל פחות מעוגל כדי לחסוך מקום */
-        width: 100%;
+        border-radius: 20px; 
+        
+        /* התיקון החשוב: */
+        width: 100%; /* תופס את כל הרוחב הזמין */
+        display: block; /* הופך לבלוק כדי שמרג'ין אוטומטי יעבוד */
+        margin-right: 0; /* מבטל את ההזזה שמאלה */
+        margin-left: 0;
+        margin: 0 auto; /* ממרכז את הבלוק */
     }
 }
