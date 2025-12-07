@@ -11,6 +11,9 @@ import Footer from '../components/Footer.js';
 export const metadata = {
   title: 'תיאטרונית',
   description: 'תיאטרון בובות רגשי חברתי - רונית לוז',
+  verification: {
+    google: "hbe7WTCRBWSeMHA68wKCQfUyPmqk6B7iMYFtnRpUWZg",
+  },
 };
 
 export default function RootLayout({ children }) {
