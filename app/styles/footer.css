@@ -1,0 +1,54 @@
+footer {
+    grid-area: footer;
+    background: linear-gradient(135deg, #7fc0f5, #2998f4);   
+    padding: 1rem 0;
+}
+
+footer div{
+    display: flex;
+    padding: 5px;
+    justify-content: space-around;
+    align-items: center; 
+}
+
+.contact-links-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    gap: 1.5rem;
+}
+
+.contact-item a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff; 
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.contact-item a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.contact-item a i {
+    font-size: 1.1rem;
+}
+
+/* מובייל */
+@media (max-width: 768px) {
+    footer div {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+}

@@ -1,0 +1,227 @@
+.div_presentation {
+    display: grid;
+    place-items: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+/* --- כותרת ראשית של דף ההצגה --- */
+.presentation-page-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a4f7c; /* כחול כהה עמוק */
+    margin: 1.5rem 0 2rem 0;
+    position: relative;
+    padding-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 0px rgba(255,255,255,1), 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+/* קו עיצובי מתחת לכותרת */
+.presentation-page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* ממרכז את הקו */
+    width: 80px; /* רוחב הקו */
+    height: 6px;
+    background: linear-gradient(to right, #2998f4, #8ec5fc); /* גרדיאנט תכלת */
+    border-radius: 10px;
+}
+
+/* נקודה קטנה ועיצובית במרכז הקו */
+.presentation-page-title::before {
+    content: '♦'; /* מעוין קטן */
+    position: absolute;
+    bottom: -8px; /* יושב על הקו */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #1a4f7c;
+    font-size: 1.5rem;
+    padding: 0 10px;
+    z-index: 2;
+}
+
+/* --- כרטיס פרטי ההצגה (רק שינוי צבעים) --- */
+.show-details-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem 2.5rem;
+    
+    /* צבעים חדשים: */
+    background-color: #f0f7ff; /* תכלת בהיר נקי */
+    border: 1px solid #dceeff; /* מסגרת כחלחלה עדינה */
+    box-shadow: 0 8px 25px rgba(0, 50, 100, 0.05); /* צל כחול עדין */
+    
+    border-radius: 15px;
+}
+
+.show-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    
+    /* צבע חדש: */
+    color: #1a4f7c; /* כחול כהה */
+    
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.show-description {
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    
+    /* צבע חדש: */
+    color: #4a5568; /* אפור-כחול */
+    
+    margin-bottom: 2rem;
+}
+
+/* --- ביוגרפיה (רק שינוי צבעים) --- */
+.creator-bio {
+    background: #ffffff; /* לבן */
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    
+    /* צבע חדש: */
+    border: 1px solid #eef2f6; /* מסגרת כמעט שקופה */
+}
+
+.creator-intro { font-size: 1rem; margin: 0; color: #64748b; }
+.creator-name { font-size: 1.3rem; font-weight: 700; color: #1e293b; margin: 0.25rem 0; }
+.creator-credentials { font-size: 0.9rem; font-style: italic; color: #64748b; margin: 0; }
+
+.audience-highlight {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    
+    /* צבעים חדשים: */
+    color: #0c4a6e; /* טקסט כחול כהה */
+    background: #e0f2fe; /* רקע תכלת */
+    border: 1px solid #bae6fd;
+    
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+/* --- כפתורים (רק שינוי צבעים לגרדיאנט כחול) --- */
+.cta-container {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.cta-button, .invitation-button {
+    display: inline-block;
+    
+    /* צבעים חדשים: */
+    background: linear-gradient(135deg, #2998f4, #1a73e8); /* כחול */
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3); /* צל כחול */
+    
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.8rem 2.5rem;
+    border-radius: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 5px;
+    border: none;
+}
+
+.cta-button:hover, .invitation-button:hover {
+    transform: translateY(-2px);
+    /* צל מודגש בריחוף */
+    box-shadow: 0 6px 15px rgba(26, 115, 232, 0.5);
+    background: linear-gradient(135deg, #4dabf5, #2998f4);
+}
+
+.social-proof {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #64748b;
+    
+    /* צבע חדש לקו המפריד: */
+    border-top: 1px dashed #b3d7ff; /* תכלת */
+    
+    padding-top: 1.5rem;
+}
+
+/* --- טריילר (חזר למקור בדיוק!) --- */
+.div_trailer {
+    margin: 10px 0;
+}
+
+.vidue_iframe {
+    width: 450px;
+    height: 300px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    place-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+
+.gallery-grid a {
+    display: block;
+    height: 80%;
+    width: 80%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.gallery-grid a:hover {
+    transform: scale(1.03);
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- מובייל (שמרתי על התיקונים המקוריים בלבד) --- */
+@media (max-width: 768px) {
+    .show-details-container { padding: 1.5rem 1rem; }
+    .show-title { font-size: 2rem; }
+    .cta-button, .invitation-button { padding: 0.7rem 2rem; font-size: 1.1rem; }
+
+    .presentation-page-title {
+        font-size: 2.2rem;
+        margin: 1rem 0 1.5rem 0;
+        padding-bottom: 15px;
+    }
+
+    .div_trailer {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+    
+    .vidue_iframe {
+        width: 100%;
+        max-width: 800px;
+        height: 200px;
+    }
+
+    .gallery-grid {
+        /* במובייל: בדיוק 2 עמודות שוות */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}

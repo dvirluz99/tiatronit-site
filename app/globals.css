@@ -1,26 +1,1262 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===== תיקון גלילה ורווחים ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* מונע גלילה לרוחב */
+    background: #fdfdfd;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.header_link{
+    display: none;
+    border-radius: 10px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    margin: 0;
+    font-family: "Heebo", Arial, sans-serif;
+    /* צבע הרקע הישן שלך. ראה סעיף 3 להצעות חדשות */
+    background-color: #a6d2f6; 
+    color: #333;
+    direction: rtl;
+
+    /* ---- התיקון והשיפור ---- */
+    display: grid;
+    /* נגדיר מראש מבנה של עמודה אחת, זה הכל */
+    grid-template-columns: 1fr; 
+    /* הגדרת שורות: כותרת, ניווט, תוכן עיקרי (שגדל), פוטר */
+    grid-template-rows: auto auto 1fr auto;
+    /* נשייך את האלמנטים לאזורים (לא חובה אבל שומר על הסדר) */
+    grid-template-areas: 
+        "header"
+        "nav"
+        "main"
+        "footer";
+    /* חשוב: נוודא שהגובה המינימלי הוא 100% מגובה המסך */
+    min-height: 100vh; 
 }
+
+
+/* ---- כותרת עליונה ---- */
+header {
+    background: linear-gradient(135deg,  #7fc0f5, #2998f4);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    grid-area: header;
+}
+
+.continer_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.img_item_header {
+    height: 60px;
+    width: auto;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.item_butoon_header {
+    background: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.item_butoon_header:hover {
+    background: #ff9933;
+    color: white;
+}
+
+/* ---- טקסט עליון (תיאור האתר) ---- */
+.welcome-section {
+    /* הגדרות בסיס ומיקום */
+    max-width: 900px;
+    margin: 2rem auto;
+    position: relative;
+    
+    /* עיצוב ויזואלי */
+    background: linear-gradient(135deg, #fff8e7 0%, #fffbf2 100%); 
+    border-radius: 20px;
+    padding: 3rem 4rem;
+    
+    /* אפקט תלת מימד עדין */
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.08); 
+    border-bottom: 4px solid #e6dcc5;
+    
+    /* טיפוגרפיה */
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    color: #4a4a4a;
+}
+
+/* עיצוב הטקסט עצמו */
+.welcome-section p {
+    font-size: 1.35rem;
+    line-height: 1.8;
+    margin: 0;
+    position: relative;
+    z-index: 2; /* מעל המרכאות */
+}
+
+/* --- אלמנטים קישוטיים (מרכאות גדולות) --- */
+.welcome-section::before {
+    content: "❝";
+    font-size: 6rem;
+    color: rgba(210, 180, 140, 0.2); /* חול עדין ושקוף */
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-family: serif;
+    z-index: 1;
+}
+
+.hidden{
+    display: none;
+}
+
+/* ---- החלק המרכזי (כרטיסיות להצגות) ---- */
+main {
+    grid-area: main;
+    background-color: #a6d2f6;
+}
+
+.continer_main_for_all {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* justify-content: center; */
+    place-items: center;
+    gap: 1.5rem;
+    padding:1.5rem;
+    border-bottom: #838181 solid 1px;
+    
+}
+
+footer {
+    grid-area: footer;
+    background: linear-gradient(135deg, #7fc0f5, #2998f4);   
+}
+
+footer div{
+    display: flex;
+    padding: 5px;
+    justify-content: space-around;
+    align-items: center; 
+}
+
+.div_card {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- העיצוב המיוחד למומלצים --- */
+.caption-highlight {
+    /* 1. שינוי הרקע לצבע בולט (גרדיאנט כתום/זהב) */
+    background: linear-gradient(to bottom, #fff8e1, #ffecb3); 
+    color: #e65100; /* טקסט בצבע כתום חזק */
+    position: relative; /* חובה! כדי שנוכל למקם את התווית ביחס אליו */
+    
+    /* מוסיפים קצת מקום למעלה בשביל התווית */
+    margin-top: 15px; 
+    border-top: 2px solid #ffcc80;
+}
+
+/* הוספת הטקסט "ההצגה המועברת ביותר" */
+.caption-highlight::before {
+    content: "ההצגה המועברת ביותר! 🎖️"; /* הטקסט שרצית */
+    
+    /* מיקום ועיצוב התווית */
+    position: absolute;
+    top: -14px; /* מעלה את זה קצת מעל הכותרת */
+    left: 50%;
+    transform: translateX(-50%); /* ממרכז את זה בול */
+    
+    background-color: #f5b95a; /* רקע אדום-כתום כהה לתווית */
+    color: white; /* טקסט לבן */
+    font-size: 0.75rem;
+    padding: 2px 12px;
+    border-radius: 10px; /* הופך את זה ל"גלולה" */
+    white-space: nowrap; /* מונע שבירת שורות */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* צל קטן */
+}
+
+.div_presentation{
+    display: grid;
+    place-items: center;
+    gap: 15px;
+    /* justify-content: space-between; */
+    font-size: 20px;
+}
+
+.p_presentation {
+    width: 60%;
+    background-color: #d4eaee;
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+figure {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+figure:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+figure img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: #000000;
+}
+
+figcaption {
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #fffbf3;
+}
+
+
+.item_hover {
+    display: none;
+    position: absolute; /* מיקום יחסי לכרטיסייה */
+    top: -90%; /* מעל הכרטיסייה */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: black;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 20; /* מעל הכרטיסייה */
+    width: 90%; /* התאמה לגודל הכרטיסייה */
+    text-align: center;
+}
+
+/* הצגת ה-item_hover כאשר העכבר נמצא מעל item_main */
+.item_main:hover .item_hover {
+    display: block;
+}
+
+/* התאמה של item_main כדי למנוע חפיפה */
+.div_card {
+    position: relative; /* כדי שה-item_hover ימוקם ביחס אליו */
+}
+
+.div_trailer {
+        margin: 10px 0 10px 0;
+}
+
+.vidue_iframe {
+    width: 450px;
+    height: 300px;
+}
+
+.item_hover_figcaption {
+    font-size: 11px;
+}
+
+.gallery-grid {
+    display: grid;
+    /* יצירת עמודות אוטומטיות שמתאימות את עצמן. 
+        כל עמודה תהיה לפחות 200 פיקסלים, והן יתחלקו שווה בשווה */
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    place-items: center;
+    gap: 15px; /* רווח בין התמונות */
+    padding: 15px; /* ריפוד מסביב לכל הגלריה */
+}
+
+.gallery-grid a {
+    display: block; /* גורם לקישור להתנהג כמו בלוק */
+    height: 80%;
+    width: 80%;
+    border-radius: 8px; /* פינות מעוגלות */
+    overflow: hidden; /* מסתיר חלקים שגולשים מהפינות המעוגלות */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* אפקט צל יפה */
+    transition: transform 0.2s ease-in-out; /* אנימציה קטנה בהעברת עכבר */
+}
+
+.gallery-grid a:hover {
+    transform: scale(1.03); /* מגדיל מעט את התמונה בהעברת עכבר */
+}
+
+.gallery-grid img {
+    width: 100%; /* התמונה תתפוס 100% מרוחב הקישור */
+    height: 100%;
+    object-fit: cover; /* יגרום לתמונה למלא את השטח בלי להתעוות */
+    display: block; /* מסיר רווח מיותר מתחת לתמונה */
+}
+
+
+/* ============================ */
+/* ===== עיצוב למובייל ===== */
+/* ============================ */
+@media (max-width: 768px) {
+
+    /* --- מבנה כללי --- */
+    body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.8rem;
+        padding: 1rem;
+    }
+
+    .continer_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+    }
+
+    .img_item_header {
+        height: 45px;
+        width: 45px;
+    }
+
+    .item_butoon_header {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .welcome-section {
+        padding: 2rem 1.5rem; /* הקטנת מרווחים */
+        margin: 1rem;
+        width: auto;
+        border-radius: 15px;
+    }
+
+    .welcome-section p {
+        font-size: 1.1rem; /* טקסט קריא אך קטן יותר */
+        line-height: 1.5;
+    }
+
+    .welcome-section::before {
+        font-size: 4rem;
+        top: 0;
+        right: 10px;
+    }
+
+    /* --- אזור ראשי (Main) --- */
+    main {
+        background-color: #dcf8dc;
+        padding: 1rem 0.5rem;
+    }
+
+    .continer_main_for_all {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    figure {
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    figure img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    figcaption {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .div_trailer {
+        margin: 10px 0 10px 0;
+        display: flex;
+        flex-direction: column; /* סידור האלמנטים אחד מתחת לשני (עמודה) */
+        gap: 30px;             /* הוספת רווח של 30 פיקסלים בין הסרטונים */
+        align-items: center;
+    }
+
+    /* --- תיאור (Presentation) --- */
+    .div_presentation {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .p_presentation {
+        width: 95%;
+        font-size: 1.1rem;
+        padding: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .vidue_iframe {
+        width: 100%;
+        max-width: 800px;
+        height: 200px;
+
+    }
+
+    /* --- גלריה --- */
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .gallery-grid a {
+        width: 100%;
+        height: auto;
+    }
+
+    .gallery-grid img {
+        height: 100px;
+        object-fit: cover;
+    }
+
+    /* --- פוטר (Footer) --- */
+    footer {
+        padding: 1rem 0;
+    }
+
+    footer div {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+}
+
+/* זה מחליף את הכלל .p_presentation הישן שלך.
+   זהו ה"כרטיס" הראשי שמכיל את כל פרטי ההצגה.
+*/
+.show-details-container {
+    width: 90%; /* מתאים למובייל (מהתיקון הקודם) */
+    max-width: 800px; /* אבל בדסקטופ, שלא יהיה רחב מדי */
+    margin: 2rem auto; /* מרכוז אוטומטי (למעלה-למטה וצדדים) */
+    padding: 2rem 2.5rem;
+    background-color: #cae5f5; /* צבע הקרם שלך */
+    border-radius: 15px; /* פינות עגולות יותר */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* הצללה מודרנית */
+    border: 1px solid #ffeccc; /* מסגרת עדינה */
+}
+
+/* --- 1. הכותרת --- */
+.show-title {
+    text-align: center;
+    font-size: 2.5rem; /* גופן גדול ובולט */
+    font-weight: 800; /* מודגש מאוד */
+    color: #033145; /* הצבע הכתום מהכותרת שלך */
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+/* --- 2. התיאור --- */
+.show-description {
+    text-align: center;
+    font-size: 1.15rem; /* מעט יותר גדול מטקסט רגיל */
+    line-height: 1.7; /* מרווח שורות נוח לקריאה */
+    color: #444; /* צבע כהה וברור */
+    margin-bottom: 2rem;
+}
+
+/* --- 3. פרטי היוצרת (קופסה פנימית) --- */
+.creator-bio {
+    background: rgba(255, 255, 255, 0.7); /* רקע לבן חצי-שקוף */
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 1px solid #fff; /* מסגרת לבנה עדינה */
+}
+
+.creator-intro {
+    font-size: 1rem;
+    margin: 0;
+    color: #555;
+}
+.creator-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0.25rem 0;
+}
+.creator-credentials {
+    font-size: 0.9rem;
+    font-style: italic; /* כתב נטוי */
+    color: #666;
+    margin: 0;
+}
+
+/* --- 4. קהל יעד --- */
+.audience-highlight {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700; /* מודגש */
+    color: #333;
+    background: #54baf6; /* רקע כתום-צהוב מהפלטה שלך */
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+/* --- 5. כפתור קריאה לפעולה (CTA) --- */
+.cta-container {
+    text-align: center; /* מרכוז הכפתור */
+    margin-bottom: 2.5rem;
+}
+
+.cta-button {
+    display: inline-block; /* מאפשר padding ו-margin */
+    background: linear-gradient(135deg, #7fc0f5, #2998f4); /* גרדיאנט כתום */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none; /* הסרת קו תחתון */
+    padding: 0.8rem 2.5rem;
+    border-radius: 30px; /* כפתור "גלולה" */
+    box-shadow: 0 4px 10px rgba(255, 153, 51, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px); /* אפקט ריחוף קטן */
+    box-shadow: 0 6px 15px rgba(255, 153, 51, 0.5);
+}
+.invitation-button {
+    display: inline-block; /* מאפשר padding ו-margin */
+    background: linear-gradient(135deg, #7fc0f5, #2998f4); /* גרדיאנט כתום */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none; /* הסרת קו תחתון */
+    padding: 0.8rem 2.5rem;
+    border-radius: 30px; /* כפתור "גלולה" */
+    box-shadow: 0 4px 10px rgba(255, 153, 51, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.invitation-button:hover {
+    transform: translateY(-2px); /* אפקט ריחוף קטן */
+    box-shadow: 0 6px 15px rgba(255, 153, 51, 0.5);
+}
+
+/* --- 6. הוכחה חברתית --- */
+.social-proof {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+    border-top: 1px dashed #ffcc33; /* קו מקווקו עדין להפרדה */
+    padding-top: 1.5rem;
+}
+
+.social-proof h4 {
+    margin: 0 0 0.5rem 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.social-proof p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* התאמה נוספת למובייל */
+@media (max-width: 768px) {
+    .show-details-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .show-title {
+        font-size: 2rem; /* כותרת קטנה יותר במובייל */
+    }
+
+    .cta-button {
+        padding: 0.7rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .invitation-button{
+        padding: 0.7rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+
+/* ============================ */
+/* ===== עמוד יצירת קשר ===== */
+/* ============================ */
+
+.contact-page-container {
+    max-width: 900px; /* מגדיר רוחב מקסימלי לתוכן */
+    margin: 2rem auto; /* מרכוז אוטומטי של העמוד */
+    padding: 1rem;
+    text-align: center; /* כל הטקסטים יהיו ממורכזים */
+}
+
+.contact-page-container h2 {
+    font-size: 2.5rem;
+    color: #ff9933; /* שימוש בכתום מהפלטה שלך */
+    margin-bottom: 0.5rem;
+}
+
+.contact-page-container p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem; /* רווח לפני הכרטיסיות */
+}
+
+/* הגריד שמחזיק את הכרטיסיות */
+.contact-options-grid {
+    display: grid;
+    /* זה הקסם הרספונסיבי: 
+      צור עמודות שיתאימו אוטומטית. 
+      כל עמודה תהיה ברוחב מינימלי של 250px 
+      ותתפוס מקום שווה (1fr). 
+      במובייל, זה אוטומטית יהפוך לעמודה אחת.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem; /* רווח בין הכרטיסיות */
+}
+
+/* עיצוב כל כרטיסיית קשר */
+.contact-card {
+    background: #ffffff; /* רקע לבן לכרטיס */
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07); /* הצללה עדינה */
+    text-decoration: none; /* הסרת קו תחתון מהקישור */
+    color: #333; /* צבע טקסט שחור */
+    transition: all 0.3s ease; /* אנימציה חלקה */
+}
+
+/* אפקט ריחוף (Hover) */
+.contact-card:hover {
+    transform: translateY(-7px); /* הרמה קלה של הכרטיס */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* הצללה מודגשת יותר */
+}
+
+/* עיצוב האייקון בתוך הכרטיס */
+.contact-card i {
+    font-size: 3rem; /* גודל אייקון */
+    margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+    font-size: 1.3rem;
+    margin: 0.5rem 0;
+}
+
+.contact-card p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #666;
+    margin-bottom: 0; /* איפוס שוליים תחתונים */
+}
+
+/* עיצוב צבעים ייחודי לכל כרטיס
+   (אנחנו צובעים את האייקון ואת הכותרת) 
+*/
+
+/* 1. וואטסאפ */
+.contact-card.whatsapp i,
+.contact-card.whatsapp h3 {
+    color: #25D366; /* ירוק של וואטסאפ */
+}
+
+/* 2. אימייל */
+.contact-card.email i,
+.contact-card.email h3 {
+    color: #DB4437; /* אדום של ג'ימייל/מייל */
+}
+
+/* 3. פייסבוק */
+.contact-card.facebook i,
+.contact-card.facebook h3 {
+    color: #1877F2; /* כחול של פייסבוק */
+}
+
+/* ============================ */
+/* ===== רשימת קישורי קשר ===== */
+/* ============================ */
+
+/* המיכל שמחזיק את כל הקישורים */
+.contact-links-list {
+    display: flex; /* מסדר את הפריטים בשורה */
+    flex-wrap: wrap; /* מאפשר גלישה במובייל אם אין מקום */
+    justify-content: center; /* ממכרז את הקישורים */
+    align-items: center; /* מיישר אותם אנכית */
+    
+    list-style: none; /* מסיר את הנקודות של הרשימה */
+    padding: 0;
+    margin: 1rem 0; /* רווח מעל ומתחת לרשימה */
+    gap: 1.5rem; /* רווח בין הפריטים */
+}
+
+/* הקישור עצמו - זה העיצוב העיקרי */
+.contact-item a {
+    display: flex; /* מסדר את האייקון והטקסט בשורה */
+    align-items: center; /* ממכרז אותם אנכית */
+    gap: 0.5rem; /* רווח קטן בין האייקון לטקסט */
+    
+    text-decoration: none; /* מסיר קו תחתון */
+    font-size: 1rem;
+    font-weight: 500;
+    
+    /* צבע הקישור - יכול להיות צבע הפוטר שלך */
+    /* לדוגמה, אם הפוטר כהה, תשתמש בלבן */
+    color: #ffffff; 
+    
+    /* אפשרות אחרת: אם הפוטר בהיר (כמו הכתום) */
+    /* color: #333333; */
+    
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px; /* פינות מעוגלות */
+    transition: all 0.2s ease-in-out;
+}
+
+/* אפקט Hover - מה קורה כשעוברים עם העכבר */
+.contact-item a:hover {
+    background: rgba(255, 255, 255, 0.2); /* רקע לבן שקוף עדין */
+    transform: scale(1.05); /* הגדלה קטנה */
+}
+
+/* האייקון (i) והטקסט (span) */
+.contact-item a i {
+    font-size: 1.1rem;
+}
+
+/* --- עיצוב דף המלצה מלא --- */
+
+.recommendation-page-wrapper {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: 'Heebo', sans-serif;
+}
+
+.recommendation-header {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    position: relative;
+}
+
+/* קו דקורטיבי מתחת לכותרת */
+.recommendation-header::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #ff9933; /* הצבע הכתום שלך */
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.recommendation-card-full {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* צל רך ויוקרתי */
+    position: relative;
+}
+
+/* אייקון ציטוט דקורטיבי */
+.recommendation-card-full::before {
+    content: '"';
+    font-family: serif;
+    font-size: 8rem;
+    color: #f0f4f8; /* צבע כמעט שקוף */
+    position: absolute;
+    top: -20px;
+    right: 20px;
+    z-index: 0;
+}
+
+.rec-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative; /* מעל הציטוט */
+    z-index: 1;
+}
+
+.rec-role {
+    font-weight: bold;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.rec-date {
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.rec-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.rec-content p {
+    margin-bottom: 1rem;
+}
+
+.rec-footer {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #666;
+    border-right: 4px solid #ff9933;
+}
+
+.rec-cta-container {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.cta-button-large {
+    background: linear-gradient(135deg, #ff9933, #ffb347);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cta-button-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 153, 51, 0.6);
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+    .recommendation-card-full {
+        padding: 1.5rem;
+    }
+    
+    .rec-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .recommendation-header {
+        font-size: 1.5rem;
+    }
+}
+
+/* ========================================= */
+/* דף קצת עלינו (About Us)       */
+/* ========================================= */
+
+/* --- מעטפת כללית --- */
+.about-page-wrapper {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 20px;
+    font-family: 'Heebo', sans-serif;
+    direction: rtl;
+    color: #333;
+}
+
+/* --- חלק עליון: תמונה וטקסט --- */
+.about-top-section {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start; /* הצמדה למעלה כדי שהטקסט יתחיל בקו ישר עם התמונה */
+    margin-bottom: 5rem;
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    /* צל עדין ויוקרתי להבלטת האזור */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.05); 
+    border: 1px solid #f0f0f0;
+}
+
+/* --- אזור התמונה --- */
+.about-image-container {
+    flex: 1; /* לוקח שליש */
+    max-width: 380px;
+    position: relative;
+}
+
+.about-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    object-fit: cover;
+    /* אפקט "תמונה מודפסת" עם מסגרת כפולה */
+    box-shadow: 
+        15px 15px 0px rgba(255, 153, 51, 0.2), /* צל כתום */
+        -10px -10px 0px rgba(240, 240, 240, 0.8); /* צל אפור בהיר */
+    transition: transform 0.4s ease;
+}
+
+.about-image-container img:hover {
+    transform: scale(1.02) rotate(1deg); /* תנועה קטנה וחמודה במעבר עכבר */
+}
+
+/* --- אזור הטקסט --- */
+.about-text-content {
+    flex: 2; /* לוקח שני שליש */
+}
+
+.about-title {
+    color: #e65100; /* כתום עמוק */
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    position: relative;
+    line-height: 1.2;
+}
+
+/* קו דקורטיבי מתחת לכותרת */
+.about-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 6px;
+    background: linear-gradient(to right, #ff9933, #ffcc80);
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+.about-description {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: #4a4a4a;
+}
+
+.about-description p {
+    margin-bottom: 1.5rem;
+}
+
+/* הדגשת מילים חשובות בטקסט (אם תרצה להוסיף <strong> ב-HTML) */
+.about-description strong {
+    color: #d35400;
+    font-weight: 600;
+}
+
+/* --- חלק תחתון: כרטיסיות ציטוטים (Testimonials) --- */
+.testimonials-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 2px dashed #ffe0b2; /* קו הפרדה מקווקו */
+}
+
+.testimonials-section h3 {
+    font-size: 2.2rem;
+    color: #2c3e50;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+.testimonials-grid {
+    display: grid;
+    /* גריד חכם: יוצר עמודות באופן אוטומטי, מינימום 260px לכרטיס */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* --- עיצוב כרטיס ציטוט בודד --- */
+.testimonial-mini-card {
+    background: #fff8e1; /* רקע שמנת/צהבהב */
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid #ffeec2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* אפקט בריחוף על הכרטיס */
+.testimonial-mini-card:hover {
+    transform: translateY(-8px); /* עולה למעלה */
+    box-shadow: 0 12px 25px rgba(255, 153, 51, 0.15); /* הצללה כתומה זוהרת */
+    background: #ffffff; /* הופך ללבן נקי */
+    border-color: #ffcc80;
+}
+
+/* אייקון המרכאות הגדול */
+.quote-icon {
+    font-size: 3.5rem;
+    color: #ffb74d; /* כתום בהיר */
+    opacity: 0.3;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-family: serif; /* פונט קלאסי למרכאות */
+    line-height: 1;
+}
+
+.testi-text {
+    font-size: 1.1rem;
+    color: #5d4037; /* חום כהה ונעים */
+    font-style: italic; /* כתב נטוי לציטוט */
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    z-index: 1; /* מוודא שהטקסט מעל המרכאות */
+    position: relative;
+}
+
+.testi-author {
+    display: inline-block;
+    font-weight: 700;
+    color: #e65100;
+    font-size: 0.95rem;
+    border-top: 1px solid rgba(0,0,0,0.08); /* קו עדין מפריד */
+    padding-top: 15px;
+    width: 100%;
+}
+
+.testi-from-Pres {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 12px;
+    background-color: #fff3e0; /* רקע כתום בהיר מאוד */
+    color: #e67e22; /* טקסט כתום כהה */
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 20px; /* פינות עגולות כמו גלולה */
+    border: 1px solid #ffcc80; /* מסגרת עדינה */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* צל עדין */
+    transition: all 0.3s ease;
+}
+
+/* ========================================= */
+/* התאמה למובייל (Mobile)        */
+/* ========================================= */
+
+@media (max-width: 900px) {
+    .about-top-section {
+        flex-direction: column; /* הופך לעמודה אחת */
+        text-align: center;
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .about-image-container {
+        max-width: 100%; /* התמונה תופסת רוחב מלא */
+        margin-bottom: 1rem;
+    }
+    
+    .about-title {
+        font-size: 2.2rem;
+    }
+    
+    .about-title::after {
+        margin: 10px auto 0; /* ממרכז את הקו מתחת לכותרת */
+    }
+
+    .about-description {
+        font-size: 1.1rem;
+        text-align: right; /* מחזיר את הטקסט לימין כדי שיהיה קריא */
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr; /* טור אחד של המלצות */
+        gap: 20px;
+    }
+    
+    .testimonial-mini-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* --- תיקונים ל-Next.js --- */
+
+/* ביטול עיצוב ברירת מחדל של קישורים (הפס הכחול) */
+a {
+    text-decoration: none; /* מוריד את הקו התחתון */
+    color: inherit; /* יורש את הצבע מהאבא, במקום כחול */
+}
+
+/* מוודא שהכפתור בהדר תופס את כל הגובה והרוחב של הלינק */
+.item_butoon_header {
+    display: inline-block;
+    color: black; /* או הצבע המקורי שהיה לך */
+    cursor: pointer;
+}
+
+/* אם הכפתורים עדיין נראים מוזר, נחזק את העיצוב שלהם */
+.item_header a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* --- עיצוב Header ותפריט נפתח חדש --- */
+
+.site-header {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%; /* רוחב מלא להדר */
+}
+
+.continer_header {
+    display: flex;
+    justify-content: space-between; /* זה הפקודה שדוחפת אותם לקצוות! */
+    align-items: center;
+    padding: 0.5rem 1.5rem; /* קצת רווח מהקצוות שלא יהיה דבוק מדי */
+    width: 100%; /* חובה! */
+    box-sizing: border-box; /* שהפאדינג לא ישבור את הרוחב */
+}
+
+/* כפתור ההמבורגר */
+.hamburger-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1002; /* שיהיה מעל הכל */
+}
+
+/* התפריט עצמו (מוסתר כברירת מחדל במובייל) */
+.main-nav {
+    position: fixed;
+    top: 0;
+    right: -300px; 
+    left: auto;
+    width: 280px;
+    height: 100vh;
+    background-color: #ffffff;
+    padding: 80px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+/* המצב הפתוח */
+.main-nav.open {
+    right: 0; /* נכנס למסך */
+}
+
+/* עיצוב הקישורים בתפריט */
+.nav-link {
+    font-size: 1.1rem;
+    color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.nav-link:hover {
+    background-color: #f5f5f5;
+    color: #d4a373; /* צבע זהב/חול */
+}
+
+/* כותרת קטנה בתוך התפריט */
+.nav-label {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* קישורים פנימיים (הצגות) */
+.sub-link {
+    font-size: 1rem;
+    padding-right: 15px; /* הזחה פנימה */
+    color: #555;
+}
+
+.nav-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 5px 0;
+}
+
+/* כפתור צור קשר מודגש */
+.contact-highlight {
+    background-color: #d4a373;
+    color: white !important;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.contact-highlight:hover {
+    background-color: #c08e5d;
+}
+
+/* מסך כהה ברקע */
+.menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- התאמה למסכים גדולים (Desktop) --- */
+/* אם אתה רוצה שבדסקטופ זה ייראה רגיל ולא המבורגר, תגיד לי ואוסיף קוד לזה.
+   כרגע הקוד הזה ייצר תפריט צדדי גם במחשב וגם בנייד, שזה עיצוב נקי ומודרני מאוד. */

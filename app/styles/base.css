@@ -1,0 +1,59 @@
+/* איפוסים בסיסיים */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: #fdfdfd;
+}
+
+body {
+    height: 100%;
+    min-height: 100vh;
+    font-family: "Heebo", Arial, sans-serif;
+    background-color: #a6d2f6; 
+    color: #333;
+    direction: rtl;
+    
+    /* הגדרת Grid ראשית */
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: 
+        "header"
+        "nav"
+        "main"
+        "footer";
+}
+
+main {
+    grid-area: main;
+    background-color: #a6d2f6;
+}
+
+/* ביטול עיצוב ברירת מחדל של קישורים */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hidden {
+    display: none;
+}
+
+/* התאמה למובייל - בסיס */
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    main {
+        padding: 1rem 0.5rem;
+    }
+}

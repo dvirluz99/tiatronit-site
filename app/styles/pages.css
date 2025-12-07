@@ -1,0 +1,347 @@
+/* --- צור קשר --- */
+.contact-page-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.contact-page-container h2 { 
+    font-size: 2.5rem; 
+    color: #1a4f7c; /* כחול כהה ועמוק לכותרת */
+    margin-bottom: 0.5rem; 
+    font-weight: 800;
+}
+
+.contact-page-container p { 
+    font-size: 1.15rem; 
+    line-height: 1.6; 
+    margin-bottom: 2.5rem; 
+    color: #5a6b7c; /* אפור-כחלחל מודרני */
+}
+
+.contact-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.contact-card {
+    background: #ffffff;
+    padding: 2rem 1.5rem;
+    border-radius: 16px; /* פינות עגולות יותר */
+    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.05); /* צל כחלחל עדין */
+    color: #333;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f7ff;
+}
+
+.contact-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(41, 152, 244, 0.15); /* צל כחול בולט בריחוף */
+    border-color: #dbeafe;
+}
+
+.contact-card i { font-size: 3rem; margin-bottom: 1rem; }
+
+/* כאן שמרתי על צבעי המותג המקוריים כי זה חשוב לזיהוי (וואטסאפ ירוק וכו'), 
+   אבל הכרטיס עצמו נשאר נקי */
+.contact-card.whatsapp i, .contact-card.whatsapp h3 { color: #25D366; }
+.contact-card.email i, .contact-card.email h3 { color: #DB4437; }
+.contact-card.facebook i, .contact-card.facebook h3 { color: #1877F2; }
+
+/* --- אודות (About) --- */
+.about-page-wrapper {
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 0 20px;
+    color: #2c3e50;
+}
+
+.about-top-section {
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    margin-bottom: 5rem;
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 60, 120, 0.04); 
+    border: 1px solid #eef6ff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* אפקט דקורטיבי עדין ברקע */
+.about-top-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #2998f4, #8ec5fc);
+}
+
+.about-image-container {
+    flex: 1;
+    max-width: 380px;
+    position: relative;
+}
+
+.about-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    object-fit: cover;
+    /* החלפתי את הצל הכתום בצל כחול מודרני */
+    box-shadow: 
+        15px 15px 0px rgba(41, 152, 244, 0.1), 
+        -10px -10px 0px rgba(240, 245, 255, 1);
+    transition: transform 0.4s ease;
+}
+
+.about-image-container img:hover { transform: scale(1.02) rotate(1deg); }
+
+.about-text-content { flex: 2; }
+
+.about-title {
+    color: #0f3460; /* כחול-לילה כהה */
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    position: relative;
+    line-height: 1.2;
+}
+
+.about-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 6px;
+    background: linear-gradient(to right, #2998f4, #6dd5fa); /* גרדיאנט כחול-תכלת */
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+.about-description { font-size: 1.15rem; line-height: 1.9; color: #4a5568; }
+
+/* המלצות בדף אודות */
+.testimonials-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 2px dashed #b3d7ff; /* קו כחול בהיר */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-mini-card {
+    background: #f0f7ff; /* רקע כחול-לבן בהיר מאוד */
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid #dceeff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-mini-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.12);
+    background: #ffffff;
+    border-color: #2998f4;
+}
+
+.quote-icon {
+    font-size: 3.5rem;
+    color: #8ec5fc; /* תכלת עדין */
+    opacity: 0.5;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-family: serif;
+    line-height: 1;
+}
+
+.testi-text { 
+    font-size: 1.1rem; 
+    color: #2d3748; /* אפור כהה */
+    font-style: italic; 
+    margin-bottom: 2rem; 
+    position: relative; 
+    z-index: 1; 
+}
+
+.testi-author { 
+    font-weight: 700; 
+    color: #1a73e8; /* כחול גוגל/פייסבוק נעים */
+    font-size: 0.95rem; 
+    border-top: 1px solid rgba(0,0,0,0.05); 
+    padding-top: 15px; 
+}
+
+.testi-from-Pres { 
+    margin-top: 12px; 
+    padding: 6px 16px; 
+    background-color: #e3f2fd; /* תכלת בהיר */
+    color: #1565c0; /* כחול בינוני */
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    border-radius: 20px; 
+    border: 1px solid #bbdefb; 
+    display: inline-block;
+}
+
+/* --- דף המלצות מלא --- */
+.recommendation-page-wrapper {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.recommendation-header {
+    text-align: center;
+    color: #1a4f7c;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    position: relative;
+    font-weight: 700;
+}
+
+.recommendation-card-full {
+    background-color: #fff;
+    border: 1px solid #eef2f6;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.recommendation-card-full:hover {
+    border-color: #d0e1fd;
+}
+
+.rec-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* --- עיצוב תוכן ההמלצה (החלק החדש והמשופר) --- */
+.rec-content {
+    font-size: 1.15rem; /* טקסט מעט גדול וקריא */
+    line-height: 1.85; /* מרווח נושם בין שורות */
+    color: #334155; /* אפור כהה איכותי */
+    
+    /* רקע עדין מאוד בצד שמאל שיוצר תחושת עומק */
+    background: linear-gradient(to left, rgba(41, 152, 244, 0.05), transparent); 
+    
+    padding: 1.2rem 1.5rem; /* ריווח פנימי */
+    border-radius: 12px; /* פינות עגולות */
+    
+    /* קו הדגשה כחול בצד ימין - נותן תחושת ציטוט */
+    border-right: 5px solid #2998f4; 
+    
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* עיצוב לפסקאות בתוך ההמלצה כדי שלא יהיו דבוקות */
+.rec-content p {
+    margin-bottom: 1rem;
+}
+
+.rec-content p:last-child {
+    margin-bottom: 0;
+}
+
+.rec-footer {
+    background-color: #f8fbff;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #555;
+    border-right: 4px solid #8ec5fc; /* פס תכלת בצד */
+    margin-top: 1rem;
+}
+
+/* --- כפתור CTA גדול (מתוקן למרכוז ומובייל) --- */
+.cta-button-large {
+    /* הגדרות תצוגה למרכוז */
+    display: block; /* הופך לבלוק כדי שהמרג'ין יעבוד */
+    width: fit-content; /* הרוחב יהיה בדיוק לפי הטקסט */
+    margin: 2rem auto; /* למעלה/למטה 2rem, צדדים אוטומטי (ממרכז) */
+    
+    /* עיצוב */
+    background: linear-gradient(135deg, #2998f4, #1a73e8);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 1rem 4rem; /* קצת יותר רחב בצדדים שיראה מרשים */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.cta-button-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(26, 115, 232, 0.4);
+    background: linear-gradient(135deg, #4dabf5, #2998f4);
+}
+
+/* --- התאמות למובייל --- */
+@media (max-width: 900px) {
+    /* סידור האלמנטים בעמוד אודות */
+    .about-top-section { 
+        flex-direction: column; 
+        gap: 2rem; 
+        padding: 1.5rem; 
+    }
+    
+    .about-image-container { 
+        max-width: 100%; 
+        margin-bottom: 1rem; 
+    }
+    
+    .testimonials-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .rec-meta { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 0.5rem; 
+    }
+
+    /* --- תיקון הכפתור למובייל --- */
+    .cta-button-large {
+        width: 90%; /* הכפתור יתפוס 90% מרוחב המסך */
+        max-width: 300px; /* אבל לא יהיה ענק מדי */
+        padding: 1rem 0; /* פאדינג רק למעלה ולמטה (הרוחב נקבע ע"י width) */
+        font-size: 1.1rem; /* טקסט טיפה קטן יותר */
+    }
+    
+    .recommendation-card-full {
+        padding: 1.5rem;
+    }
+    
+    .rec-content {
+        font-size: 1.05rem;
+        padding: 1rem;
+    }
+}

@@ -1,0 +1,147 @@
+/* --- מסגרת הקרוסלה --- */
+.carousel-section {
+    max-width: 1000px;
+    margin: 4rem auto 2rem auto;
+    padding: 0 20px;
+    text-align: center;
+    position: relative;
+}
+
+.carousel-title {
+    color: #1a4f7c;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.carousel-title::after {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 4px;
+    background: #8ec5fc;
+    margin: 5px auto 0;
+    border-radius: 2px;
+}
+
+/* --- המיכל של הכרטיסים והכפתורים --- */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+/* --- רשת הכרטיסים --- */
+.carousel-track {
+    display: grid;
+    /* במחשב: 2 עמודות שוות */
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+    width: 100%;
+    /* אפקט מעבר חלק (אם נרצה בעתיד) */
+    transition: all 0.3s ease;
+}
+
+/* --- כרטיס המלצה בודד --- */
+.carousel-card {
+    background: #ffffff;
+    border: 1px solid #eef2f6;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 50, 100, 0.05);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px; /* גובה אחיד */
+    text-decoration: none; /* שלא יהיה קו תחתון כי זה לינק */
+}
+
+.carousel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(41, 152, 244, 0.15);
+    border-color: #2998f4;
+}
+
+.carousel-quote-icon {
+    font-size: 2rem;
+    color: #b3d7ff;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.carousel-text {
+    font-size: 1.05rem;
+    color: #4a5568;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    /* מגביל את הטקסט ל-3 שורות כדי לשמור על גובה אחיד */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.carousel-author {
+    font-weight: 700;
+    color: #1a4f7c;
+    font-size: 0.95rem;
+    border-top: 1px solid #f0f7ff;
+    padding-top: 10px;
+}
+
+.carousel-show-name {
+    font-size: 0.85rem;
+    color: #2998f4;
+    margin-top: 5px;
+    display: block;
+}
+
+/* --- כפתורי ניווט (חצים) --- */
+.carousel-btn {
+    background: white;
+    border: 1px solid #e0e0e0;
+    color: #1a4f7c;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+    z-index: 2;
+}
+
+.carousel-btn:hover {
+    background: #2998f4;
+    color: white;
+    border-color: #2998f4;
+}
+
+/* --- התאמה למובייל --- */
+@media (max-width: 768px) {
+    .carousel-track {
+        /* במובייל: עמודה אחת בלבד */
+        grid-template-columns: 1fr; 
+    }
+    
+    /* מסתיר את הכרטיס השני במובייל (כי אין מקום) */
+    .carousel-card:nth-child(2) {
+        display: none;
+    }
+
+    .carousel-section {
+        padding: 0 10px;
+        margin-top: 3rem;
+    }
+}
