@@ -184,6 +184,70 @@ figcaption {
     box-shadow: 0 4px 15px rgba(0, 50, 100, 0.03); 
 }
 
+/* ========================================= */
+/* --- אזור תוכן נוסף באוסף (וידאו וטקסט) --- */
+/* ========================================= */
+
+.collection-media-section {
+    margin-top: 5rem; /* רווח גדול מהכרטיסיות */
+    text-align: center;
+    padding-top: 3rem;
+    position: relative;
+}
+
+/* קו הפרדה עדין ומעוצב מעל האזור */
+.collection-media-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px; /* אורך הקו */
+    height: 4px;
+    background-color: #e0f2fe; /* תכלת בהיר */
+    border-radius: 10px;
+}
+
+.collection-section-title {
+    font-size: 2.2rem;
+    color: #1a4f7c; /* כחול כהה */
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+/* קו קטן מתחת לכותרת */
+.collection-section-title::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 5px;
+    background: linear-gradient(to right, #2998f4, #8ec5fc);
+    margin: 10px auto 0;
+    border-radius: 10px;
+}
+
+/* התיבה של הטקסט הנוסף */
+.collection-text-box {
+    margin-top: 4rem;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3rem;
+    
+    background-color: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #f0f7ff;
+    
+    /* צל רך ויוקרתי שנותן עומק */
+    box-shadow: 0 20px 40px rgba(26, 79, 124, 0.06); 
+    
+    font-size: 1.2rem;
+    line-height: 1.9;
+    color: #334155; /* אפור-כחול כהה */
+}
+
 /* --- התאמה למובייל של הכותרת והתיאור (התיקון) --- */
 @media (max-width: 768px) {
     .collection-header-wrapper {
@@ -206,5 +270,20 @@ figcaption {
         margin-right: 0; /* מבטל את ההזזה שמאלה */
         margin-left: 0;
         margin: 0 auto; /* ממרכז את הבלוק */
+    }
+
+    .collection-media-section {
+        margin-top: 3rem;
+    }
+
+    .collection-section-title {
+        font-size: 1.8rem;
+    }
+
+    .collection-text-box {
+        padding: 1.5rem;
+        margin-top: 2rem;
+        font-size: 1.1rem;
+        border-radius: 16px;
     }
 }

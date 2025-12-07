@@ -64,32 +64,30 @@ export default async function CollectionPage({ params }) {
           <p style={{textAlign: 'center'}}>כרגע אין הצגות בקטגוריה זו.</p>
       )}
 
-      {collectionCard.collectionVideo && (
-        <div style={{ marginTop: '4rem', textAlign: 'center' }}>
-            <h2 style={{ color: '#1a4f7c', marginBottom: '1rem' }}>צפו בטעימה מהסדנא</h2>
-            <div 
-                className="div_trailer" /* משתמש בעיצוב הקיים של הטריילרים */
-                dangerouslySetInnerHTML={{ __html: collectionCard.collectionVideo }} 
-            />
-        </div>
-      )}
+      {(collectionCard.collectionVideo || collectionCard.extraContent) && (
+        <div className="collection-media-section">
+            
+            {/* 1. הצגת וידאו */}
+            {collectionCard.collectionVideo && (
+                <div>
+                    <h2 className="collection-section-title">צפו בטעימה מהסדנא</h2>
+                    {/* עוטף הוידאו - משתמשים ב-div_trailer הקיים מ-show.css שממרכז את הוידאו */}
+                    <div 
+                        className="div_trailer" 
+                        dangerouslySetInnerHTML={{ __html: collectionCard.collectionVideo }} 
+                    />
+                </div>
+            )}
 
-      {/* 2. הצגת טקסט נוסף (אם קיים בדאטה) */}
-      {collectionCard.extraContent && (
-        <div 
-            className="show-description" /* משתמש בעיצוב הקיים של תיאורי הצגות */
-            style={{ 
-                marginTop: '2rem', 
-                maxWidth: '800px', 
-                marginLeft: 'auto', 
-                marginRight: 'auto',
-                padding: '2rem',
-                backgroundColor: '#fff',
-                borderRadius: '15px',
-                border: '1px solid #eef2f6'
-            }}
-            dangerouslySetInnerHTML={{ __html: collectionCard.extraContent }}
-        />
+            {/* 2. הצגת טקסט נוסף */}
+            {collectionCard.extraContent && (
+                <div 
+                    className="collection-text-box"
+                    dangerouslySetInnerHTML={{ __html: collectionCard.extraContent }}
+                />
+            )}
+            
+        </div>
       )}
     </main>
   );

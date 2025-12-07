@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { homePageStructure } from '../data/presentations';
 
@@ -8,6 +8,24 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
   const categories = homePageStructure.filter(item => item.type === 'collection');
+
+ useEffect(() => {
+    if (isOpen) {
+      // נועלים גלילה גם ב-body וגם ב-html (חשוב למחשב)
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      // משחררים את הנעילה (מסירים את ה-style כדי שה-CSS המקורי יחזור)
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    // ניקוי ביציאה
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <header className="site-header">
