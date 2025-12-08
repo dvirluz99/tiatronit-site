@@ -44,7 +44,11 @@ export default async function CollectionPage({ params }) {
                     {/* עוטף הוידאו - משתמשים ב-div_trailer הקיים מ-show.css שממרכז את הוידאו */}
                     <div 
                         className="div_trailer" 
-                        dangerouslySetInnerHTML={{ __html: collectionCard.collectionVideo }} 
+                        dangerouslySetInnerHTML={{ 
+                            __html: Array.isArray(collectionCard.collectionVideo) 
+                                ? collectionCard.collectionVideo.join('') // אם זה מערך - תחבר בלי פסיק
+                                : collectionCard.collectionVideo          // אם זו סתם מחרוזת - תציג רגיל
+                        }} 
                     />
                 </div>
             )}

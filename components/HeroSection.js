@@ -30,7 +30,7 @@ export default function HeroSection() {
         </p>
 
         <button onClick={scrollToShows} className={styles.ctaButton}>
-          מוזמנים לראות את ההצגות שלנו 🡨
+          מוזמנים לראות את ההצגות שלנו ⬅️
         </button>
       </div>
 

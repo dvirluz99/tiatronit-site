@@ -33,7 +33,6 @@ export const homePageStructure = [
         title: "הצגות לילדים", // כותרת לכריסייה
         mainImg: 'AllDir/הצגות לילדים/potho_for_gift_yeladim.jpg', // תמונה ראשית לאוסף
         description: "ההצגות לילדים משלבות רכות שמחה והקשבה",
-        
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p4','p5','p6','p7','p8','p9']
     },
@@ -58,20 +57,17 @@ export const homePageStructure = [
     },
     {
         id: "card_6",
-        type: "collection",
+        type: "single",
         title: "סדנאות בובהתרפיה לבעלי צרכים מיוחדים", // כותרת לכריסייה
         mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg', // תמונה ראשית לאוסף
-        description: "בעלי הצרכים המיוחדים מתרגשים ומשתתפים בחום ממש",
-        
-        // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: []
+        linkedShowId: 'p15',
     },
     {
         id: "card_7",
         type: "collection",
         title: "סדנאות בובהתרפיה לגננות ולצוותי גיל הרך", // כותרת לכריסייה
         mainImg: "AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/logo_gor_gananot_gil_arach.jpg", // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
+        description: "השתלמות בובהתרפיה לצוותי גיל הרך גננות ותומכות למידה, נלמד להשתמש בבובות בבלי חינוכי רגשי בגן ובכיתה",
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ["p13",]
@@ -81,9 +77,10 @@ export const homePageStructure = [
         type: "collection",
         title: "סדנאות בובהתרפיה להורים לילדי גנים ובתי ספר", // כותרת לכריסייה
         mainImg: "AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/logo_for_orym_leyeladim.jpg", // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
-
-        collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`],
+        description: "סדנאות להורים לילדים על קשיים והתמודדויות של הילדים במוסדות החינוך",
+        collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+                          `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+        ],
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ["p3",]
@@ -189,9 +186,7 @@ export const showData = {
             socialProof: "ההצגה הועברה להורים רבים"
             },
         vidue:{
-            Trailer:[`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-
-            ],
+            Trailer:[],
             customers:[],
             },
         arrayGallery: [
@@ -448,6 +443,28 @@ export const showData = {
             creatorName: "רונית לוז",
             creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
             audience: "מיועד לבנות תיכון, אולפנות, מדרשות וחיילות",
+            phone: "0542043429",
+            socialProof: '',
+            },
+        vidue:{Trailer:[], customers:[],},
+        arrayGallery: [],
+        },
+
+    p15:{
+        title: 'סדנא לבעלי צרכים מיוחדים',
+        id: 'p15',
+        type: 'single',
+        category: "youth",
+        linkRec: [],
+        importance: 'accustomed',
+        mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg',
+        showData: {
+            title: 'סדנא לבעלי צרכים מיוחדים',
+            description: 'בובהתרפיה היא כלי יצירתי וחוויתי המאפשר לילדים ובוגרים עם צרכים מיוחדים לבטא רגשות, להתמודד עם אתגרים ולחזק כישורים רגשיים וחברתיים- בסביבה בטוחה, נעימה ומעצימה.',
+            creatorIntro: 'ההצגה מועברת ע"י,',
+            creatorName: "רונית לוז",
+            creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
+            audience: "מיועד לבעלי צרכים מיוחדים",
             phone: "0542043429",
             socialProof: '',
             },

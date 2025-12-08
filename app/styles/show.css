@@ -155,9 +155,22 @@
     padding-top: 1.5rem;
 }
 
-/* --- טריילר (חזר למקור בדיוק!) --- */
 .div_trailer {
-    margin: 10px 0;
+    display: flex;       /* מסדר את הסרטונים אחד ליד השני */
+    flex-wrap: wrap;     /* אם אין מקום (במובייל), הסרטון השני ירד למטה */
+    justify-content: center; /* ממרכז אותם באמצע */
+    gap: 30px;           /* <--- זה המרווח שרצית בין הסרטונים! */
+    
+    margin: 20px auto;   /* רווח מלמעלה למטה ומירכוז הדיב עצמו */
+    width: 100%;
+}
+
+/* מוודא שהסרטונים לא חורגים מהרוחב */
+.div_trailer iframe {
+    max-width: 90%;
+    /* אפשר להוסיף פה צללית עדינה אם בא לך */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
 }
 
 .vidue_iframe {

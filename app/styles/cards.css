@@ -202,24 +202,11 @@ figcaption {
 /* ========================================= */
 
 .collection-media-section {
-    margin-top: 5rem; /* רווח גדול מהכרטיסיות */
-    margin-bottom: 3rem; /* רווח גדול מהכרטיסיות */
+    margin-top: 2rem; /* רווח גדול מהכרטיסיות */
+    margin-bottom: 2rem; /* רווח גדול מהכרטיסיות */
     text-align: center;
-    padding-top: 3rem;
+    padding-top: 1.5rem;
     position: relative;
-}
-
-/* קו הפרדה עדין ומעוצב מעל האזור */
-.collection-media-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px; /* אורך הקו */
-    height: 4px;
-    background-color: #e0f2fe; /* תכלת בהיר */
-    border-radius: 10px;
 }
 
 .collection-section-title {

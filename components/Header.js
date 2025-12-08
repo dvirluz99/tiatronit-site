@@ -44,7 +44,7 @@ export default function Header() {
             </button>
 
             <h1 className="header-title">
-             ברוכים הבאים!  
+             ברוכים הבאים לתיאטרונית!  
             </h1>
 
             <div className="header-left">
