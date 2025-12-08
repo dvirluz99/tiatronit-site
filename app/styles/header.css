@@ -47,7 +47,8 @@ header {
     right: -300px; 
     left: auto;
     width: 280px;
-    height: 100vh; /* תופס את כל הגובה */
+    height: 100vh; /* גיבוי לדפדפנים ישנים */
+    height: 100dvh; /* תופס את כל הגובה */
     background-color: #ffffff;
     padding: 80px 20px 20px 20px;
     display: flex;
