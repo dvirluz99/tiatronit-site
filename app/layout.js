@@ -11,8 +11,27 @@ import Footer from '../components/Footer.js';
 export const metadata = {
   title: 'תיאטרונית',
   description: 'תיאטרון בובות רגשי חברתי - רונית לוז',
+  icons: {
+    icon: '/icon.jpg'
+  },
   verification: {
     google: "hbe7WTCRBWSeMHA68wKCQfUyPmqk6B7iMYFtnRpUWZg",
+  },
+  openGraph: {
+    title: 'תיאטרונית | בובותרפיה רגשית-חברתית',
+    description: 'חוויה ייחודית של תיאטרון בובות, סדנאות והצגות לכל הגילאים. רונית לוז.',
+    url: 'https://tiatronit-site.vercel.app', // או הדומיין הפרטי שלך
+    siteName: 'תיאטרונית',
+    images: [
+      {
+        url: '/AllDir/לוגו/logo1.jpg', // <--- הנתיב לתמונה הכי יפה באתר שלך (לוגו, תמונה ראשית)
+        width: 1200,
+        height: 630,
+        alt: 'רונית לוז, בובותרפיה',
+      },
+    ],
+    locale: 'he_IL',
+    type: 'website',
   },
 };
 
