@@ -1,0 +1,166 @@
+/* app/styles/testimonials.css */
+
+.testimonials-page-header {
+    text-align: center;
+    padding: 4rem 20px;
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #eef6ff;
+}
+
+.testimonials-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a4f7c;
+    margin-bottom: 1rem;
+}
+
+.testimonials-subtitle {
+    font-size: 1.2rem;
+    color: #5a6b7c;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* הגריד הראשי */
+.testimonials-grid {
+    display: grid;
+    /* כרטיסים רחבים יותר ונוחים לקריאה */
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 4rem 20px;
+}
+
+/* כרטיס המלצה בודד */
+.testimonial-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.04);
+    border: 1px solid #f0f7ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(41, 152, 244, 0.1);
+    border-color: #dbeafe;
+}
+
+/* פס קישוט צבעוני בצד */
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(to bottom, #2998f4, #8ec5fc);
+}
+
+/* אייקון ציטוט */
+.quote-icon-large {
+    font-size: 4rem;
+    color: #eef6ff;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-family: serif;
+    z-index: 0;
+}
+
+/* פרטי הממליץ */
+.recommender-info {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.recommender-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a4f7c;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.recommender-role {
+    font-size: 0.95rem;
+    color: #64748b;
+    font-style: italic;
+}
+
+/* תוכן ההמלצה */
+.recommendation-body {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1; /* דוחף את הפוטר למטה */
+}
+
+/* אזור תחתון (שם ההצגה וכפתור) */
+.card-footer {
+    padding-top: 1.5rem;
+    border-top: 1px dashed #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.show-name {
+    font-size: 0.9rem;
+    color: #1a4f7c;
+    font-weight: 600;
+    background: #f0f9ff;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+
+.details-btn {
+    font-size: 0.9rem;
+    color: #2998f4;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.details-btn:hover {
+    color: #1a4f7c;
+}
+
+/* כפתור תחתון גדול */
+.bottom-cta {
+    text-align: center;
+    padding: 3rem 0 5rem 0;
+}
+
+/* מובייל */
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr; /* טור אחד */
+        padding: 0 15px 3rem 15px;
+    }
+    
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+    
+    .testimonials-title {
+        font-size: 2.2rem;
+    }
+}

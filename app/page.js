@@ -1,22 +1,15 @@
 import Link from 'next/link';
 import { homePageStructure } from '../data/presentations';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import HeroSection from '../components/HeroSection';
 
 export default function Home() {
   return (
     <main className="continer_main_for_home">
       
-      {/* --- פסקת הפתיחה החדשה --- */}
-      <div className="welcome-section">
-        <p>
-          בובהתרפיה זו חוויה יוצאת דופן בה סיפורי יהדות וסיפורים עכשוויים מקבלים מימד חדש על ידי הבובות.
-          <br />
-          חוויה זו מרוממת לכל הגילאים ועל ידם החוויה מועברת בצורה מפליאה.
-        </p>
-      </div>
-      {/* ------------------------- */}
+      <HeroSection />
 
-      <div className="continer_main_for_all">
+      <div id="shows-grid" className="continer_main_for_all">
         {homePageStructure.map((card) => {
           
           let linkHref = '';

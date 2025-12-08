@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { showData } from '../../../data/presentations';
 import Gallery from '../../../components/Gallery';
+import ShowRecommendations from '../../../components/ShowRecommendations'
 
 // ב-Next.js החדש, params מגיע כ-Promise ולכן הפונקציה היא async
 export default async function ShowPage({ params }) {
@@ -25,6 +26,13 @@ export default async function ShowPage({ params }) {
       } else if (typeof presentation.vidue.Trailer === 'string') {
           trailerContent = presentation.vidue.Trailer;
       }
+  }
+
+  let vidueCustomers = null;
+  if(presentation.vidue && presentation.vidue.customers){
+        if(Array.isArray(presentation.vidue.customers)){
+            vidueCustomers = presentation.vidue.customers;
+        }
   }
 
   return (
@@ -73,6 +81,12 @@ export default async function ShowPage({ params }) {
               <p>{presentation.showData.socialProof}</p>
           </div>
       </div>
+
+        <ShowRecommendations 
+          recommendationIds={presentation.linkRec} 
+          showId={presentation.id}
+          userVideos = {vidueCustomers}
+        />
 
         {presentation.arrayGallery && presentation.arrayGallery.length > 0 && (
             <Gallery images={presentation.arrayGallery} />

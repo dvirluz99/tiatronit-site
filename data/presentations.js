@@ -9,30 +9,30 @@ export const homePageStructure = [
         importance: 'recommended',
         mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
         title: "חוהלה משואה לתקומה",
-        linkedShowId: "p2"
+        linkedShowId: "p1"
     },
     {
         id: "card_2",
         type: "single",
         title: "את אחי אנכי מבקש",
         mainImg: "AllDir/את אחי אנכי מבקש/et_ahay_anochy.jpg",
-        linkedShowId: "p1"
+        linkedShowId: "p2"
     },
     {
         id: "card_3",
         type: "collection",
         title: "הצגות והרצאות לבני נוער", // כותרת לכריסייה
-        mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg', // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
+        mainImg: "AllDir/הצגות והרצאות לבני נוער/potho_for_gift.jpg", // תמונה ראשית לאוסף
+        description: "סדנאות מיוחדות לנוער המתבגר",
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: []
+        contains: ['p14']
     },
     {
         id: "card_4",
         type: "collection",
         title: "הצגות לילדים", // כותרת לכריסייה
         mainImg: 'AllDir/הצגות לילדים/potho_for_gift_yeladim.jpg', // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
+        description: "ההצגות לילדים משלבות רכות שמחה והקשבה",
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p4','p5','p6','p7','p8','p9']
@@ -42,7 +42,7 @@ export const homePageStructure = [
         type: "collection",
         title: "סדנאות בובהתרפיה לגיל השלישי", // כותרת לכריסייה
         mainImg: 'AllDir/סדנאות לגיל השלישי/potho_for_gift_gil_ashlyshi.jpeg', // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
+        description: "הצגות אלה ממש מעבירות חוויות עוצמתיות לגיל השלישי מומלץ מאד",
 
         collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/KRCoCcJ3eU8?si=hFiJX1yJHLnHYxLV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`],
 
@@ -59,8 +59,8 @@ export const homePageStructure = [
         id: "card_6",
         type: "collection",
         title: "סדנאות בובהתרפיה לבעלי צרכים מיוחדים", // כותרת לכריסייה
-        mainImg: "AllDir/הצגות והרצאות לבני נוער/potho_for_gift.jpg", // תמונה ראשית לאוסף
-        description: "אוסף סדנאות המשלבות את ההצגות המובחרות שלנו",
+        mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg', // תמונה ראשית לאוסף
+        description: "בעלי הצרכים המיוחדים מתרגשים ומשתתפים בחום ממש",
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: []
@@ -93,55 +93,32 @@ export const homePageStructure = [
 
 export const showData = {
 
-    p1: {
-        title: "את אחי אנכי מבקש",
+    p1:{
+        title: "חוהל'ה משואה לתקומה",
         id: "p1",
         type: 'single',
-        linkRec: [],
-        importance: 'accustomed',
-        mainImg: "AllDir/את אחי אנכי מבקש/et_ahay_anochy.jpg",
-        showData: {
-            title: "את אחי אנכי מבקש",
-            description: "זו הצגה חדשה ומרגשת על רקע מסך הברזל ותקומתה של מדינת ישראל. זהו סיפורם האמיתי של שני אחים יום ואהרון שהוריהם נרצחו בשואה. יוספ הצליח לעלות לארץת בעוד אהרון הוגלה לסיביר ונידון לעשר שנות עבודת פרך. יוסף הפך עולמות כדי לחלץ את אחיו מהשבי",
-            creatorIntro: " ההצגה מלווה במצגת מרגשת וב תיאטרון בובות רגשי-חברתי ההצגה מועברת ע\"י נכדתם,",
-            creatorName: "רונית לוז",
-            creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
-            audience: "מתאים לכל הציבור ולכל הגילאים!",
-            phone: "0542043429",
-            socialProof: "ההצגה הועברה  בכמה מוסדות חינוך '"
-        },
-        vidue: {
-            Trailer: [],
-        },
-        arrayGallery: [
-                    {img:"AllDir/את אחי אנכי מבקש/image1.jpg"},
-                    {img:"AllDir/את אחי אנכי מבקש/image2.jpg"},
-                    {img:"AllDir/את אחי אנכי מבקש/image3.jpg"},
-                    {img:"AllDir/תמונות כלליות והוספות/image7.jpg"}
-        ],
-        },
-
-    p2:{
-        title: "חוהלה משואה לתקומה",
-        id: "p2",
-        type: 'single',
+        category: "adults",
         linkRec: ['rec3', 'rec4', 'rec5', 'rec6', 'rec7'],
         importance: 'recommended',
         mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
         showData: {
-            title: "חוהלה – משואה לתקומה",
-            description: "סיפורה האמיתי, המופלא והמרגש של חוהלה ובעלה זלמן, שבל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
+            title: "חוהל'ה – משואה לתקומה",
+            description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
             creatorIntro: "ההצגה מועברת ע\"י נכדתם,",
             creatorName: "רונית לוז",
             creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
-            audience: "מתאים לנשים ונערות בכל גיל!",
+            audience: "מתאים לכל האוכלוסיה גדולים וקטנים!",
             phone: "0542043429",
             socialProof: "ההצגה הועברה במועדון עמך לניצולי שואה... החל מכיתה ד'"
             },
         vidue: {
             Trailer:[ `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/7bcTavMpMZM?si=Hu5PlHwgkJYKzE7Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
                         `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/iHc3BcP99hY?si=szGNnb8lH4wRzyy_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-            ]
+            ],
+            customers:[
+                { src: '/AllDir/חוהלה משואה לתקומה/customers1.mp4', caption: 'מנהלת חט"ב אבן שמואל' },
+
+            ],
         },
         arrayGallery: [
                     {img:"AllDir/חוהלה משואה לתקומה/image1.jpeg",},
@@ -156,12 +133,47 @@ export const showData = {
                     {img:"AllDir/חוהלה משואה לתקומה/image10.jpeg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image11.jpg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image12.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image13.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image14.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image15.jpg",},
         ],
         },
+
+    p2: {
+        title: "את אחי אנכי מבקש",
+        id: "p2",
+        type: 'single',
+        category: "adults",
+        linkRec: [],
+        importance: 'accustomed',
+        mainImg: "AllDir/את אחי אנכי מבקש/et_ahay_anochy.jpg",
+        showData: {
+            title: "את אחי אנכי מבקש",
+            description: "זו הצגה חדשה ומרגשת על רקע מסך הברזל ותקומתה של מדינת ישראל. זהו סיפורם האמיתי של שני אחים יוסף ואהרון שהוריהם נרצחו בשואה. יוסף הצליח לעלות לארץ בעוד אהרון הוגלה לסיביר ונידון לעשר שנות עבודת פרך. יוסף הפך עולמות כדי לחלץ את אחיו מהשבי.",
+            creatorIntro: " ההצגה מלווה במצגת מרגשת ובתיאטרון בובות רגשי-חברתי ההצגה מועברת ע\"י נכדתם,",
+            creatorName: "רונית לוז",
+            creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
+            audience: "מתאים לכל הציבור ולכל הגילאים!",
+            phone: "0542043429",
+            socialProof: 'תהיו הראשונים להזמין 😍'
+        },
+        vidue: {
+            Trailer: [],
+            customers:[],
+        },
+        arrayGallery: [
+                    {img:"AllDir/את אחי אנכי מבקש/image1.jpg"},
+                    {img:"AllDir/את אחי אנכי מבקש/image2.jpg"},
+                    {img:"AllDir/את אחי אנכי מבקש/image3.jpg"},
+                    {img:"AllDir/תמונות כלליות והוספות/image7.jpg"}
+        ],
+        },
+    
     p3: {
         title: 'נעם עולה לכיתה א',
         id: 'p3',
         type: 'single',
+        category: "adults",
         linkRec: ['rec2'],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/נעם עולה לכיתה א/logo_noam_ole_cita.jpg',
@@ -178,7 +190,8 @@ export const showData = {
         vidue:{
             Trailer:[`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
 
-            ]
+            ],
+            customers:[],
             },
         arrayGallery: [
              {img:'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/נעם עולה לכיתה א/imge1.jpg'},
@@ -192,6 +205,7 @@ export const showData = {
        title: 'המפתח מתחת לכרית',
        id: 'p4',
        type: 'single',
+       category: "kids",
        linkRec: [],
        importance: 'accustomed',
        mainImg: 'AllDir/הצגות לילדים/המפתח מתחת לכרית/logo_for_hmaftech.jpg',
@@ -206,7 +220,8 @@ export const showData = {
             socialProof: "ההצגה הועברה בשלל גנים"
             },
         vidue:{
-            Trailer:[]
+            Trailer:[],
+            customers:[],
             },
         arrayGallery: [],
         },
@@ -214,6 +229,7 @@ export const showData = {
         title: 'יוסף מוקיר שבת',
         id: 'p5',
         type: 'single',
+        category: "kids",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/הצגות לילדים/יוסף מוקיר שבת/yosef_mokir_shabat.jpg',
@@ -229,6 +245,7 @@ export const showData = {
             },
         vidue:{
             Trailer: [],
+            customers:[],
         },
         arrayGallery: [],
         },
@@ -236,6 +253,7 @@ export const showData = {
         title: 'כוחה של מילה',
         id: 'p6',
         type: 'single',
+        category: "kids",
         linkRec: ['rec1'],
         importance: 'accustomed',
         mainImg: 'AllDir/הצגות לילדים/כוחה של מילה/logo_for_cocha_shel.jpg',
@@ -249,13 +267,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "ההצגה הועברה בשלל גנים"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p7:{
         title: 'לקראת ימי התשובה',
         id: 'p7',
         type: 'single',
+        category: "kids",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/הצגות לילדים/לקראת ימי התשובה/logo_for_likrat_yema.jpg',
@@ -269,13 +288,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "ההצגה הועברה בשלל גנים"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p8:{
         title: 'עולה חדשה',
         id: 'p8',
         type: 'single',
+        category: "kids",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/הצגות לילדים/עולה חדשה/logo_ola_chadasha.jpg',
@@ -289,13 +309,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "ההצגה הועברה בשלל גנים"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p9:{
         title: 'קמצא ובר קמצא',
         id: 'p9',
         type: 'single',
+        category: "kids",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/הצגות לילדים/קמצא ובר קמצא/logo_kamza.jpg',
@@ -309,13 +330,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "ההצגה הועברה בשלל גנים"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p10:{
         title: 'כשהלבבות נפגשים',
         id: 'p10',
         type: 'single',
+        category: "adults",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות לגיל השלישי/כשהלבבות נפגשים/logo_for_hlevavot.jpg',
@@ -329,13 +351,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "המפגש הועבר ברחבי הארץ לקבוצות מהגיל השלישי"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p11:{
         title: 'אל תשליכני לעת זקנה',
         id: 'p11',
         type: 'single',
+        category: "adults",
         linkRec: [],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות לגיל השלישי/logo_for_al_tashlicheny.jpg',
@@ -349,13 +372,14 @@ export const showData = {
             phone: "0542043429",
             socialProof: "ההרצאה הועברה למטפלים ובני משפחות"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [],
         },
     p12:{
         title: 'הגיל השלישי עם הפנים קדימה',
         id: 'p12',
         type: 'single',
+        category: "adults",
         linkRec: ['rec9', 'rec10', 'rec11', 'rec12'],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות לגיל השלישי/logo_for_him_hapanim_kadima.jpg',
@@ -369,17 +393,19 @@ export const showData = {
             phone: "0542043429",
             socialProof: "התיאטרון הועבר לנשים וגברים מהגיל השלישי"
             },
-        vidue:{Trailer:[]},
+        vidue:{Trailer:[], customers:[],},
         arrayGallery: [
             {img: 'AllDir/סדנאות לגיל השלישי/imge1.JPG'},
             {img: 'AllDir/סדנאות לגיל השלישי/imge2.JPG'},
             {img: 'AllDir/סדנאות לגיל השלישי/imge3.png'},
+            {img: 'AllDir/סדנאות לגיל השלישי/imge4.jpeg'},
         ],
         },
     p13:{
         title: 'השתלמות חוויתית ופרקטית לגננות ומורות',
         id: 'p13',
         type: 'single',
+        category: "adults",
         linkRec: ['rec8'],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/logo_gor_gananot_gil_arach.jpg',
@@ -395,7 +421,9 @@ export const showData = {
             },
         vidue:{Trailer:['<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/IROu-a1RGFg?si=P0Dg6PrmYkqX9Xet" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
 
-        ]},
+                ],
+               customers:[],
+        },
         arrayGallery: [
             {img: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge1.jpg'},
             {img: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge2.jpg'},
@@ -403,6 +431,27 @@ export const showData = {
             {img: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge4.jpg'},
             {img: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge5.jpg'},
         ],
+        },
+    p14:{
+        title: 'לילה לבן',
+        id: 'p14',
+        type: 'single',
+        category: "youth",
+        linkRec: [],
+        importance: 'accustomed',
+        mainImg: "AllDir/הצגות והרצאות לבני נוער/potho_for_gift.jpg",
+        showData: {
+            title: 'לילה לבן',
+            description: 'הצגה מרגשת ועמוקה המשלבת תיאטרון בובות ושיח פתוח עם הקהל, העוסקת באורות אדומים בקשר הזוגי ובכוח הריפוי של הקשבה, חמלה ופתיחות.',
+            creatorIntro: 'ההצגה מועברת ע"י,',
+            creatorName: "רונית לוז",
+            creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
+            audience: "מיועד לבנות תיכון, אולפנות, מדרשות וחיילות",
+            phone: "0542043429",
+            socialProof: '',
+            },
+        vidue:{Trailer:[], customers:[],},
+        arrayGallery: [],
         },
 }
 
@@ -446,6 +495,12 @@ export const aboutData = {
             linkRecId: 'rec5',
             fromPresention: 'חוהלה - משואה לתקומה',
             author: "דבורה כהן, אולפנת צביה חפץ חיים"
+        },
+        {
+            text: `רונית העבירה את סיפור הישרדותם של סבה וסבתה בצורה מרתקת, סוחפת ונוגעת ללב, אשר ריגשה את הקהל עד דמעות.`,
+            linkRecId: 'rec6',
+            fromPresention: "חוהל'ה - משואה לתקומה",
+            author: "תמי חיות, מנהלת מועדון עמך רחובות"
         },
         {
             text: `אחת המחנכות שיתפה: "היה מרתק ומדהים... אחת ההרצאות הטובות והיעילות ששמעתי".`,
@@ -682,5 +737,24 @@ export const recommendationsData = {
         
         contactInfo: "", 
         linkedShowId: "p12"
+    },
+
+    rec13: {
+        id: "rec13",
+        type: "recommendation",
+        recommenderName: "עדינה ורהפטיג",
+        recommenderRole: 'מנהלת "בית לחיים", עמותת בית נחליאל - יד בנימין',
+        date: "", // תאריך לא צוין
+        relatedShow: "חוג בובותרפיה לצרכים מיוחדים",
+        
+        content: `
+            <p>ב"בית לחיים" ביד בנימין, בית של בנות בוגרות עם צרכים מיוחדים, אנחנו זוכות בכל שבוע להשתתף בחוג הבובותרפיה של רונית, וזה פשוט תענוג!</p>
+            <p>החוג מצליח לגעת בבנות בצורה עמוקה ומשמחת – דרך הבובות הן מביעות רגשות, נכנסות לדמויות, חושבות, יוצרות ופועלות ממקום של שמחה וביטחון.</p>
+            <p>רונית מביאה איתה הרבה רוך, סבלנות והקשבה, והיא יודעת להגיע לכל אחת בדיוק לפי היכולות והקצב שלה.</p>
+            <p>המפגשים איתה נעימים, מרגשים ומשמעותיים, ואפשר ממש לראות את ההתפתחות של הבנות ממפגש למפגש.</p>
+        `,
+        
+        contactInfo: "", 
+        linkedShowId: "",// כאן תכניס את ה-ID של דף הסדנאות לצרכים מיוחדים אם קיים (למשל "p14" או כדומה)
     },
 };

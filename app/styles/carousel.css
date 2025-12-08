@@ -61,6 +61,7 @@
     justify-content: space-between;
     min-height: 220px; /* גובה אחיד */
     text-decoration: none; /* שלא יהיה קו תחתון כי זה לינק */
+    animation: slideIn 0.4s ease-out forwards;
 }
 
 .carousel-card:hover {
@@ -143,5 +144,21 @@
     .carousel-section {
         padding: 0 10px;
         margin-top: 3rem;
+    }
+
+    .carousel-card {
+        animation: slideIn 0.3s ease-out forwards;
+    }
+}
+
+/* הגדרת האנימציה: שקיפות + תזוזה קטנה */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px); /* מתחיל קצת בצד */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0); /* מגיע למקום */
     }
 }

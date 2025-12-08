@@ -8,7 +8,7 @@ header {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* היררכיה בסיסית */
     width: 100%;
 }
 
@@ -19,6 +19,22 @@ header {
     padding: 0.5rem 1.5rem;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* עיצוב הכותרת הראשית */
+.header-title {
+    font-family: 'Varela Round', 'Rubik', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    text-align: center;
+    
+    background: linear-gradient(135deg, #048dfd 0%, #063863 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    flex-grow: 1; 
+    letter-spacing: -1px;
 }
 
 .img_item_header {
@@ -36,97 +52,14 @@ header {
     color: #333;
     cursor: pointer;
     padding: 10px;
-    z-index: 1002;
-}
-
-/* תפריט נפתח */
-/* תפריט נפתח */
-.main-nav {
-    position: fixed;
-    top: 0;
-    right: -300px; 
-    left: auto;
-    width: 280px;
-    height: 100vh; /* גיבוי לדפדפנים ישנים */
-    height: 100dvh; /* תופס את כל הגובה */
-    background-color: #ffffff;
-    padding: 80px 20px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: right 0.3s ease-in-out;
-    z-index: 1001;
     
-    /* --- הגדרות גלילה קריטיות למובייל --- */
-    overflow-y: auto; /* מאפשר גלילה בתוך התפריט אם הוא ארוך */
-    overscroll-behavior: contain; /* מונע מהגלילה "לברוח" לדף שמאחורה */
-    -webkit-overflow-scrolling: touch; /* גלילה חלקה באייפון */
-}
-
-.main-nav.open {
-    right: 0;
-}
-
-/* קישורים בתפריט */
-.nav-link {
-    font-size: 1.1rem;
-    color: #333;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background 0.2s;
-    font-family: 'Varela Round', sans-serif;
-}
-
-.nav-link:hover {
-    background-color: #f5f5f5;
-    color: #a6d2f6;
-}
-
-.nav-label {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.sub-link {
-    font-size: 1rem;
-    padding-right: 15px;
-    color: #555;
-}
-
-.nav-divider {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 5px 0;
-}
-
-.contact-highlight {
-    background-color: #74bdf9;
-    color: white !important;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.contact-highlight:hover {
-    background-color: #3e7fb4;
-}
-
-.menu-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    /* תיקון חשוב: הורדתי את ה-Z-Index ל-1001 (או פחות).
+       התפריט עצמו ב-SideMenu הוא 1001.
+       אם אתה רוצה שהכפתור ייעלם מאחורי התפריט הלבן כשהוא נפתח, שים פה ערך נמוך יותר.
+       אם אתה רוצה שהוא יצוף מעל, תשאיר גבוה.
+       ההמלצה שלי: תשאיר אותו נגיש, אבל וודא שיש רווח בתוך התפריט.
+    */
+    z-index: 1002; 
 }
 
 /* מובייל */
@@ -134,5 +67,9 @@ header {
     .img_item_header {
         height: 45px;
         width: 45px;
+    }
+
+    .header-title {
+        font-size: 1.4rem;
     }
 }

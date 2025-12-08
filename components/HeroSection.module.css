@@ -1,0 +1,154 @@
+/* components/HeroSection.module.css */
+
+.heroWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    border-radius: 30px;
+    margin: 2rem auto 4rem auto;
+    max-width: 1200px;
+    box-shadow: 0 20px 40px rgba(0, 50, 100, 0.05);
+    border: 1px solid #eef6ff;
+    overflow: hidden;
+    position: relative;
+}
+
+/* קישוט רקע עדין */
+.heroWrapper::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: #dceeff;
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.textContent {
+    flex: 1;
+    padding-left: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #1a4f7c;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.highlight {
+    color: #2998f4;
+    position: relative;
+    display: inline-block;
+}
+
+/* קו מתחת למילה המודגשת */
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #b3d7ff;
+    z-index: -1;
+    opacity: 0.6;
+    border-radius: 4px;
+}
+
+.description {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 2.5rem;
+    max-width: 90%;
+}
+
+.ctaButton {
+    display: inline-block;
+    background: linear-gradient(135deg, #2998f4, #1a73e8);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px rgba(41, 152, 244, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.ctaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.4);
+    background: linear-gradient(135deg, #4dabf5, #2998f4);
+}
+
+.mediaContent {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.videoWrapper {
+    width: 100%;
+    max-width: 550px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 20px 20px 0px rgba(230, 240, 255, 1), 0 10px 30px rgba(0,0,0,0.1);
+    transform: rotate(-2deg); /* זווית מגניבה */
+    transition: transform 0.5s ease;
+    border: 4px solid #fff;
+}
+
+.videoWrapper:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.videoElement {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 9; /* יחס של מסך רחב */
+    object-fit: cover;
+}
+
+/* התאמה למובייל */
+@media (max-width: 900px) {
+    .heroWrapper {
+        flex-direction: column-reverse; /* וידאו למעלה, טקסט למטה (או הפוך, לבחירתך) */
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        text-align: center;
+    }
+
+    .textContent {
+        padding-left: 0;
+        margin-top: 2rem;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .description {
+        font-size: 1.1rem;
+        max-width: 100%;
+    }
+
+    .videoWrapper {
+        max-width: 100%;
+        transform: rotate(0deg); /* בלי זווית במובייל */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+}

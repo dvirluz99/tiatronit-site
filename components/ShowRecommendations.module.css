@@ -1,0 +1,143 @@
+/* components/ShowRecommendations.module.css */
+
+.container {
+    width: 100%;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #f8fbff;
+    border-top: 1px solid #eef6ff;
+    border-bottom: 1px solid #eef6ff;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    color: #1a4f7c;
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #f0f7ff;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid #dceeff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.12);
+    background: #ffffff;
+    border-color: #2998f4;
+}
+
+/* --- תוספת עבור סרטוני המלצה (מתוקן לגודל קטן) --- */
+
+.videoSection {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px dashed #b3d7ff;
+}
+
+.subTitle {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #1a4f7c;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.videoGrid {
+    display: flex; /* במקום Grid, נשתמש ב-Flex כדי לשלוט בגודל טוב יותר */
+    flex-wrap: wrap; /* ירד שורה אם אין מקום */
+    justify-content: center; /* ממורכז לאמצע */
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.videoCard {
+    background: #ffffff;
+    padding: 8px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 50, 100, 0.05);
+    border: 1px solid #dceeff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* --- הגבלת הגודל --- */
+    width: 400px; /* רוחב קבוע וקטן (כמו טלפון קטן) */
+    flex-shrink: 0; /* מונע כיווץ יתר */
+}
+
+.videoCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(41, 152, 244, 0.2);
+    border-color: #2998f4;
+}
+
+.videoPlayer {
+    width: 100%;
+    /* יחס של סרטון עומד (כמו וואטסאפ/סטורי) */
+    aspect-ratio: 16 / 12; 
+    border-radius: 8px;
+    background-color: #000;
+    object-fit: cover;
+}
+
+.videoCaption {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a4f7c;
+}
+
+/* ============================ */
+/* === התאמה למובייל === */
+/* ============================ */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem 0.5rem;
+    }
+
+    .title {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* התאמה לכרטיסי טקסט */
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        padding: 1.5rem;
+        border-radius: 16px;
+    }
+
+    /* התאמה לוידאו במובייל */
+    .videoGrid {
+        display: grid; /* במובייל נחזור לגריד כדי שיהיה מסודר */
+        grid-template-columns: 1fr; /* 2 בשורה */
+        gap: 10px;
+    }
+
+    .videoCard {
+        width: 100%; /* במובייל הוא יתפוס את רוחב העמודה שלו */
+    }
+}
