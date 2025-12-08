@@ -34,15 +34,28 @@
 
 /* ---- גריד כרטיסיות ראשי ---- */
 .continer_main_for_all {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    place-items: center;
+    /* שינוי מ-grid ל-flex */
+    display: flex;
+    
+    /* מאפשר שבירת שורה כשהמסך מתמלא */
+    flex-wrap: wrap;
+    
+    /* הקסם: ממרכז את הכרטיסים באמצע השורה */
+    justify-content: space-around;
+    
     gap: 1.5rem;
     padding: 1.5rem;
     border-bottom: #838181 solid 1px;
 }
 
 .div_card {
+    /* נותן רוחב קבוע לכרטיס כדי שלא יימתח סתם */
+    width: 280px; 
+    
+    /* או אם אתה רוצה שזה יהיה גמיש אבל עד מקסימום מסוים: */
+    /* width: 100%; */
+    /* max-width: 300px; */
+    
     position: relative;
     text-decoration: none;
     color: inherit;
@@ -190,6 +203,7 @@ figcaption {
 
 .collection-media-section {
     margin-top: 5rem; /* רווח גדול מהכרטיסיות */
+    margin-bottom: 3rem; /* רווח גדול מהכרטיסיות */
     text-align: center;
     padding-top: 3rem;
     position: relative;

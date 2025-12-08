@@ -42,14 +42,15 @@ export const homePageStructure = [
         type: "collection",
         title: "סדנאות בובהתרפיה לגיל השלישי", // כותרת לכריסייה
         mainImg: 'AllDir/סדנאות לגיל השלישי/potho_for_gift_gil_ashlyshi.jpeg', // תמונה ראשית לאוסף
-        description: "הצגות אלה ממש מעבירות חוויות עוצמתיות לגיל השלישי מומלץ מאד",
+        description: "הצגות אלה מעבירות חוויות עוצמתיות לגיל השלישי מומלץ מאד",
 
         collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/KRCoCcJ3eU8?si=hFiJX1yJHLnHYxLV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`],
 
         extraContent: `
-            <h3>למה דווקא בובהתרפיה לגיל השלישי?</h3>
-            <p>הסדנאות שלנו מותאמות במיוחד לצרכים הרגשיים והקוגניטיביים של הגיל השלישי.</p>
-            <p>הבובה מאפשרת גישה רכה ועוקפת הגנות לנושאים כמו בדידות, זיכרון וקשר בין-דורי.</p>
+            <h3>הגיל השלישי עם הפנים קדימה</h3>
+            <p>הצגות מעוררות השראה שנולדו מתוך אהבה לגיל השלישי ומתוך שליחות להאיר בהם את הכוחות, החוכמה והתקווה.</p>
+            <p>אין גיל שבו מפסיקים להיות משמעותיים.</p>
+            <p>באמצעות בובהתרפיה נצחק, נלמד ונפתח את הלב על האתגרים של הגיל המופלא הזה</p>
         `,
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
@@ -385,7 +386,7 @@ export const showData = {
         mainImg: 'AllDir/סדנאות לגיל השלישי/logo_for_him_hapanim_kadima.jpg',
         showData: {
             title: 'הגיל השלישי עם הפנים קדימה',
-            description: 'תיאטרון בובות שמציג את החששות מהגיל ומעברי החיים, אנחנו ניגע ביחד עמוק בנפש עם הרבה רגש ושמחה, נלמד לאהוב את עצמינו ולשמוח במתנות שיש לנו',
+            description: ' באמצעות תיאטרון בובות רגשי - חברתי  אני מעלה סיטואציות בנושא הזיקנה.כמו: פרישה , זוגיות , בריאות , קשר עם ילדים ונכדים ועוד. בזכות ההצגה נשים פותחות את הלב ומשתפות בתובנות ובאתגרי הגיל.הסדנה כוללת גם שיחה עם מצגת מקצועית בנושא.',
             creatorIntro: 'ההצגה מועברת ע"י,',
             creatorName: "רונית לוז",
             creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
