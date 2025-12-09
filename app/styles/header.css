@@ -6,10 +6,19 @@ header {
 .site-header {
     background-color: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
+    
+    /* --- השינוי החשוב: Fixed במקום Sticky --- */
+    position: fixed; 
     top: 0;
-    z-index: 1000; /* היררכיה בסיסית */
+    left: 0; /* מבטיח שיתחיל מקצה המסך */
+    right: 0; /* מבטיח שיימתח עד הסוף */
+    /* ---------------------------------------- */
+    
+    z-index: 1000;
     width: 100%;
+    
+    /* אופציונלי: טרנזישן חלק אם תרצה בעתיד להקטין אותו בגלילה */
+    transition: all 0.3s ease;
 }
 
 .continer_header {

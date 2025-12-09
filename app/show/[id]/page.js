@@ -35,6 +35,11 @@ export default async function ShowPage({ params }) {
         }
   }
 
+  let showClips = null;
+  if(presentation.vidue && presentation.vidue.clips && Array.isArray(presentation.vidue.clips)){
+      showClips = presentation.vidue.clips;
+  }
+
   return (
     <div className="div_presentation">
     
@@ -87,6 +92,24 @@ export default async function ShowPage({ params }) {
           showId={presentation.id}
           userVideos = {vidueCustomers}
         />
+
+        {/* --- אזור חדש: טעימות מההצגה --- */}
+        {showClips && showClips.length > 0 && (
+            <div className="show-clips-section">
+                <h3 className="clips-title">טעימות מההצגה</h3>
+                <div className="clips-grid">
+                    {showClips.map((clip, index) => (
+                        <div key={index} className="clip-card">
+                            <video controls className="clip-video">
+                                <source src={clip.src} type="video/mp4" />
+                                הדפדפן שלך לא תומך בוידאו.
+                            </video>
+                            {clip.caption && <p className="clip-caption">{clip.caption}</p>}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )}
 
         {presentation.arrayGallery && presentation.arrayGallery.length > 0 && (
             <Gallery images={presentation.arrayGallery} />

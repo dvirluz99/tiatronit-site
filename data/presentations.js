@@ -101,11 +101,11 @@ export const showData = {
         mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
         showData: {
             title: "חוהל'ה – משואה לתקומה",
-            description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
+            description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה הרב זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
             creatorIntro: "ההצגה מועברת ע\"י נכדתם,",
             creatorName: "רונית לוז",
             creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
-            audience: "מתאים לכל האוכלוסיה גדולים וקטנים!",
+            audience: "מתאים לכל הגילאים החל מכיתה ד' ועד הגיל השלישי",
             phone: "0542043429",
             socialProof: "ההצגה הועברה במועדון עמך לניצולי שואה... החל מכיתה ד'"
             },
@@ -116,6 +116,10 @@ export const showData = {
             customers:[
                 { src: '/AllDir/חוהלה משואה לתקומה/customers1.mp4', caption: 'מנהלת חט"ב אבן שמואל' },
 
+            ],
+            clips: [
+                { src: '/AllDir/חוהלה משואה לתקומה/clip1.mp4', caption: "חוהל'ה אצל נערים בתיכון"},
+                { src: '/AllDir/חוהלה משואה לתקומה/clip2.mp4', caption: "חוהל'ה בגיל השלישי" }
             ],
         },
         arrayGallery: [
@@ -134,6 +138,8 @@ export const showData = {
                     {img:"AllDir/חוהלה משואה לתקומה/image13.jpg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image14.jpg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image15.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image16.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image17.jpg",},
         ],
         },
 
@@ -455,7 +461,7 @@ export const showData = {
         id: 'p15',
         type: 'single',
         category: "youth",
-        linkRec: [],
+        linkRec: ['rec13'],
         importance: 'accustomed',
         mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg',
         showData: {

@@ -19,6 +19,7 @@ body {
     background-color: #a6d2f6; 
     color: #333;
     direction: rtl;
+    padding-top: 85px;
     
     /* הגדרת Grid ראשית */
     display: grid;
@@ -51,6 +52,7 @@ a {
     body {
         display: flex;
         flex-direction: column;
+        padding-top: 70px;
     }
     
     main {

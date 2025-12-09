@@ -220,6 +220,52 @@
     display: block;
 }
 
+/* --- עיצוב לקטעים מההצגה --- */
+.show-clips-section {
+    width: 100%;
+    max-width: 1000px;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.clips-title, .gallery-title {
+    font-size: 2rem;
+    color: #1a4f7c;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.clips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.clip-card {
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #dceeff;
+    width: 300px; /* רוחב נח לוידאו */
+}
+
+.clip-video {
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9; /* או 9/16 אם זה עומד */
+    background: #000;
+}
+
+.clip-caption {
+    margin-top: 8px;
+    color: #1a4f7c;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
 /* --- מובייל (שמרתי על התיקונים המקוריים בלבד) --- */
 @media (max-width: 768px) {
     .show-details-container { padding: 1.5rem 1rem; }
@@ -249,5 +295,9 @@
         /* במובייל נרצה שהם יהיו קצת יותר גדולים ויותאמו לרוחב המסך */
         /* חישוב: (100% פחות הרווח) חלקי 2 = שתי תמונות בשורה */
         width: calc(50% - 10px); 
+    }
+
+    .clip-card {
+        width: 90%; /* במובייל יתפוס את כל הרוחב */
     }
 }
