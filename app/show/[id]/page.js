@@ -43,8 +43,21 @@ export default async function ShowPage({ params }) {
   return (
     <div className="div_presentation">
     
-      {/* כותרת עליונה מעוצבת */}
-      <h1 className="presentation-page-title">{presentation.title}</h1>
+      <div className="show-header-wrapper">
+          
+          {/* הכותרת */}
+          <h1 className="presentation-page-title">{presentation.title}</h1>
+          
+          {/* הפלאייר (יופיע משמאל לכותרת בגלל ה-CSS) */}
+          {presentation.mainImg && (
+             <img 
+                src={`/${presentation.mainImg}`} 
+                alt="פלאייר ההצגה" 
+                className="show-flyer-img"
+             />
+          )}
+          
+      </div>
 
       {/* אזור הטריילר - רק אם קיים */}
       {trailerContent && (
@@ -112,7 +125,15 @@ export default async function ShowPage({ params }) {
         )}
 
         {presentation.arrayGallery && presentation.arrayGallery.length > 0 && (
-            <Gallery images={presentation.arrayGallery} />
+            <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+
+                <h2 className="collection-section-title" style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}>
+                    גלריית תמונות
+                </h2>
+                
+                <Gallery images={presentation.arrayGallery} />
+            </div>
+            
         )}
     </div>
   );

@@ -33,6 +33,15 @@ export const homePageStructure = [
         title: "הצגות לילדים", // כותרת לכריסייה
         mainImg: 'AllDir/הצגות לילדים/potho_for_gift_yeladim.jpg', // תמונה ראשית לאוסף
         description: "ההצגות לילדים משלבות רכות שמחה והקשבה",
+        collectionGallery: [
+            {img: 'AllDir/הצגות לילדים/image1.jpg'},
+            {img: 'AllDir/הצגות לילדים/image2.jpg'},
+            {img: 'AllDir/הצגות לילדים/image3.jpg'},
+            {img: 'AllDir/הצגות לילדים/image4.jpg'},
+            {img: 'AllDir/הצגות לילדים/image5.jpg'},
+            {img: 'AllDir/הצגות לילדים/image6.jpg'},
+            {img: 'AllDir/הצגות לילדים/image7.jpg'},
+        ],
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p4','p5','p6','p7','p8','p9']
     },
@@ -51,6 +60,12 @@ export const homePageStructure = [
             <p>אין גיל שבו מפסיקים להיות משמעותיים.</p>
             <p>באמצעות בובהתרפיה נצחק, נלמד ונפתח את הלב על האתגרים של הגיל המופלא הזה</p>
         `,
+        collectionGallery: [
+            { img: "AllDir/סדנאות לגיל השלישי/img1.JPG" },
+            { img: "AllDir/סדנאות לגיל השלישי/img2.jpg" },
+            { img: "AllDir/סדנאות לגיל השלישי/img3.jpg" },
+            // ... עוד תמונות
+        ],
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p10', 'p11', 'p12']
@@ -67,7 +82,7 @@ export const homePageStructure = [
         type: "collection",
         title: "סדנאות בובהתרפיה לגננות ולצוותי גיל הרך", // כותרת לכריסייה
         mainImg: "AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/logo_gor_gananot_gil_arach.jpg", // תמונה ראשית לאוסף
-        description: "השתלמות בובהתרפיה לצוותי גיל הרך גננות ותומכות למידה, נלמד להשתמש בבובות בבלי חינוכי רגשי בגן ובכיתה",
+        description: "השתלמות חוויתית ומעשית לצוותי הגיל הרך - עם כלים מבוססי בובהתרפיה, לחיזוק הקשר עם הילדים, קידום מיומנויות רגשיות וחברתיות, והעשרת עבודת הצוות בדרך יצירתית ומרגשת.",
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ["p13",]
@@ -80,6 +95,10 @@ export const homePageStructure = [
         description: "סדנאות להורים לילדים על קשיים והתמודדויות של הילדים במוסדות החינוך",
         collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
                           `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+        ],
+        collectionGallery: [
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge1.jpg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge2.jpg'},
         ],
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
@@ -96,7 +115,7 @@ export const showData = {
         id: "p1",
         type: 'single',
         category: "adults",
-        linkRec: ['rec3', 'rec4', 'rec5', 'rec6', 'rec7'],
+        linkRec: ['rec3', 'rec4', 'rec5', 'rec6', 'rec7', 'rec14'],
         importance: 'recommended',
         mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
         showData: {
@@ -118,7 +137,7 @@ export const showData = {
 
             ],
             clips: [
-                { src: '/AllDir/חוהלה משואה לתקומה/clip1.mp4', caption: "חוהל'ה אצל נערים בתיכון"},
+                { src: '/AllDir/חוהלה משואה לתקומה/clip1.mp4', caption: "חוהל'ה בבית ספר אלומות בבאר שבע"},
                 { src: '/AllDir/חוהלה משואה לתקומה/clip2.mp4', caption: "חוהל'ה בגיל השלישי" }
             ],
         },
@@ -194,6 +213,9 @@ export const showData = {
         vidue:{
             Trailer:[],
             customers:[],
+            clips: [
+                { src: '/AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/נעם עולה לכיתה א/clip1.mp4', caption: "מתוך ההצגה שהועברה להורים"},
+            ],
             },
         arrayGallery: [
              {img:'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/נעם עולה לכיתה א/imge1.jpg'},
@@ -475,7 +497,9 @@ export const showData = {
             socialProof: '',
             },
         vidue:{Trailer:[], customers:[],},
-        arrayGallery: [],
+        arrayGallery: [
+            {img: 'AllDir/סדנאות בובהתרפיה לבעלי צרכים מיוחדים/image1.png'},
+        ],
         },
 }
 
@@ -779,6 +803,25 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "",// כאן תכניס את ה-ID של דף הסדנאות לצרכים מיוחדים אם קיים (למשל "p14" או כדומה)
+        linkedShowId: "p15",// כאן תכניס את ה-ID של דף הסדנאות לצרכים מיוחדים אם קיים (למשל "p14" או כדומה)
+    },
+
+    rec14: {
+        id: "rec14",
+        type: "recommendation",
+        recommenderName: "עליזה שלום",
+        recommenderRole: 'מנהלת בית הספר "אלומות", באר שבע',
+        date: "09.12.2025",
+        relatedShow: "חווהל'ה – משואה לתקומה",
+        
+        content: `
+            <p>הגב' רונית לוז הגיעה לבית ספרנו והציגה את סיפור הצלתה של סבתה "חווהל'ה" לתלמידי כיתות ד'-ה'. התלמידים היו מרותקים והתעניינו מאוד בסיפור.</p>
+            <p>הרעיון לספר את הסיפור באמצעות בובות מנגיש אותו לתלמידים. החלק השני, המקשר בין תיאטרון הבובות לסיפור האמיתי באמצעות מצגת המציגה דמויות אמיתיות, היה נהדר ומקרב מאוד.</p>
+            <p>בתום המפגש האזנתי לשיח בין התלמידים ובין חברות הצוות החינוכי וניכר כי המפגש היה מלמד, מעצים, ערכי ואף מרגש מאוד.</p>
+            <p>אני ממליצה מאוד להזמין את הגב' רונית לוז לבית ספרכם כחלק מתוכנית לימודי השואה.</p>
+        `,
+        
+        contactInfo: "", 
+        linkedShowId: "p1" // מקושר להצגה: חוהל'ה משואה לתקומה
     },
 };

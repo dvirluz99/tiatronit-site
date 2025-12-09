@@ -5,15 +5,43 @@
     font-size: 20px;
 }
 
-/* --- כותרת ראשית של דף ההצגה --- */
-.presentation-page-title {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1a4f7c; /* כחול כהה עמוק */
+.show-header-wrapper {
+    display: flex;
+    align-items: center; /* ממרכז אותם לגובה */
+    justify-content: center; /* ממרכז את כל העסק באמצע הדף */
+    gap: 30px; /* רווח בין הכותרת לפלאייר */
     margin: 1.5rem 0 2rem 0;
     position: relative;
-    padding-bottom: 20px;
+    width: 100%;
+    /* padding-bottom הועבר לכאן מהכותרת כדי לשמור על הקו המפריד */
+    padding-bottom: 20px; 
+}
+
+/* עיצוב הפלאייר (חדש!) */
+.show-flyer-img {
+    width: 200px; /* גודל הריבוע */
+    height: 200px;
+    object-fit: cover; /* דואג שהתמונה לא תימעך */
+    border-radius: 20px; /* פינות עגולות כמו שביקשת */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* צללית עדינה */
+    border: 3px solid #fff; /* מסגרת לבנה קטנה */
+    
+    /* אנימציה קטנה בכניסה */
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- כותרת ראשית של דף ההצגה --- */
+.presentation-page-title {
+    text-align: right; /* בגלל שהפלאייר משמאל, הטקסט מיושר לימין */
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1a4f7c;
+    margin: 0; /* בוטל כי העוטף מנהל את זה */
     line-height: 1.2;
     text-shadow: 2px 2px 0px rgba(255,255,255,1), 0px 4px 10px rgba(0,0,0,0.05);
 }
@@ -24,10 +52,10 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%); /* ממרכז את הקו */
-    width: 80px; /* רוחב הקו */
+    transform: translateX(-50%); 
+    width: 80px; 
     height: 6px;
-    background: linear-gradient(to right, #2998f4, #8ec5fc); /* גרדיאנט תכלת */
+    background: linear-gradient(to right, #2998f4, #8ec5fc); 
     border-radius: 10px;
 }
 
@@ -249,7 +277,7 @@
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     border: 1px solid #dceeff;
-    width: 300px; /* רוחב נח לוידאו */
+    width: 450px; /* רוחב נח לוידאו */
 }
 
 .clip-video {
@@ -271,11 +299,23 @@
     .show-details-container { padding: 1.5rem 1rem; }
     .show-title { font-size: 2rem; }
     .cta-button, .invitation-button { padding: 0.7rem 2rem; font-size: 1.1rem; }
+    
+    .show-header-wrapper {
+        width: 90%;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .show-flyer-img {
+        width: 150px;
+        height: 150px;
+    }
 
     .presentation-page-title {
+        text-align: center;
         font-size: 2.2rem;
         margin: 1rem 0 1.5rem 0;
-        padding-bottom: 15px;
+        padding-bottom: 10px;
     }
 
     .div_trailer {

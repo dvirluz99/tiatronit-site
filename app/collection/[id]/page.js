@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { homePageStructure, showData } from '../../../data/presentations';
+import Gallery from '../../../components/Gallery';
 
 export default async function CollectionPage({ params }) {
   // 1. מחלצים את ה-ID של האוסף (למשל card_4)
@@ -92,6 +93,18 @@ export default async function CollectionPage({ params }) {
       {/* הודעה אם אין הצגות באוסף הזה */}
       {showsInCollection.length === 0 && (
           <p style={{textAlign: 'center'}}>כרגע אין הצגות בקטגוריה זו.</p>
+      )}
+
+      {collectionCard.collectionGallery && collectionCard.collectionGallery.length > 0 && (
+        <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+            {/* כותרת יפה לגלריה (משתמשים באותו עיצוב של הכותרות האחרות בדף) */}
+            <h2 className="collection-section-title" style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}>
+                גלריית תמונות
+            </h2>
+            
+            {/* השימוש בקומפוננטה הקיימת */}
+            <Gallery images={collectionCard.collectionGallery} />
+        </div>
       )}
 
     </main>
