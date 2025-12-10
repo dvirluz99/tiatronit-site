@@ -23,6 +23,13 @@ const galleryImages = [
   '/AllDir/תמונות כלליות והוספות/image15.jpeg',
   '/AllDir/תמונות כלליות והוספות/image16.jpeg',
   '/AllDir/תמונות כלליות והוספות/image17.jpeg',
+  '/AllDir/חוהלה משואה לתקומה/image13.jpg',
+  '/AllDir/חוהלה משואה לתקומה/image14.jpg',
+  '/AllDir/חוהלה משואה לתקומה/image15.jpg',
+  '/AllDir/חוהלה משואה לתקומה/image18.jpg',
+  '/AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge5.jpg',
+  '/AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge1.jpg',
+  '/AllDir/סדנאות לגיל השלישי/imge5.jpg',
 ];
 
 export default function HomeGallery() {

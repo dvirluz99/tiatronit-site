@@ -34,7 +34,7 @@ return (
         <div className={styles.scrollContainer}>
             
             <Link href="/" className={styles.link} onClick={closeMenu}>דף הבית</Link>
-            <Link href="/about" className={styles.link} onClick={closeMenu}>קצת עלינו</Link>
+            <Link href="/about" className={styles.link} onClick={closeMenu}>קצת עלי</Link>
 
             <hr className={styles.divider} />
 

@@ -171,6 +171,32 @@
     border-top: 2px dashed #b3d7ff; /* קו כחול בהיר */
 }
 
+.testimonials-section h3 {
+    text-align: center;
+    font-size: 2.8rem; /* גודל מרשים */
+    font-weight: 800;
+    color: #1a4f7c; /* הכחול הכהה שלך */
+    margin-bottom: 3rem; /* רווח מהכרטיסים */
+    position: relative;
+    padding-bottom: 15px; /* מקום לקו התחתון */
+    letter-spacing: -1px; /* צפיפות אותיות מודרנית */
+}
+
+/* הקו המעוצב מתחת לכותרת */
+.testimonials-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%); /* ממרכז את הקו */
+    width: 60px; /* רוחב הקו */
+    height: 5px; /* עובי הקו */
+    /* גרדיאנט נעים משמאל לימין */
+    background: linear-gradient(to right, #2998f4, #8ec5fc); 
+    border-radius: 10px; /* קצוות עגולים לקו */
+    box-shadow: 0 2px 10px rgba(41, 152, 244, 0.3); /* צללית עדינה לקו */
+}
+
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -392,5 +418,10 @@
     .rec-content {
         font-size: 1.05rem;
         padding: 1rem;
+    }
+
+    .testimonials-section h3 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
     }
 }
