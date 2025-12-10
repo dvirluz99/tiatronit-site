@@ -106,6 +106,24 @@
     color: #1a4f7c;
 }
 
+/* ... שאר הקוד ... */
+
+/* עיצוב הטקסט בתוך הכרטיס */
+.testiText {
+    font-size: 1rem;
+    color: #334155;
+    margin-bottom: 1.5rem; /* רווח קבוע מהחלק התחתון */
+    line-height: 1.6;
+    
+    /* --- הקסם לחיתוך טקסט מרובה שורות --- */
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* מקסימום 6 שורות (בערך 150px) */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* מוסיף ... בסוף */
+    /* ------------------------------------- */
+}
+
 /* ============================ */
 /* === התאמה למובייל === */
 /* ============================ */
@@ -139,5 +157,11 @@
 
     .videoCard {
         width: 100%; /* במובייל הוא יתפוס את רוחב העמודה שלו */
+    }
+
+    .testiText {
+        -webkit-line-clamp: 8; /* במובייל ניתן קצת יותר שורות כי הגלילה ארוכה */
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
     }
 }

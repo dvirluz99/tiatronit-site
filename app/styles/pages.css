@@ -1,4 +1,39 @@
 /* --- צור קשר --- */
+/* --- כותרת איזור הכרטיסיות בדף הבית --- */
+
+.cards-section-header {
+    text-align: center;
+    margin-top: 4rem; /* רווח מהסקשן הקודם */
+    margin-bottom: 2rem;
+    padding: 0 20px;
+    position: relative;
+}
+
+.cards-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a4f7c; /* הכחול הכהה שלך */
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* פס הפרדה צבעוני */
+.cards-divider {
+    width: 60px;
+    height: 6px;
+    background: linear-gradient(to right, #2998f4, #8ec5fc); /* גרדיאנט תכלת */
+    border-radius: 10px;
+    margin: 15px auto; /* מרכוז */
+}
+
+.cards-subtitle {
+    font-size: 1.15rem;
+    color: #64748b; /* אפור-כחלחל */
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .contact-page-container {
     max-width: 900px;
     margin: 2rem auto;
@@ -43,6 +78,8 @@
 }
 
 .contact-card i { font-size: 3rem; margin-bottom: 1rem; }
+
+
 
 /* כאן שמרתי על צבעי המותג המקוריים כי זה חשוב לזיהוי (וואטסאפ ירוק וכו'), 
    אבל הכרטיס עצמו נשאר נקי */
@@ -307,6 +344,18 @@
 /* --- התאמות למובייל --- */
 @media (max-width: 900px) {
     /* סידור האלמנטים בעמוד אודות */
+        .cards-section-header {
+        margin-top: 3rem;
+    }
+    
+    .cards-title {
+        font-size: 2rem;
+    }
+    
+    .cards-subtitle {
+        font-size: 1rem;
+    }
+
     .about-top-section { 
         flex-direction: column; 
         gap: 2rem; 

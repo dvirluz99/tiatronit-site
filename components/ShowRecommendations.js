@@ -21,33 +21,31 @@ export default function ShowRecommendations({ recommendationIds, showId, userVid
   return (
     <div className={styles.container}>
       
-      {/* --- חלק 1: המלצות טקסט (קיים) --- */}
-      {hasTextRecs && (
+        {hasTextRecs && (
         <>
             <h3 className={styles.title}>משתפים על ההצגה</h3>
             <div className={styles.grid}>
                 {summaryRecs.map((rec) => (
                 <div key={rec.id} className={styles.card}>
                     <div className="quote-icon">❝</div> 
+                    
+                    {/* --- התיקון כאן: שימוש ב-className במקום style --- */}
                     <div
-                    className="testi-text"
-                    style={{
-                        fontSize: '1rem',
-                        marginBottom: '1rem',
-                        maxHeight: '150px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                    }}
-                    dangerouslySetInnerHTML={{ __html: rec.content }}
+                        className={styles.testiText} 
+                        dangerouslySetInnerHTML={{ __html: rec.content }}
                     />
+                    {/* ------------------------------------------------ */}
+
                     <div>
-                    <span className="testi-author">{rec.recommenderName}</span>
-                    <br />
-                    <span style={{ fontSize: '0.85rem', color: '#666' }}>{rec.recommenderRole}</span>
+                        <span className="testi-author">{rec.recommenderName}</span>
+                        <br />
+                        <span style={{ fontSize: '0.85rem', color: '#666' }}>{rec.recommenderRole}</span>
                     </div>
                 </div>
                 ))}
             </div>
+            
+            {/* ... כפתור קרא עוד ... */}
              {relevantRecs.length > 3 && (
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Link

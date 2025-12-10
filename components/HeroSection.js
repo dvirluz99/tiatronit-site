@@ -47,7 +47,7 @@ export default function HeroSection() {
                 // poster="/AllDir/poster_image.jpg" // תמונה שרואים לפני שהוידאו נטען
             >
                 {/* שים לב: עדכן את הנתיב לשם הקובץ האמיתי שלך */}
-                <source src="/AllDir/videos/home_hero.mp4" type="video/mp4" />
+                <source src="/AllDir/videos/Hero_bg.mp4" type="video/mp4" />
                 הדפדפן שלך לא תומך בוידאו.
             </video>
         </div>

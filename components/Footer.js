@@ -19,7 +19,7 @@ export default function Footer() {
                 </li>
                 
                 <li className="contact-item">
-                    <a href="https://www.facebook.com/share/1G9yZBMfAP/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/people/%D7%A8%D7%95%D7%A0%D7%99%D7%AA-%D7%9C%D7%95%D7%96/pfbid02SbjbiMhqzTboYLosfbYLov4xSmjpNktijZS5wyZiF32EovMtkCRMUDBdjC3QJfiRl/" target="_blank" rel="noopener noreferrer">
                         <i className="fab fa-facebook"></i>
                         <span>פייסבוק</span>
                     </a>
