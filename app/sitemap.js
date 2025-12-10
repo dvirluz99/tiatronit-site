@@ -1,11 +1,12 @@
-import { showData, homePageStructure } from './data/presentations';
+import { showData, homePageStructure } from '../data/presentations';
 
 export default function sitemap() {
-  // 1. הגדר את הכתובת הראשית של האתר (מה שקיבלת מ-Vercel או הדומיין שלך)
-  // חשוב: בלי לוכסן בסוף
   const baseUrl = 'https://tiatronit-site.vercel.app'; 
+  
+  // תיקון: יצירת תאריך בפורמט פשוט שגוגל אוהב (YYYY-MM-DD)
+  const currentDate = new Date().toISOString().split('T')[0];
 
-  // 2. דפים סטטיים שיש לך באתר
+  // 2. דפים סטטיים
   const staticRoutes = [
     '',
     '/about',
@@ -13,30 +14,29 @@ export default function sitemap() {
     '/testimonials',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: currentDate, // שימוש בתאריך הנקי
     changeFrequency: 'monthly',
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // 3. יצירת רשימה של כל ההצגות (Single Shows)
+  // 3. הצגות
   const showsRoutes = Object.values(showData).map((show) => ({
-    url: `${baseUrl}/show/${show.id}`,
-    lastModified: new Date(),
+    // encodeURIComponent מבטיח שאם יש רווח או עברית ב-ID, זה לא ישבור את הקובץ
+    url: `${baseUrl}/show/${encodeURIComponent(show.id)}`,
+    lastModified: currentDate,
     changeFrequency: 'weekly',
-    priority: 0.9, // עדיפות גבוהה
+    priority: 0.9,
   }));
 
-  // 4. יצירת רשימה של כל האוספים (Collections)
-  // מסננים רק את אלו שהם מסוג collection
+  // 4. אוספים
   const collectionsRoutes = homePageStructure
     .filter((item) => item.type === 'collection')
     .map((collection) => ({
-      url: `${baseUrl}/collection/${collection.id}`,
-      lastModified: new Date(),
+      url: `${baseUrl}/collection/${encodeURIComponent(collection.id)}`,
+      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     }));
 
-  // 5. איחוד כל הרשימות
   return [...staticRoutes, ...showsRoutes, ...collectionsRoutes];
 }
