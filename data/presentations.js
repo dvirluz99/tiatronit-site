@@ -23,7 +23,7 @@ export const homePageStructure = [
         type: "collection",
         title: "הצגות והרצאות לבני נוער", // כותרת לכריסייה
         mainImg: "AllDir/הצגות והרצאות לבני נוער/potho_for_gift.jpg", // תמונה ראשית לאוסף
-        description: "סדנאות מיוחדות לנוער המתבגר",
+        description: "סדנאות מיוחדות לנערות מתגברות",
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p14']
     },
