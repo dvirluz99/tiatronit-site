@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { aboutData } from '../../data/presentations';
 
 export default function AboutPage() {
@@ -32,12 +33,14 @@ export default function AboutPage() {
                 <h3>מילים חמות מהשטח</h3>
                 <div className="testimonials-grid">
                     {aboutData.testimonials.map((item, index) => (
-                        <div key={index} className="testimonial-mini-card">
+                        <Link key={index} href={`/recommendation/${item.linkRecId}`}>
+                        <div  className="testimonial-mini-card">
                             <div className="quote-icon">❝</div>
                             <p className="testi-text">{item.text}</p>
                             <span className="testi-author">- {item.author}</span>
-                            <span className="testi-from-Pres">{item.fromPresention}</span>
+                            <Link href={`/show/${item.linkP}`}><span className="testi-from-Pres">{item.fromPresention}</span></Link>
                         </div>
+                        </Link>
                     ))}
                 </div>
             </div>
