@@ -141,7 +141,7 @@ export const showData = {
             clips: [
                 { src: '/AllDir/חוהלה משואה לתקומה/clip1.mp4', caption: "חוהל'ה בבית ספר אלומות בבאר שבע"},
                 { src: '/AllDir/חוהלה משואה לתקומה/clip2.mp4', caption: "חוהל'ה בגיל השלישי" },
-                { src: '/Alldir/חוהלה משואה לתקומה/clip3.mp4', caption: "חוהל'ה במועדון גיל השלישי יד בנימין"}
+                { src: '/AllDir/חוהלה משואה לתקומה/clip3.mp4', caption: "חוהל'ה במועדון גיל השלישי יד בנימין" },
             ],
         },
         arrayGallery: [
