@@ -9,6 +9,9 @@ import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
 
 export const metadata = {
+
+  metadataBase: new URL('https://tiatronit-site.vercel.app'), // הכתובת של האתר שלך (או localhost בפיתוח)
+  
   title: 'תיאטרונית',
   description: 'תיאטרון בובות רגשי חברתי - רונית לוז',
   icons: {
@@ -24,7 +27,7 @@ export const metadata = {
     siteName: 'תיאטרונית',
     images: [
       {
-        url: '/AllDir/לוגו/logo1.jpg', // <--- הנתיב לתמונה הכי יפה באתר שלך (לוגו, תמונה ראשית)
+        url: '/AllDir/logo/logo1.jpg', // <--- הנתיב לתמונה הכי יפה באתר שלך (לוגו, תמונה ראשית)
         width: 1200,
         height: 630,
         alt: 'רונית לוז, בובותרפיה',

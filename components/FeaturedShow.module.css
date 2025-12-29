@@ -1,0 +1,161 @@
+/* components/FeaturedShow.module.css */
+
+/* --- קונטיינר עוטף: מחזיק את הכותרת ואת הכרטיס --- */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ממרכז את הכותרת והכרטיס אופקית */
+    gap: 15px; /* רווח בין הכותרת לכרטיס */
+    width: 100%;
+}
+
+/* --- הכותרת החדשה ("המומלצת שלנו") --- */
+.sectionTitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a4f7c;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* קו קישוט קטן מתחת לכותרת */
+.sectionTitle::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(to right, #2998f4, #8ac6f7);
+    margin: 5px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* --- הכרטיס עצמו --- */
+.cardWrapper {
+    width: 280px; /* רוחב קבוע */
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+    
+    /* ביטלתי את margin-left כי הקונטיינר ממרכז אותו */
+    margin: 0; 
+}
+
+.cardWrapper:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(41, 152, 244, 0.15);
+}
+
+/* --- תגית "מומלץ" --- */
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #2998f4, #8ac6f7);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(41, 152, 244, 0.3);
+}
+
+/* --- אזור התמונה --- */
+.imageContainer {
+    position: relative;
+    width: 100%;
+    height: 200px; /* גובה קבוע לתמונה כדי לשמור על פרופורציה */
+    overflow: hidden;
+}
+
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.cardWrapper:hover .cardImage {
+    transform: scale(1.1);
+}
+
+/* --- שכבת כהות (אופציונלי אם יש כפתור נגן, כרגע לא בשימוש אבל שמרתי) --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cardWrapper:hover .overlay {
+    opacity: 1;
+}
+
+/* --- אזור התוכן (טקסט) --- */
+.content {
+    padding: 1.5rem;
+    text-align: right; /* יישור לימין לעברית */
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a4f7c;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.excerpt {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* --- תחתית הכרטיס (דירוג וכפתור) --- */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1rem;
+}
+
+.rating {
+    font-weight: 600;
+    color: #f1c40f; /* צבע זהב */
+    font-size: 0.9rem;
+    background: #fff9db; /* רקע צהבהב עדין */
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.linkButton {
+    background: none;
+    border: none;
+    color: #2998f4;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.linkButton:hover {
+    color: #1a73e8;
+    transform: translateX(-3px); /* תזוזה קטנה הצידה באפקט */
+}

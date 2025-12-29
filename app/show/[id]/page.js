@@ -1,27 +1,26 @@
 import Link from 'next/link';
 import { showData } from '../../../data/presentations';
 import Gallery from '../../../components/Gallery';
-import ShowRecommendations from '../../../components/ShowRecommendations'
+import ShowRecommendations from '../../../components/ShowRecommendations';
 
-// ב-Next.js החדש, params מגיע כ-Promise ולכן הפונקציה היא async
 export default async function ShowPage({ params }) {
-  // 1. חילוץ ה-ID מהכתובת (למשל p1, p2)
+  // 1. חילוץ ה-ID
   const { id } = await params;
   
-  // 2. שליפת המידע מקובץ הנתונים
+  // 2. שליפת המידע
   const presentation = showData[id];
 
-  // אם אין הצגה כזו (למשל מישהו הקליד כתובת לא נכונה)
   if (!presentation) {
     return <div style={{textAlign: 'center', marginTop: '50px'}}>הצגה לא נמצאה</div>;
   }
 
-  // 3. לוגיקה לטריילר (מתוך הקוד המקורי שלך)
+  // בדיקה האם יש שני לוגואים
+  const hasDoubleLogo = presentation.mainImg1 && presentation.mainImg2;
+
+  // 3. לוגיקה לטריילר
   let trailerContent = null;
   if (presentation.vidue && presentation.vidue.Trailer) {
-      // אם זה מערך ויש בו משהו, או שזו סתם מחרוזת
       if (Array.isArray(presentation.vidue.Trailer) && presentation.vidue.Trailer.length > 0) {
-          // ב-React מסוכן להשתמש ב-innerHTML סתם כך, אבל מכיוון שזה iframe מיוטיוב שאתה שולט בו, נשתמש בזהירות
           trailerContent = presentation.vidue.Trailer.join(" ");
       } else if (typeof presentation.vidue.Trailer === 'string') {
           trailerContent = presentation.vidue.Trailer;
@@ -43,23 +42,56 @@ export default async function ShowPage({ params }) {
   return (
     <div className="div_presentation">
     
-      <div className="show-header-wrapper">
-          
-          {/* הכותרת */}
+      {/* --- אזור הכותרת והלוגו (לוגיקה משתנה) --- */}
+      
+{hasDoubleLogo ? (
+        // === אפשרות א': יש 2 לוגואים עם טקסט ===
+        <div className="header-double-layout">
+           
+           {/* צד ימין: עוטף את התמונה והטקסט */}
+           <div className="logo-wrapper">
+               <img 
+                 src={`/${presentation.mainImg1}`} 
+                 alt="לוגו ימני" 
+                 className="show-flyer-img"
+               />
+               {presentation.textUnderImg1 && (
+                   <p className="logo-caption">{presentation.textUnderImg1}</p>
+               )}
+           </div>
+           
+           {/* כותרת באמצע */}
+           <h1 className="presentation-page-title">{presentation.title}</h1>
+           
+           {/* צד שמאל: עוטף את התמונה והטקסט */}
+           <div className="logo-wrapper">
+               <img 
+                 src={`/${presentation.mainImg2}`} 
+                 alt="לוגו שמאלי" 
+                 className="show-flyer-img"
+               />
+               {presentation.textUnderImg2 && (
+                   <p className="logo-caption">{presentation.textUnderImg2}</p>
+               )}
+           </div>
+        </div>
+      ) : (
+        // === אפשרות ב': לוגו אחד רגיל ===
+        <div className="show-header-wrapper">
           <h1 className="presentation-page-title">{presentation.title}</h1>
-          
-          {/* הפלאייר (יופיע משמאל לכותרת בגלל ה-CSS) */}
           {presentation.mainImg && (
              <img 
-                src={`/${presentation.mainImg}`} 
-                alt="פלאייר ההצגה" 
-                className="show-flyer-img"
+               src={`/${presentation.mainImg}`} 
+               alt="פלאייר ההצגה" 
+               className="show-flyer-img"
              />
           )}
-          
-      </div>
+        </div>
+      )}
 
-      {/* אזור הטריילר - רק אם קיים */}
+      {/* --- המשך הדף כרגיל --- */}
+
+      {/* אזור הטריילר */}
       {trailerContent && (
         <div 
             className="div_trailer" 
@@ -81,14 +113,11 @@ export default async function ShowPage({ params }) {
           <p className="audience-highlight">{presentation.showData.audience}</p>
           
           <div className="cta-container">
-              {/* כפתור להמלצות */}
               {presentation.linkRec && presentation.linkRec.length > 0 && (
                   <Link href={`/recommendation/${presentation.id}`} className="cta-button">
                       להמלצות
                   </Link>
               )}
-              
-              {/* כפתור להזמנה (מעביר לצור קשר) */}
               <Link href="/contact" className="invitation-button contact_us">
                   להזמנה
               </Link>
@@ -106,7 +135,7 @@ export default async function ShowPage({ params }) {
           userVideos = {vidueCustomers}
         />
 
-        {/* --- אזור חדש: טעימות מההצגה --- */}
+        {/* טעימות מההצגה */}
         {showClips && showClips.length > 0 && (
             <div className="show-clips-section">
                 <h3 className="clips-title">טעימות מההצגה</h3>
@@ -126,14 +155,11 @@ export default async function ShowPage({ params }) {
 
         {presentation.arrayGallery && presentation.arrayGallery.length > 0 && (
             <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-
                 <h2 className="collection-section-title" style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}>
                     גלריית תמונות
                 </h2>
-                
                 <Gallery images={presentation.arrayGallery} />
             </div>
-            
         )}
     </div>
   );

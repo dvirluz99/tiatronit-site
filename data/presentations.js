@@ -7,8 +7,8 @@ export const homePageStructure = [
         id: "card_1",
         type: "single",
         importance: 'recommended',
-        mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
-        title: "חוהלה משואה לתקומה",
+        mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma1.jpg",
+        title: "חוהל'ה משואה לתקומה",
         linkedShowId: "p1"
     },
     {
@@ -119,7 +119,10 @@ export const showData = {
         category: "adults",
         linkRec: ['rec3', 'rec4', 'rec5', 'rec6', 'rec7', 'rec14', 'rec15'],
         importance: 'recommended',
-        mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma.jpg",
+        mainImg1: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma1.jpg",
+        textUnderImg1: 'העברת ההצגה באמצעות תיאטרון בובות',
+        mainImg2: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma2.jpeg",
+        textUnderImg2: 'ההעברת ההצגה במתכונת הצגת יחיד',
         showData: {
             title: "חוהל'ה – משואה לתקומה",
             description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה הרב זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
@@ -866,5 +869,23 @@ export const recommendationsData = {
     
     contactInfo: "", // לא צוין טלפון
     linkedShowId: "p1" // ההמלצה מתייחסת לסיפור השואה המשפחתי, שזה כנראה "חוהלה - משואה לתקומה" (p2)
-}
+    },
+
+    rec16: {
+        id: "rec16",
+        type: "recommendation",
+        recommenderName: "רפית זנבר",
+        recommenderRole: "מרצה ומאמנת",
+        date: "29.12.2025",
+        relatedShow: "חוהל'ה – משואה לתקומה",
+        
+        content: `
+            <p>ההרצאה בנושא "משואה לתקומה" על סבתא חוהל'ה הייתה מרתקת, מרגשת ומעצימה באופן מעורר השראה. סחפת אותנו למסע של התמודדות, צער וכאב בתקופה החשוכה, לצד אמונה גדולה ותעצומות נפש של הסבתא ובני המשפחה.</p>
+            <p>הדרך המיוחדת בה הצגת ושיתפת העבירה אותנו מתחנה לתחנה בהיסטוריה באופן אותנטי ומחבר - מהילדות המאתגרת בפולין, דרך הבריחה והמיצרים ועד לתקומה.</p>
+            <p>ממליצה בחום על ההרצאה המדהימה לחינוך, לשיעור ולהתעוררות לאמונה וגילוי הכוחות והתעצומות של כל יהודי.</p>
+        `,
+        
+        contactInfo: "", 
+        linkedShowId: "p1" // מקושר להצגה: חווהל'ה משואה לתקומה
+    }
 };

@@ -5,28 +5,38 @@
     font-size: 20px;
 }
 
+/* --- קוד קיים ללוגו יחיד --- */
 .show-header-wrapper {
     display: flex;
-    align-items: center; /* ממרכז אותם לגובה */
-    justify-content: center; /* ממרכז את כל העסק באמצע הדף */
-    gap: 30px; /* רווח בין הכותרת לפלאייר */
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
     margin: 1.5rem 0 2rem 0;
     position: relative;
     width: 100%;
-    /* padding-bottom הועבר לכאן מהכותרת כדי לשמור על הקו המפריד */
     padding-bottom: 20px; 
 }
 
-/* עיצוב הפלאייר (חדש!) */
+/* --- קוד חדש: תצוגה כפולה (2 לוגואים) --- */
+.header-double-layout {
+    display: flex;
+    align-items: center; /* ממרכז אנכית */
+    justify-content: center;
+    gap: 40px; /* רווח בין האלמנטים */
+    margin: 1.5rem 0 2rem 0;
+    width: 100%;
+    max-width: 1200px;
+    padding-bottom: 20px;
+}
+
+/* עיצוב הפלאייר */
 .show-flyer-img {
-    width: 200px; /* גודל הריבוע */
+    width: 200px;
     height: 200px;
-    object-fit: cover; /* דואג שהתמונה לא תימעך */
-    border-radius: 20px; /* פינות עגולות כמו שביקשת */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* צללית עדינה */
-    border: 3px solid #fff; /* מסגרת לבנה קטנה */
-    
-    /* אנימציה קטנה בכניסה */
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 3px solid #fff;
     animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -35,22 +45,29 @@
     to { transform: scale(1); opacity: 1; }
 }
 
-/* --- כותרת ראשית של דף ההצגה --- */
+/* כותרת ראשית */
 .presentation-page-title {
-    text-align: right; /* בגלל שהפלאייר משמאל, הטקסט מיושר לימין */
+    /* הסרתי את text-align: right הספציפי כדי שיתאים גם למרכז */
+    text-align: center; 
     font-size: 3rem;
     font-weight: 800;
     color: #1a4f7c;
-    margin: 0; /* בוטל כי העוטף מנהל את זה */
+    margin: 0;
     line-height: 1.2;
     text-shadow: 2px 2px 0px rgba(255,255,255,1), 0px 4px 10px rgba(0,0,0,0.05);
+    position: relative; /* חשוב לאלמנטים המצוירים */
+}
+
+/* אם זה בתוך ה-wrapper הישן (לוגו בודד), נחזיר לימין */
+.show-header-wrapper .presentation-page-title {
+    text-align: right;
 }
 
 /* קו עיצובי מתחת לכותרת */
 .presentation-page-title::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -15px; /* הורדתי קצת למטה שיהיה מרווח */
     left: 50%;
     transform: translateX(-50%); 
     width: 80px; 
@@ -61,9 +78,9 @@
 
 /* נקודה קטנה ועיצובית במרכז הקו */
 .presentation-page-title::before {
-    content: '♦'; /* מעוין קטן */
+    content: '♦';
     position: absolute;
-    bottom: -8px; /* יושב על הקו */
+    bottom: -23px;
     left: 50%;
     transform: translateX(-50%);
     color: #1a4f7c;
@@ -72,18 +89,15 @@
     z-index: 2;
 }
 
-/* --- כרטיס פרטי ההצגה (רק שינוי צבעים) --- */
+/* --- כרטיס פרטי ההצגה --- */
 .show-details-container {
     width: 90%;
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem 2.5rem;
-    
-    /* צבעים חדשים: */
-    background-color: #f0f7ff; /* תכלת בהיר נקי */
-    border: 1px solid #dceeff; /* מסגרת כחלחלה עדינה */
-    box-shadow: 0 8px 25px rgba(0, 50, 100, 0.05); /* צל כחול עדין */
-    
+    background-color: #f0f7ff;
+    border: 1px solid #dceeff;
+    box-shadow: 0 8px 25px rgba(0, 50, 100, 0.05);
     border-radius: 15px;
 }
 
@@ -91,10 +105,7 @@
     text-align: center;
     font-size: 2.5rem;
     font-weight: 800;
-    
-    /* צבע חדש: */
-    color: #1a4f7c; /* כחול כהה */
-    
+    color: #1a4f7c;
     margin-top: 0;
     margin-bottom: 1rem;
 }
@@ -103,23 +114,18 @@
     text-align: center;
     font-size: 1.15rem;
     line-height: 1.7;
-    
-    /* צבע חדש: */
-    color: #4a5568; /* אפור-כחול */
-    
+    color: #4a5568;
     margin-bottom: 2rem;
 }
 
-/* --- ביוגרפיה (רק שינוי צבעים) --- */
+/* ביוגרפיה */
 .creator-bio {
-    background: #ffffff; /* לבן */
+    background: #ffffff;
     border-radius: 10px;
     padding: 1rem 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
-    
-    /* צבע חדש: */
-    border: 1px solid #eef2f6; /* מסגרת כמעט שקופה */
+    border: 1px solid #eef2f6;
 }
 
 .creator-intro { font-size: 1rem; margin: 0; color: #64748b; }
@@ -130,18 +136,15 @@
     text-align: center;
     font-size: 1.1rem;
     font-weight: 700;
-    
-    /* צבעים חדשים: */
-    color: #0c4a6e; /* טקסט כחול כהה */
-    background: #e0f2fe; /* רקע תכלת */
+    color: #0c4a6e;
+    background: #e0f2fe;
     border: 1px solid #bae6fd;
-    
     padding: 0.75rem;
     border-radius: 8px;
     margin-bottom: 2rem;
 }
 
-/* --- כפתורים (רק שינוי צבעים לגרדיאנט כחול) --- */
+/* כפתורים */
 .cta-container {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -149,11 +152,8 @@
 
 .cta-button, .invitation-button {
     display: inline-block;
-    
-    /* צבעים חדשים: */
-    background: linear-gradient(135deg, #2998f4, #1a73e8); /* כחול */
-    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3); /* צל כחול */
-    
+    background: linear-gradient(135deg, #2998f4, #1a73e8);
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
     color: white;
     font-size: 1.2rem;
     font-weight: 700;
@@ -167,7 +167,6 @@
 
 .cta-button:hover, .invitation-button:hover {
     transform: translateY(-2px);
-    /* צל מודגש בריחוף */
     box-shadow: 0 6px 15px rgba(26, 115, 232, 0.5);
     background: linear-gradient(135deg, #4dabf5, #2998f4);
 }
@@ -176,27 +175,21 @@
     text-align: center;
     font-size: 0.9rem;
     color: #64748b;
-    
-    /* צבע חדש לקו המפריד: */
-    border-top: 1px dashed #b3d7ff; /* תכלת */
-    
+    border-top: 1px dashed #b3d7ff;
     padding-top: 1.5rem;
 }
 
 .div_trailer {
-    display: flex;       /* מסדר את הסרטונים אחד ליד השני */
-    flex-wrap: wrap;     /* אם אין מקום (במובייל), הסרטון השני ירד למטה */
-    justify-content: center; /* ממרכז אותם באמצע */
-    gap: 30px;           /* <--- זה המרווח שרצית בין הסרטונים! */
-    
-    margin: 20px auto;   /* רווח מלמעלה למטה ומירכוז הדיב עצמו */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px auto;
     width: 100%;
 }
 
-/* מוודא שהסרטונים לא חורגים מהרוחב */
 .div_trailer iframe {
     max-width: 90%;
-    /* אפשר להוסיף פה צללית עדינה אם בא לך */
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     border-radius: 8px;
 }
@@ -207,32 +200,22 @@
 }
 
 .gallery-grid {
-    /* שינוי ל-Flexbox כדי לאפשר מירכוז מושלם */
     display: flex;
-    flex-wrap: wrap; /* מאפשר שבירת שורות */
-    justify-content: space-around; /* ממרכז את התמונות בשורה */
-    
+    flex-wrap: wrap;
+    justify-content: space-around;
     gap: 15px;
     padding: 15px;
 }
 
 .gallery-grid a {
     display: block;
-    
-    /* הגדרת גודל קבוע לריבוע */
-    /* אפשר לשחק עם המספר הזה (למשל 160px או 180px) */
     width: 150px; 
-    
-    /* שומר על יחס ריבוע מושלם */
     aspect-ratio: 1 / 1; 
-    
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s ease-in-out;
     position: relative;
-    
-    /* מונע מהתמונה להתכווץ מתחת לגודל שהגדרנו */
     flex-shrink: 0;
 }
 
@@ -248,7 +231,7 @@
     display: block;
 }
 
-/* --- עיצוב לקטעים מההצגה --- */
+/* קטעים מההצגה */
 .show-clips-section {
     width: 100%;
     max-width: 1000px;
@@ -277,13 +260,13 @@
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     border: 1px solid #dceeff;
-    width: 450px; /* רוחב נח לוידאו */
+    width: 450px;
 }
 
 .clip-video {
     width: 100%;
     border-radius: 8px;
-    aspect-ratio: 16 / 9; /* או 9/16 אם זה עומד */
+    aspect-ratio: 16 / 9;
     background: #000;
 }
 
@@ -294,18 +277,40 @@
     font-size: 0.95rem;
 }
 
-/* --- מובייל (שמרתי על התיקונים המקוריים בלבד) --- */
+/* --- מובייל --- */
 @media (max-width: 768px) {
     .show-details-container { padding: 1.5rem 1rem; }
     .show-title { font-size: 2rem; }
     .cta-button, .invitation-button { padding: 0.7rem 2rem; font-size: 1.1rem; }
     
+    /* עיצוב רגיל (לוגו בודד) במובייל */
     .show-header-wrapper {
         width: 90%;
         gap: 15px;
         text-align: center;
     }
 
+    /* === עיצוב חדש ל-2 לוגואים במובייל === */
+    .header-double-layout {
+        display: grid; /* עובר ל-Grid במקום Flex */
+        grid-template-columns: 1fr 1fr; /* שתי עמודות לתמונות */
+        grid-template-rows: auto auto; /* שורה לכותרת, שורה לתמונות */
+        gap: 20px;
+        justify-items: center; /* ממרכז את התוכן בכל תא */
+        width: 95%;
+        margin: 1rem auto;
+    }
+
+    /* הכותרת תתפוס את כל הרוחב בשורה הראשונה */
+    .header-double-layout .presentation-page-title {
+        grid-column: 1 / -1; /* פורש על כל העמודות */
+        grid-row: 1; /* שורה ראשונה */
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    /* התמונות ייכנסו אוטומטית לשורה השנייה, כל אחת בעמודה משלה */
+    
     .show-flyer-img {
         width: 150px;
         height: 150px;
@@ -332,12 +337,69 @@
     }
 
     .gallery-grid a {
-        /* במובייל נרצה שהם יהיו קצת יותר גדולים ויותאמו לרוחב המסך */
-        /* חישוב: (100% פחות הרווח) חלקי 2 = שתי תמונות בשורה */
         width: calc(50% - 10px); 
     }
 
     .clip-card {
-        width: 90%; /* במובייל יתפוס את כל הרוחב */
+        width: 90%;
+    }
+}
+
+
+/* --- תוספות עבור טקסט מתחת לתמונות --- */
+
+/* העוטף של כל תמונה + טקסט */
+.logo-wrapper {
+    display: flex;
+    flex-direction: column; /* מסדר את התמונה מעל הטקסט */
+    align-items: center;    /* ממרכז אותם אחד ביחס לשני */
+    max-width: 250px;       /* מגביל את רוחב הטקסט שלא יימרח */
+}
+
+/* עיצוב הטקסט שמתחת לתמונה */
+.logo-caption {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a4f7c; /* אותו צבע כחול של המותג */
+    text-align: center;
+    line-height: 1.3;
+    background: rgba(255, 255, 255, 0.7); /* רקע לבן חצי שקוף לקריאות */
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+/* --- עדכון למובייל עבור המבנה החדש --- */
+@media (max-width: 768px) {
+    
+    /* בגלל שעטפנו ב-div, הגריד עכשיו עובד על ה-wrapper ולא על התמונה ישירות.
+       זה מצוין, כי זה שומר את הטקסט צמוד לתמונה שלו.
+    */
+    
+    .header-double-layout {
+        /* שומרים על הגדרות הגריד הקודמות */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto; 
+        gap: 20px;
+        justify-items: center;
+        align-items: start; /* חשוב: יישור לחלק העליון במקרה שטקסט אחד ארוך מהשני */
+    }
+
+    /* הכותרת עדיין למעלה */
+    .header-double-layout .presentation-page-title {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    /* התאמות לטקסט במובייל */
+    .logo-caption {
+        font-size: 0.9rem; /* קצת יותר קטן במובייל */
+        padding: 0;
+        margin-top: 5px;
+    }
+    
+    .logo-wrapper {
+        width: 100%; /* שינצל את רוחב העמודה בגריד */
     }
 }
