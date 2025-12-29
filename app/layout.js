@@ -10,7 +10,7 @@ import Footer from '../components/Footer.js';
 
 export const metadata = {
 
-  metadataBase: new URL('https://tiatronit-site.vercel.app'), // הכתובת של האתר שלך (או localhost בפיתוח)
+  metadataBase: new URL('https://www.ronitluz.co.il'), // הכתובת של האתר שלך (או localhost בפיתוח)
   
   title: 'תיאטרונית',
   description: 'תיאטרון בובות רגשי חברתי - רונית לוז',
@@ -23,7 +23,7 @@ export const metadata = {
   openGraph: {
     title: 'תיאטרונית | בובותרפיה רגשית-חברתית',
     description: 'חוויה ייחודית של תיאטרון בובות, סדנאות והצגות לכל הגילאים. רונית לוז.',
-    url: 'https://tiatronit-site.vercel.app', // או הדומיין הפרטי שלך
+    url: 'https://www.ronitluz.co.il', // או הדומיין הפרטי שלך
     siteName: 'תיאטרונית',
     images: [
       {

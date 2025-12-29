@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: '/private/', // דוגמה, אם תרצה לחסום משהו בעתיד
     },
-    sitemap: 'https://tiatronit-site.vercel.app/sitemap.xml',
+    sitemap: 'https://www.ronitluz.co.il/sitemap.xml',
   }
 }

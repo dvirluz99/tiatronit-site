@@ -1,7 +1,7 @@
 import { showData, homePageStructure } from '../data/presentations';
 
 export default function sitemap() {
-  const baseUrl = 'https://tiatronit-site.vercel.app'; 
+  const baseUrl = 'https://www.ronitluz.co.il'; 
   
   // תיקון: יצירת תאריך בפורמט פשוט שגוגל אוהב (YYYY-MM-DD)
   const currentDate = new Date().toISOString().split('T')[0];
