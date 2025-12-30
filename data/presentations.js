@@ -125,13 +125,13 @@ export const showData = {
         textUnderImg2: 'ההעברת ההצגה במתכונת הצגת יחיד',
         showData: {
             title: "חוהל'ה – משואה לתקומה",
-            description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה הרב זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל בעזרת בובות תיאטרון ומצגת מרגשת.",
+            description: "סיפורה האמיתי, המופלא והמרגש של חוהל'ה ובעלה הרב זלמן, שכל משפחתו נרצחה בשואה. זהו סיפור על אמונה ותקוה, המובא לקהל באמצעות תיאטרון בובות או הצגת יחיד",
             creatorIntro: "ההצגה מועברת ע\"י נכדתם,",
             creatorName: "רונית לוז",
             creatorCredentials: "יועצת חינוכית, מטפלת CBT, ויוצרת תיאטרונית – תיאטרון בובות רגשי-חברתי.",
             audience: "מתאים לכל הגילאים החל מכיתה ד' ועד הגיל השלישי",
             phone: "0542043429",
-            socialProof: "ההצגה הועברה במועדון עמך לניצולי שואה... החל מכיתה ד'"
+            socialProof: "ההצגה הועברה במועדון עמך לניצולי שואה, שלל מוסדות חינוך, ולקהל נרחב.. החל מכיתה ד'"
             },
         vidue: {
             Trailer:[ `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/7bcTavMpMZM?si=Hu5PlHwgkJYKzE7Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,

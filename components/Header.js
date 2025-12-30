@@ -49,7 +49,7 @@ export default function Header() {
 
             <div className="header-left">
                 <Link href="/" onClick={closeMenu}>
-                    <img src="/AllDir/logo/logo1.jpg" alt="Logo" className="img_item_header" />
+                    <img src="/AllDir/logo/logo2.jpeg" alt="Logo" className="img_item_header" />
                 </Link>
             </div>
 
