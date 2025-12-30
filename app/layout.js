@@ -14,6 +14,10 @@ export const metadata = {
   
   title: 'תיאטרונית',
   description: 'תיאטרון בובות רגשי חברתי - רונית לוז',
+  alternates: {
+    canonical: './',
+  },
+  
   icons: {
     icon: '/icon.jpg'
   },
