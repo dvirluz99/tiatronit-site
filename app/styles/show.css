@@ -277,6 +277,22 @@
     font-size: 0.95rem;
 }
 
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%; /* שומר על יחס צפייה של 16:9 (כמו ביוטיוב) */
+    position: relative;
+    height: 0;
+}
+
+.video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 8px; /* אופציונלי: פינות עגולות */
+}
+
 /* --- מובייל --- */
 @media (max-width: 768px) {
     .show-details-container { padding: 1.5rem 1rem; }

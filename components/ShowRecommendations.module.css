@@ -124,6 +124,25 @@
     /* ------------------------------------- */
 }
 
+/* המעטפת ששומרת על יחס 16:9 */
+.videoResponsive {
+    position: relative;
+    padding-bottom: 56.25%; /* יחס גובה-רוחב של יוטיוב standard */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px; /* אופציונלי: לעיגול פינות */
+    background-color: #000; /* רקע שחור למקרה שהסרטון נטען לאט */
+}
+
+/* עיצוב ה-iframe עצמו בתוך המעטפת */
+.videoResponsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /* ============================ */
 /* === התאמה למובייל === */
 /* ============================ */

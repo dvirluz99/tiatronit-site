@@ -41,6 +41,8 @@ export const homePageStructure = [
             {img: 'AllDir/הצגות לילדים/image5.jpg'},
             {img: 'AllDir/הצגות לילדים/image6.jpg'},
             {img: 'AllDir/הצגות לילדים/image7.jpg'},
+            {img: 'AllDir/הצגות לילדים/image8.jpeg'},
+            {img: 'AllDir/הצגות לילדים/image9.jpeg'},
         ],
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
         contains: ['p4','p5','p6','p7','p8','p9']
@@ -138,13 +140,15 @@ export const showData = {
                         `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/iHc3BcP99hY?si=szGNnb8lH4wRzyy_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
             ],
             customers:[
-                { src: '/AllDir/חוהלה משואה לתקומה/customers1.mp4', caption: 'מנהלת חט"ב אבן שמואל' },
-
+                { youtubeId: '2ohf4F7m8xg', caption: 'מנהלת חט"ב אבן שמואל' },
+                { youtubeId: '6r7n6dczljU', caption: 'תלמידה באולפנת טהר' },
+                { youtubeId: '8Ktmp7JiKIk', caption: 'בנות אולפנת טהר' },
             ],
             clips: [
-                { src: '/AllDir/חוהלה משואה לתקומה/clip1.mp4', caption: "חוהל'ה בבית ספר אלומות בבאר שבע"},
-                { src: '/AllDir/חוהלה משואה לתקומה/clip2.mp4', caption: "חוהל'ה בגיל השלישי" },
-                { src: '/AllDir/חוהלה משואה לתקומה/clip3.mp4', caption: "חוהל'ה במועדון גיל השלישי יד בנימין" },
+                { youtubeId: 'mqU9XFYw2dQ', caption: "חוהל'ה בבית ספר אלומות בבאר שבע"},
+                { youtubeId: 'sWiN_zvP1h8', caption: "למועדון הגיל השלישי"},
+                { youtubeId: 'nDhTMMJQn4g', caption: "חוהל'ה באולפנת טהר" },
+                // { src: '/AllDir/חוהלה משואה לתקומה/clip3.mp4', caption: "חוהל'ה במועדון גיל השלישי יד בנימין" },
             ],
         },
         arrayGallery: [
@@ -165,6 +169,10 @@ export const showData = {
                     {img:"AllDir/חוהלה משואה לתקומה/image15.jpg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image16.jpg",},
                     {img:"AllDir/חוהלה משואה לתקומה/image17.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image18.jpg",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image19.JPG",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image20.JPG",},
+                    {img:"AllDir/חוהלה משואה לתקומה/image21.JPG",},
         ],
         },
 
@@ -220,7 +228,7 @@ export const showData = {
             Trailer:[],
             customers:[],
             clips: [
-                { src: '/AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/נעם עולה לכיתה א/clip1.mp4', caption: "מתוך ההצגה שהועברה להורים"},
+                { youtubeId: 'FplN1075aOE', caption: "מתוך ההצגה שהועברה להורים"},
             ],
             },
         arrayGallery: [

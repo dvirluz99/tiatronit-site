@@ -61,29 +61,31 @@ export default function ShowRecommendations({ recommendationIds, showId, userVid
 
       {/* --- חלק 2: סרטוני לקוחות (חדש!) --- */}
       {hasVideos && (
-        <div className={styles.videoSection}>
-            <h3 className={styles.subTitle}>אנשים מדברים</h3>
-            
-            <div className={styles.videoGrid}>
-                {userVideos.map((video, index) => (
-                    <div key={index} className={styles.videoCard}>
-                        <video 
-                            controls 
-                            className={styles.videoPlayer}
-                            // אופציונלי: פוסטר (תמונה מקדימה) לפני שמנגנים
-                            // poster="/path/to/poster.jpg" 
-                        >
-                            <source src={video.src} type="video/mp4" />
-                            דפדפן זה לא תומך בוידאו.
-                        </video>
-                        {video.caption && (
-                            <div className={styles.videoCaption}>{video.caption}</div>
-                        )}
-                    </div>
-                ))}
+            <div className={styles.videoSection}>
+                <h3 className={styles.subTitle}>אנשים מדברים</h3>
+                
+                <div className={styles.videoGrid}>
+                    {userVideos.map((video, index) => (
+                        <div key={index} className={styles.videoCard}>
+                            {/* המעטפת ששומרת על יחס גובה-רוחב */}
+                            <div className={styles.videoResponsive}>
+                                <iframe 
+                                    src={`https://www.youtube.com/embed/${video.youtubeId}`} 
+                                    title={video.caption || "User review"}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowFullScreen
+                                    
+                                ></iframe>
+                            </div>
+
+                            {video.caption && (
+                                <div className={styles.videoCaption}>{video.caption}</div>
+                            )}
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
-      )}
+        )}
 
     </div>
   );

@@ -135,17 +135,24 @@ export default async function ShowPage({ params }) {
           userVideos = {vidueCustomers}
         />
 
-        {/* טעימות מההצגה */}
         {showClips && showClips.length > 0 && (
             <div className="show-clips-section">
                 <h3 className="clips-title">טעימות מההצגה</h3>
                 <div className="clips-grid">
                     {showClips.map((clip, index) => (
                         <div key={index} className="clip-card">
-                            <video controls className="clip-video">
-                                <source src={clip.src} type="video/mp4" />
-                                הדפדפן שלך לא תומך בוידאו.
-                            </video>
+                            {/* עטיפה לשמירה על יחס גובה-רוחב */}
+                            <div className="video-responsive"> 
+                                <iframe
+                                    width="100%"
+                                    height="250"
+                                    // כאן אנחנו בונים את הכתובת דינמית לפי ה-ID
+                                    src={`https://www.youtube.com/embed/${clip.youtubeId}`}
+                                    title={clip.caption || "YouTube video player"}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
                             {clip.caption && <p className="clip-caption">{clip.caption}</p>}
                         </div>
                     ))}
