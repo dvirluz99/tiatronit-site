@@ -36,7 +36,15 @@ return (
             <Link href="/" className={styles.link} onClick={closeMenu}>דף הבית</Link>
             <Link href="/about" className={styles.link} onClick={closeMenu}>קצת עלי</Link>
 
+            {/* --- התוספת החדשה --- */}
             <hr className={styles.divider} />
+            
+            <Link href="/puppets" className={styles.link} onClick={closeMenu}>
+                לימדו על הבובות
+            </Link>
+            
+            <hr className={styles.divider} />
+            {/* --- סוף התוספת החדשה --- */}
 
             {/* --- הצגות לילדים --- */}
             <button className={styles.accordionBtn} onClick={() => toggleSection('kids')}>
