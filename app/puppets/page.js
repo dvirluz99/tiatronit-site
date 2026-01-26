@@ -1,11 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import styles from './page.module.css';
-import {puppetsData} from '../../data/presentations.js';
 
 // --- זה ה-ID של הסרטון מיוטיוב ---
-// עליך להחליף את הקוד הזה בקוד של הסרטון של אמא שלך
 const YOUTUBE_VIDEO_ID = 'NhaQDVbDp4o'; 
 
 export default function PuppetsPage() {
@@ -14,11 +11,11 @@ export default function PuppetsPage() {
       
       {/* כותרת הדף */}
       <header className={styles.header}>
-        <h1 className={styles.title}>הכירו את עולם הבובות</h1>
+        <h1 className={styles.title}>עולם הבובות של תיאטרונית</h1>
         <p className={styles.subtitle}>
-          לכל בובה יש שם, אופי וסיפור משלה. 
+          כיצד מפעילים בובה? איך יוצרים קשר?
           <br />
-          הן עוזרות לנו לדבר על הדברים החשובים באמת בחיוך ובהומור.
+          המדריך המלא לעבודה רגשית עם בובות טיפוליות.
         </p>
       </header>
 
@@ -35,31 +32,42 @@ export default function PuppetsPage() {
         </div>
       </section>
 
-      {/* גריד כרטיסיות הבובות */}
-      <section className={styles.grid}>
-        {puppetsData.map((puppet) => (
-          <div key={puppet.id} className={styles.card}>
-            
-            {/* תמונת הבובה */}
-            <div className={styles.imageContainer}>
-                {/* הערה: אם אין לך עדיין תמונות, אפשר להשתמש ב-img רגיל בינתיים.
-                   Next/Image דורש הגדרת רוחב/גובה או fill.
-                */}
-                <div className={styles.placeholderImage}>
-                    {/* כשתהיה תמונה אמיתית, נשתמש בזה: */}
-                    {/* <Image src={puppet.image} alt={puppet.name} fill style={{objectFit: 'cover'}} /> */}
-                    <span>תמונה של {puppet.name}</span>
-                </div>
-            </div>
+      {/* כרטיס המידע הגדול (במקום הגריד) */}
+      <section className={styles.infoSection}>
+        <div className={styles.infoCard}>
+          
+          <h2 className={styles.infoTitle}>הפילוסופיה שמאחורי הבובה</h2>
+          <p className={styles.paragraph}>
+            הבובה היא הרבה מעבר לחפץ או צעצוע. בגישת "תיאטרונית", הבובה משמשת כגשר – 
+            היא מאפשרת לנו, כמטפלים או כהורים, לעקוף הגנות ולגעת ברגש בצורה עדינה ובטוחה.
+            כשאנחנו מפעילים בובה, אנחנו מעניקים לה נשמה, והיא בתמורה מעניקה לנו את היכולת להקשיב ולהיראות.
+          </p>
 
-            {/* טקסט */}
-            <div className={styles.cardContent}>
-              <h3 className={styles.cardTitle}>{puppet.name}</h3>
-              <div className={styles.divider}></div>
-              <p className={styles.cardDesc}>{puppet.description}</p>
-            </div>
+          <div className={styles.divider}></div>
+
+          <h3 className={styles.subTitle}>עקרונות להפעלה נכונה</h3>
+          <ul className={styles.infoList}>
+            <li>
+              <strong>קשר עין:</strong> הבובה צריכה להסתכל על הילד/המטופל, אבל גם עלינו המפעילים. המשולש הזה יוצר אמינות.
+            </li>
+            <li>
+              <strong>נשימה:</strong> כמונו, גם הבובה צריכה "לנשום". תנועות קטנות של בית החזה של הבובה הופכות אותה לאנושית.
+            </li>
+            <li>
+              <strong>הקשבה:</strong> הבובה היא קודם כל דמות מקשיבה. היא לא חייבת לדבר הרבה כדי להיות משמעותית.
+            </li>
+            <li>
+              <strong>תנועה ואופי:</strong> לכל בובה שפת גוף משלה. בובה ביישנית תזוז לאט, בובה אנרגטית תקפוץ. מצאו את הקצב שלה.
+            </li>
+          </ul>
+
+          <div className={styles.summaryBox}>
+            <p>
+              "הבובה היא המילים שעדיין לא מצאנו. דרכה, הלב נפתח."
+            </p>
           </div>
-        ))}
+
+        </div>
       </section>
 
     </div>

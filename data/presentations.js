@@ -98,7 +98,8 @@ export const homePageStructure = [
         mainImg: "AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/logo_for_orym_leyeladim.jpg", // תמונה ראשית לאוסף
         description: "סדנאות להורים לילדים על קשיים והתמודדויות של הילדים במוסדות החינוך",
         collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-                          `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+                          `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+                          `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/7fWnyfF9dMw?si=a3h1_87k2bwR6uIV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
         ],
         collectionGallery: [
             {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge1.jpg'},
@@ -917,26 +918,3 @@ export const recommendationsData = {
         linkedShowId: "p1" // מקושר להצגה: חווהל'ה משואה לתקומה
     }
 };
-
-export const puppetsData = [
-    {
-        id: 1,
-        name: 'סבתא רוזה',
-        description: 'רוזה היא הקיבוצניקית הנצחית. היא תמיד אומרת את האמת בפנים, גם אם זה לא נעים. היא מייצגת את החוספוס הישראלי אבל עם לב ענק ורצון לחבק.',
-        // שים לב: תצטרך לשים תמונה בשם rosa.jpg בתיקיית public/images או לשנות את הנתיב
-        image: '/images/rosa.jpg', 
-    },
-    {
-        id: 2,
-        name: 'מר ברקוביץ',
-        description: 'ברקוביץ הוא פנסיונר שקצת חושש מהשינויים בעולם. הוא מייצג את החרדות שיש לנו בגיל השלישי, אבל דרך ההומור הוא לומד לקבל את המצב החדש.',
-        image: '/images/berkovich.jpg',
-    },
-    {
-        id: 3,
-        name: 'ציפי',
-        description: 'ציפי היא הנכדה האנרגטית שכל הזמן בטלפון. דרכה אנחנו לומדים על הפער הבין-דורי ואיך אפשר לתקשר למרות המסכים.',
-        image: '/images/zipi.jpg',
-    },
-    // תוכל להוסיף כאן עוד בובות באותו מבנה...
-];
