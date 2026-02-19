@@ -46,7 +46,7 @@ export default function TestimonialsPage() {
               </span>
               
               {rec.linkedShowId && (
-                <Link href={`/show/${rec.linkedShowId}`} className="details-btn">
+                <Link href={`${rec.linkedShowId}`} className="details-btn">
                     לפרטים על ההצגה ←
                 </Link>
               )}

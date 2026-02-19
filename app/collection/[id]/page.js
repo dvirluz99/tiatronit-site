@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { homePageStructure, showData } from '../../../data/presentations';
 import Gallery from '../../../components/Gallery';
+import ShowRecommendations from '../../../components/ShowRecommendations';
 
 export default async function CollectionPage({ params }) {
   // 1. מחלצים את ה-ID של האוסף (למשל card_4)
@@ -93,6 +94,13 @@ export default async function CollectionPage({ params }) {
       {/* הודעה אם אין הצגות באוסף הזה */}
       {showsInCollection.length === 0 && (
           <p style={{textAlign: 'center'}}>כרגע אין הצגות בקטגוריה זו.</p>
+      )}
+
+      {collectionCard.linkRec.length >0 && (
+          <ShowRecommendations 
+          recommendationIds={collectionCard.linkRec} 
+          showId={collectionCard.id}
+      />
       )}
 
       {collectionCard.collectionGallery && collectionCard.collectionGallery.length > 0 && (

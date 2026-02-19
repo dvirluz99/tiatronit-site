@@ -9,14 +9,16 @@ export const homePageStructure = [
         importance: 'recommended',
         mainImg: "AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma1.jpg",
         title: "חוהל'ה משואה לתקומה",
-        linkedShowId: "p1"
+        linkedShowId: "p1",
+        linkRec: []
     },
     {
         id: "card_2",
         type: "single",
         title: "את אחי אנכי מבקש",
         mainImg: "AllDir/את אחי אנכי מבקש/et_ahay_anochy.jpg",
-        linkedShowId: "p2"
+        linkedShowId: "p2",
+        linkRec: []
     },
     {
         id: "card_3",
@@ -25,7 +27,8 @@ export const homePageStructure = [
         mainImg: "AllDir/הצגות והרצאות לבני נוער/potho_for_gift.jpg", // תמונה ראשית לאוסף
         description: "סדנאות מיוחדות לנערות מתגברות",
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: ['p14']
+        contains: ['p14'],
+        linkRec: []
     },
     {
         id: "card_4",
@@ -45,7 +48,8 @@ export const homePageStructure = [
             {img: 'AllDir/הצגות לילדים/image9.jpeg'},
         ],
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: ['p4','p5','p6','p7','p8','p9']
+        contains: ['p4','p5','p6','p7','p8','p9'],
+        linkRec: []
     },
     {
         id: "card_5",
@@ -72,7 +76,8 @@ export const homePageStructure = [
         ],
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: ['p10', 'p11', 'p12']
+        contains: ['p10', 'p11', 'p12'],
+        linkRec: []
     },
     {
         id: "card_6",
@@ -80,6 +85,7 @@ export const homePageStructure = [
         title: "סדנאות בובהתרפיה לבעלי צרכים מיוחדים", // כותרת לכריסייה
         mainImg: 'AllDir/תמונות כלליות והוספות/image9.jpg', // תמונה ראשית לאוסף
         linkedShowId: 'p15',
+        linkRec: []
     },
     {
         id: "card_7",
@@ -89,7 +95,8 @@ export const homePageStructure = [
         description: "השתלמות חוויתית ומעשית לצוותי הגיל הרך - עם כלים מבוססי בובהתרפיה, לחיזוק הקשר עם הילדים, קידום מיומנויות רגשיות וחברתיות, והעשרת עבודת הצוות בדרך יצירתית ומרגשת.",
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: ["p13",]
+        contains: ["p13",],
+        linkRec: []
     },
     {
         id: "card_8",
@@ -98,7 +105,6 @@ export const homePageStructure = [
         mainImg: "AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/logo_for_orym_leyeladim.jpg", // תמונה ראשית לאוסף
         description: "סדנאות להורים לילדים על קשיים והתמודדויות של הילדים במוסדות החינוך",
         collectionVideo: [`<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/97jA2ir7Uu0?si=iAIGNEGyzw2-YC6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-                          `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/0xYlGfS9AGw?si=_66qwSLdmZSFrigF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
                           `<iframe class= "vidue_iframe" src="https://www.youtube.com/embed/7fWnyfF9dMw?si=a3h1_87k2bwR6uIV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
         ],
         collectionGallery: [
@@ -106,10 +112,17 @@ export const homePageStructure = [
             {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge2.jpg'},
             {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge3.jpeg'},
             {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge4.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge5.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge6.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge7.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge8.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge9.jpeg'},
+            {img: 'AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge10.jpeg'},
         ],
         
         // כאן הקסם: הרשימה מכילה IDs של הצגות שקיימות במאגר
-        contains: ["p3",]
+        contains: ["p3",],
+        linkRec: ["rec20"]
     },
 
 ]
@@ -447,7 +460,7 @@ export const showData = {
         id: 'p13',
         type: 'single',
         category: "adults",
-        linkRec: ['rec8'],
+        linkRec: ['rec8', 'rec19'],
         importance: 'accustomed',
         mainImg: 'AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/logo_gor_gananot_gil_arach.jpg',
         showData: {
@@ -616,7 +629,7 @@ export const recommendationsData = {
         `,
         contactInfo: "08-8594172",
         // קישור להצגה הרלוונטית (כדי שיוכלו להזמין אותה משם)
-        linkedShowId: "p6" 
+        linkedShowId: "/show/p6" 
     },
     rec2: {
         id: "rec2",
@@ -635,7 +648,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", // לא צוין טלפון במכתב
-        linkedShowId: "p3" // שיניתי ל-p3 כי זה ה-ID של "נעם עולה לכיתה א'" בקובץ שלך
+        linkedShowId: "/show/p3" // שיניתי ל-p3 כי זה ה-ID של "נעם עולה לכיתה א'" בקובץ שלך
     },
     rec3: {
         id: "rec3",
@@ -654,7 +667,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", // לא צוין מספר טלפון במכתב
-        linkedShowId: "p2" // מזהה ההצגה "חוהלה משואה לתקומה" (לפי הקבצים הקודמים)
+        linkedShowId: "/show/p1" // מזהה ההצגה "חוהלה משואה לתקומה" (לפי הקבצים הקודמים)
     },
     rec4: {
         id: "rec4",
@@ -673,7 +686,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p2" // מקושר גם להצגה "חוהלה" (p2)
+        linkedShowId: "/show/p1" // מקושר גם להצגה "חוהלה" (p2)
     },
     rec5: {
         id: "rec5",
@@ -692,7 +705,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "08-8593825", 
-        linkedShowId: "p2" // מקושר גם להצגה "חוהלה" (p2)
+        linkedShowId: "/show/p1" // מקושר גם להצגה "חוהלה" (p2)
     },
     rec6: {
         id: "rec6",
@@ -711,7 +724,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p2" // מקושר גם להצגה "חוהלה" (p2)
+        linkedShowId: "/show/p1" // מקושר גם להצגה "חוהלה" (p2)
     },
     rec7: {
         id: "rec7",
@@ -730,7 +743,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p2" // מקושר גם להצגה "חוהלה" (p2)
+        linkedShowId: "/show/p1" // מקושר גם להצגה "חוהלה" (p2)
     },
     rec8: {
         id: "rec8",
@@ -748,7 +761,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "02-9908230",
-        linkedShowId: "p13" // מקושר להשתלמות לגננות
+        linkedShowId: "/show/p13" // מקושר להשתלמות לגננות
     },
     rec9: {
         id: "rec9",
@@ -766,7 +779,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "",
-        linkedShowId: "p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
+        linkedShowId: "/show/p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
     },
     // ----------------------------------------------------
 
@@ -785,7 +798,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
+        linkedShowId: "/show/p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
     },
 
     rec11: {
@@ -804,7 +817,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
+        linkedShowId: "/show/p12" // מקושר להצגה: הגיל השלישי עם הפנים קדימה
     },
 
     rec12: {
@@ -822,7 +835,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p12"
+        linkedShowId: "/show/p12"
     },
 
     rec13: {
@@ -841,7 +854,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p15",// כאן תכניס את ה-ID של דף הסדנאות לצרכים מיוחדים אם קיים (למשל "p14" או כדומה)
+        linkedShowId: "/show/p15",// כאן תכניס את ה-ID של דף הסדנאות לצרכים מיוחדים אם קיים (למשל "p14" או כדומה)
     },
 
     rec14: {
@@ -860,7 +873,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p1" // מקושר להצגה: חוהל'ה משואה לתקומה
+        linkedShowId: "/show/p1" // מקושר להצגה: חוהל'ה משואה לתקומה
     },
 
     rec15: {
@@ -879,7 +892,7 @@ export const recommendationsData = {
     `,
     
     contactInfo: "", // לא צוין טלפון
-    linkedShowId: "p1" // ההמלצה מתייחסת לסיפור השואה המשפחתי, שזה כנראה "חוהלה - משואה לתקומה" (p2)
+    linkedShowId: "/show/p1" // ההמלצה מתייחסת לסיפור השואה המשפחתי, שזה כנראה "חוהלה - משואה לתקומה" (p2)
     },
 
     rec16: {
@@ -897,7 +910,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p1" // מקושר להצגה: חווהל'ה משואה לתקומה
+        linkedShowId: "/show/p1" // מקושר להצגה: חווהל'ה משואה לתקומה
     },
 
     rec17: {
@@ -915,7 +928,7 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p1" // מקושר להצגה: חווהל'ה משואה לתקומה
+        linkedShowId: "/show/p1" // מקושר להצגה: חווהל'ה משואה לתקומה
     },
 
     rec18: {
@@ -934,6 +947,42 @@ export const recommendationsData = {
         `,
         
         contactInfo: "", 
-        linkedShowId: "p1" // מקושר להצגה: חווהל'ה משואה לתקומה
+        linkedShowId: "/show/p1" // מקושר להצגה: חווהל'ה משואה לתקומה
+    },
+
+    rec19: {
+        id: "rec19",
+        type: "recommendation",
+        recommenderName: "שלהבת אסולין",
+        recommenderRole: "מדריכת עולים ארצית",
+        date: "", // לא צוין תאריך בטקסט
+        relatedShow: "השתלמות חוויתית ופרקטית לגננות ומורות", 
+        
+        content: `
+            <p>אני מבקשת להודות לך בשם הגננות על הרצאה מעוררת השראה, עמוקה ומדויקת, שנגעה בלב העשייה החינוכית-רגשית בגן.</p>
+            <p>דרך בובות התאטרון ובדרך רגישה ומקצועית הצלחת לפתוח מרחב שבו ניתן היה להתבונן בקונפליקטים פנימיים של ילדים. הדוגמאות שהבאת המחישו כיצד ילד יכול לבטא רגשות מורכבים גם כשאין לו עדיין את כל המילים לכך.</p>
+            <p>הגננות יצאו מההרצאה עם הבנה עמוקה יותר של הילד, עם כלים מעשיים ועם תחושת ביטחון. אני מודה לך על למידה שיש בה עומק, לב ואמונה גדולה בכוחות של ילדים. אין ספק שזו הרצאה שמשאירה חותם.</p>
+        `,
+        
+        contactInfo: "", 
+        linkedShowId: "/show/p13" // עדכן כאן את ה-ID של ההשתלמות אם קיים (למשל p3)
+    },
+
+    rec20: {
+        id: "rec20",
+        type: "recommendation",
+        recommenderName: "ציפי מ",
+        recommenderRole: "יסודות",
+        date: "17.02.2026",
+        relatedShow: "סדנאות בובהתרפיה להורים לילדי גנים ובתי ספר",
+        
+        content: `
+            <p>השבוע היה ממש יפה עם הפעילות שלך, ממש 'דיברת אותנו', הזדהיתי עם הסיטואציות. אהבתי את השתתפות הקהל ברעיונות לפרקטיקה, חיזקת בתובנות לצמיחה.</p>
+            <p>היה מתוק לראות את היחס, הכבוד והרגישות שלך לכל אחת שדיברה. תבורכי ותצליחי!</p>
+            <p>ממליצה גם כפעילויות לילדים - זה באמת כלי מדהים להוציא מהם רגשות חבויים, מאמינה בזה.</p>
+        `,
+        
+        contactInfo: "", 
+        linkedShowId: "/collection/card_8" // אפשר לשנות ל-ID של ההצגה/השתלמות הרלוונטית במערכת שלך
     }
 };
