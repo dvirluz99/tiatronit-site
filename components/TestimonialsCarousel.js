@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { aboutData } from '../data/presentations';
+// import { aboutData } from '../data/presentations';
 
-export default function TestimonialsCarousel() {
+export default function TestimonialsCarousel({aboutData}) {
     const testimonials = aboutData.testimonials;
     const [currentIndex, setCurrentIndex] = useState(0);
 

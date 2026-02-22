@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import { recommendationsData } from '../data/presentations';
+// import { recommendationsData } from '../data/presentations';
+import {getRecommendations} from '../lib/data'
 import styles from './ShowRecommendations.module.css'; 
 
 // הוספנו את userVideos לכאן
-export default function ShowRecommendations({ recommendationIds, showId, userVideos }) {
+export default async function ShowRecommendations({ recommendationIds, showId, userVideos }) {
   
+  const recommendationsData = await getRecommendations();
   // לוגיקה קיימת של המלצות טקסט...
   const relevantRecs = recommendationIds
     ? recommendationIds.map((recId) => recommendationsData[recId]).filter(Boolean)

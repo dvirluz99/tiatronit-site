@@ -1,8 +1,12 @@
 import Link from 'next/link';
-import { aboutData } from '../../data/presentations';
+// import { aboutData } from '../../data/presentations';
+import {getAboutData} from '../../lib/data'
 
-export default function AboutPage() {
-  return (
+export default async function AboutPage() {
+
+    const aboutData = await getAboutData();
+
+    return (
     <main className="continer_main_for_home">
       <div className="about-page-wrapper">
         
@@ -19,7 +23,6 @@ export default function AboutPage() {
             {/* טקסט ראשי */}
             <div className="about-text-content">
                 <h1 className="about-title">{aboutData.title}</h1>
-                {/* השימוש ב-dangerouslySetInnerHTML נדרש כי הטקסט בקובץ הנתונים מכיל תגיות HTML כמו <p> */}
                 <div 
                     className="about-description"
                     dangerouslySetInnerHTML={{ __html: aboutData.mainDescription }}
@@ -33,14 +36,26 @@ export default function AboutPage() {
                 <h3>מילים חמות מהשטח</h3>
                 <div className="testimonials-grid">
                     {aboutData.testimonials.map((item, index) => (
-                        <Link key={index} href={`/recommendation/${item.linkRecId}`}>
-                        <div  className="testimonial-mini-card">
+                        
+                        /* כאן התיקון: הורדנו את ה-Link שעטף הכל, וה-key עבר ל-div */
+                        <div key={index} className="testimonial-mini-card">
                             <div className="quote-icon">❝</div>
                             <p className="testi-text">{item.text}</p>
                             <span className="testi-author">- {item.author}</span>
-                            <Link href={`/show/${item.linkP}`}><span className="testi-from-Pres">{item.fromPresention}</span></Link>
+                            
+                            {/* קישור ראשון: לעמוד ההצגה */}
+                            <Link href={`/show/${item.linkP}`}>
+                                <span className="testi-from-Pres">{item.fromPresention}</span>
+                            </Link>
+
+                            {/* קישור שני: לעמוד ההמלצה המלא (הוספתי שורת רווח קטנה כדי שייראה טוב) */}
+                            <div style={{ marginTop: '15px' }}>
+                                <Link href={`/recommendation/${item.linkRecId}`} style={{ color: '#2998f4', fontWeight: 'bold' }}>
+                                    קראו את ההמלצה המלאה &gt;
+                                </Link>
+                            </div>
                         </div>
-                        </Link>
+
                     ))}
                 </div>
             </div>

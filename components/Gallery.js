@@ -23,8 +23,8 @@ export default function Gallery({ images }) {
     <div className="gallery-grid">
         
         {images.map((item, index) => (
-            <a key={index} href={`/${item.img}`} data-fancybox="gallery">
-                <img src={`/${item.img}`} alt={`תמונה ${index + 1}`} />
+            <a key={index} href={`${item.img}`} data-fancybox="gallery">
+                <img src={`${item.img}`} alt={`תמונה ${index + 1}`} />
             </a>
         ))}
     </div>

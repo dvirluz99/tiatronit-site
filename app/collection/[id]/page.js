@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { homePageStructure, showData } from '../../../data/presentations';
+// import { homePageStructure, showData } from '../../../data/presentations';
+import { getHomePageStructure, getAllShows } from '../../../lib/data';
 import Gallery from '../../../components/Gallery';
 import ShowRecommendations from '../../../components/ShowRecommendations';
 
@@ -7,6 +8,9 @@ export default async function CollectionPage({ params }) {
   // 1. מחלצים את ה-ID של האוסף (למשל card_4)
   const { id } = await params;
 
+  const homePageStructure = await getHomePageStructure();
+  const showData = await getAllShows();
+  
   // 2. מוצאים את הגדרת האוסף מתוך המבנה של דף הבית
   const collectionCard = homePageStructure.find((item) => item.id === id);
 
@@ -77,7 +81,7 @@ export default async function CollectionPage({ params }) {
                 <Link href={linkHref}>
                   <figure>
                     <img 
-                      src={`/${show.mainImg}`} 
+                      src={`${show.mainImg}`} 
                       alt={show.title} 
                       className="img_for_card" 
                     />

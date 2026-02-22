@@ -2,23 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { homePageStructure } from '../data/presentations';
-import SideMenu from './SideMenu'
+import SideMenu from './SideMenu';
 
-export default function Header() {
+// 1. הוספנו את קבלת הנתונים כפרופס
+export default function Header({ homePageStructure, showData }) {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
-  const categories = homePageStructure.filter(item => item.type === 'collection');
 
- useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
-      // נועלים את הגלילה
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
-      // מבטלים תגובות מגע מיותרות על הגוף
       document.body.style.touchAction = 'none';
     } else {
-      // משחררים
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.style.touchAction = '';
@@ -53,7 +49,13 @@ export default function Header() {
                 </Link>
             </div>
 
-            <SideMenu isOpen={isOpen} closeMenu={closeMenu} />
+            {/* 2. אנחנו מעבירים את הנתונים שקיבלנו הלאה לתפריט */}
+            <SideMenu 
+                isOpen={isOpen} 
+                closeMenu={closeMenu} 
+                homePageStructure={homePageStructure}
+                showData={showData}
+            />
 
         </div>
     </header>

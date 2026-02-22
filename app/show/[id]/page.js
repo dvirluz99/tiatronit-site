@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { showData } from '../../../data/presentations';
+// import { showData } from '../../../data/presentations';
+import {getShowById} from '../../../lib/data'
 import Gallery from '../../../components/Gallery';
 import ShowRecommendations from '../../../components/ShowRecommendations';
 
@@ -8,7 +9,7 @@ export default async function ShowPage({ params }) {
   const { id } = await params;
   
   // 2. שליפת המידע
-  const presentation = showData[id];
+  const presentation = await getShowById(id);
 
   if (!presentation) {
     return <div style={{textAlign: 'center', marginTop: '50px'}}>הצגה לא נמצאה</div>;
@@ -51,7 +52,7 @@ export default async function ShowPage({ params }) {
            {/* צד ימין: עוטף את התמונה והטקסט */}
            <div className="logo-wrapper">
                <img 
-                 src={`/${presentation.mainImg1}`} 
+                 src={`${presentation.mainImg1}`} 
                  alt="לוגו ימני" 
                  className="show-flyer-img"
                />
@@ -66,7 +67,7 @@ export default async function ShowPage({ params }) {
            {/* צד שמאל: עוטף את התמונה והטקסט */}
            <div className="logo-wrapper">
                <img 
-                 src={`/${presentation.mainImg2}`} 
+                 src={`${presentation.mainImg2}`} 
                  alt="לוגו שמאלי" 
                  className="show-flyer-img"
                />
@@ -81,7 +82,7 @@ export default async function ShowPage({ params }) {
           <h1 className="presentation-page-title">{presentation.title}</h1>
           {presentation.mainImg && (
              <img 
-               src={`/${presentation.mainImg}`} 
+               src={`${presentation.mainImg}`} 
                alt="פלאייר ההצגה" 
                className="show-flyer-img"
              />

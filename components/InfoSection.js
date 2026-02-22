@@ -8,7 +8,7 @@ const infoCardsData = [
     id: 1,
     type: 'therapy', // סוג חדש: בובותרפיה
     title: "הבובה ככלי לביטוי רגשי",
-    imgSrc: "/AllDir/תמונות כלליות והוספות/image3.jpg", // שים תמונה מתאימה (ילד מחזיק בובה למשל)
+    imgSrc: "https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fgeneral_photo%2Fimage3.jpg?alt=media&token=e1b13905-7e19-4e68-ae9a-12b59dc965f8", // שים תמונה מתאימה (ילד מחזיק בובה למשל)
     imgAlt: "ילד משחק בבובה",
     description: `
       הבובה היא הרבה מעבר למשחק. היא גשר לנפש.
@@ -23,7 +23,7 @@ const infoCardsData = [
     id: 2,
     type: 'activities', // סוג חדש: פעילויות
     title: "הצגות וסדנאות מעוררות השראה",
-    imgSrc: "/AllDir/תמונות כלליות והוספות/image4.jpg", // תמונה של קהל או הצגה
+    imgSrc: "https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fgeneral_photo%2Fimage4.jpg?alt=media&token=b4a3e39d-32d3-4568-bb4b-69b777818f41", // תמונה של קהל או הצגה
     imgAlt: "הצגה מול קהל",
     description: `
       אני מציעה מגוון רחב של פעילויות המותאמות לכל גיל ולכל צורך.

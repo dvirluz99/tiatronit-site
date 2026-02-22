@@ -5,34 +5,8 @@ import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import styls from './homeGallery.module.css'; 
 
-const galleryImages = [
-  '/AllDir/תמונות כלליות והוספות/image1.jpg',
-  '/AllDir/תמונות כלליות והוספות/image2.jpg',
-  '/AllDir/תמונות כלליות והוספות/image3.jpg',
-  '/AllDir/תמונות כלליות והוספות/image4.jpg',
-  '/AllDir/תמונות כלליות והוספות/image5.jpg',
-  '/AllDir/תמונות כלליות והוספות/image6.jpg',
-  '/AllDir/תמונות כלליות והוספות/image7.jpg',
-  '/AllDir/תמונות כלליות והוספות/image8.jpg',
-  '/AllDir/תמונות כלליות והוספות/image9.jpg',
-  '/AllDir/תמונות כלליות והוספות/image10.jpg',
-  '/AllDir/תמונות כלליות והוספות/image11.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image12.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image13.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image14.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image15.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image16.jpeg',
-  '/AllDir/תמונות כלליות והוספות/image17.jpeg',
-  '/AllDir/חוהלה משואה לתקומה/image13.jpg',
-  '/AllDir/חוהלה משואה לתקומה/image14.jpg',
-  '/AllDir/חוהלה משואה לתקומה/image15.jpg',
-  '/AllDir/חוהלה משואה לתקומה/image18.jpg',
-  '/AllDir/סדנאות בובהתרפיה לגננות ולצוותי גיל הרך/imge5.jpg',
-  '/AllDir/סדנאות והרצאות להורים לילדי גנים ובתי ספר/imge1.jpg',
-  '/AllDir/סדנאות לגיל השלישי/imge5.jpg',
-];
 
-export default function HomeGallery() {
+export default function HomeGallery({ images }) {
 
   // 1. הפעלת Fancybox
   useEffect(() => {
@@ -54,7 +28,7 @@ export default function HomeGallery() {
   }, []);
 
   // שכפול התמונות ליצירת לופ אינסופי באנימציה
-  const infiniteImages = [...galleryImages, ...galleryImages];
+  const infiniteImages = [...images, ...images];
 
   return (
     <section className={styls.homeGallerySection}>

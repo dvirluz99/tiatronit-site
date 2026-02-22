@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { homePageStructure, showData } from '../data/presentations';
 import styles from './SideMenu.module.css';
 
-export default function SideMenu({ isOpen, closeMenu }) {
+// 1. הורדנו את ה-async והוספנו את הנתונים כפרופס
+export default function SideMenu({ isOpen, closeMenu, homePageStructure, showData }) {
   
   const [openSection, setOpenSection] = useState('');
 
@@ -14,14 +14,10 @@ export default function SideMenu({ isOpen, closeMenu }) {
   };
 
   // --- סינון הנתונים ---
-  // סדנאות (Collections)
   const workshops = homePageStructure.filter(item => item.type === 'collection');
 
-  // המרת אובייקט ההצגות למערך כדי שנוכל לסנן
   const allShowsArray = Object.values(showData);
   
-  // מיון לפי קטגוריות
-  // וודא שבקובץ הדאטה שלך יש לכל הצגה את השדה category: 'kids' או 'adults'
   const kidsShows = allShowsArray.filter(show => show.category === 'kids');
   const adultsShows = allShowsArray.filter(show => show.category === 'adults');
   const youthShows = allShowsArray.filter(show => show.category === 'youth');

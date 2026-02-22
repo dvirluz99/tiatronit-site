@@ -1,9 +1,16 @@
 import Link from 'next/link';
-import { recommendationsData } from '../../data/presentations';
-import '../styles/testimonials.css'; // 1. ייבוא ה-CSS החדש
+// מחקנו את הייבוא הסטטי:
+// import { recommendationsData } from '../../data/presentations';
+import { getRecommendations } from '../../lib/data';
+import '../styles/testimonials.css'; 
 
-export default function TestimonialsPage() {
+// 1. הוספנו async
+export default async function TestimonialsPage() {
   
+  // 2. משכנו את הנתונים מהענן
+  const recommendationsData = await getRecommendations();
+  
+  // 3. ממירים את האובייקט למערך (נשאר כמו שהיה)
   const allRecommendations = Object.values(recommendationsData);
 
   return (

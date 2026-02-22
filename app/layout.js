@@ -7,6 +7,7 @@ import './styles/footer.css';
 import './styles/carousel.css';
 import Header from '../components/Header.js';
 import Footer from '../components/Footer.js';
+import { getHomePageStructure, getAllShows } from '../lib/data';
 
 export const metadata = {
 
@@ -42,7 +43,10 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+
+  const homePageStructure = await getHomePageStructure();
+  const showData = await getAllShows();
   return (
     <html lang="he" dir="rtl">
       <head>
@@ -53,7 +57,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </head>
       <body>
-        <Header />
+        <Header homePageStructure={homePageStructure} showData={showData}/>
         
         {/* ה-children זה בעצם העמוד הספציפי שאנחנו נמצאים בו (דף הבית, אודות וכו') */}
         {children}

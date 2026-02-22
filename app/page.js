@@ -1,17 +1,23 @@
 import Link from 'next/link';
-import { homePageStructure } from '../data/presentations';
+// import { homePageStructure } from '../data/presentations';
+import {getHomePageStructure, getAboutData, getHomeGalleryImages} from '../lib/data'
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
 import HeroSection from '../components/HeroSection';
 import HomeGallery from '../components/HomeGallery';
 import InfoSection from '../components/InfoSection';
 
-export default function Home() {
+export default async function Home() {
+
+  const homePageStructure = await getHomePageStructure();
+  const aboutData = await getAboutData();
+  const galleryImages = await getHomeGalleryImages();
+
   return (
     <main className="continer_main_for_home">
       
       <HeroSection />
 
-      <HomeGallery/>
+      <HomeGallery images={galleryImages}/>
 
       <InfoSection />
 
@@ -41,7 +47,7 @@ export default function Home() {
               <Link href={linkHref}>
                 <figure>
                   <img 
-                    src={`/${card.mainImg}`} 
+                    src={`${card.mainImg}`} 
                     alt={card.title} 
                     className="img_for_card" 
                   />
@@ -54,7 +60,7 @@ export default function Home() {
           );
         })}
       </div>
-      <TestimonialsCarousel />
+      <TestimonialsCarousel aboutData={aboutData}/>
     </main>
   );
 }

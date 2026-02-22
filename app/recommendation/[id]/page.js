@@ -1,8 +1,12 @@
 import Link from 'next/link';
-import { recommendationsData, showData } from '../../../data/presentations';
+// import { recommendationsData, showData } from '../../../data/presentations';
+import {getRecommendations, getAllShows} from '../../../lib/data'
 
 export default async function RecommendationsPage({ params }) {
   const { id } = await params;
+
+  const recommendationsData = await getRecommendations()
+  const showData = await getAllShows();
 
   // --- לוגיקה לשליפת ההמלצות (כמו ב-ClassPresentation שלך) ---
   let relevantRecommendations = [];

@@ -15,7 +15,7 @@ export default function FeaturedShow() {
         
         <div className={styles.imageContainer}>
           <img 
-            src="/AllDir/חוהלה משואה לתקומה/huale_shoah_tkuma1.jpg" 
+            src="https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fhavale_shoah%2Fhuale_shoah_tkuma1.jpg?alt=media&token=d914a535-3a3e-474d-ae28-a4c4f440f3db" 
             alt="הצגה חדשה" 
             className={styles.cardImage}
           />
