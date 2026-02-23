@@ -1,6 +1,10 @@
-import { showData, homePageStructure } from '../data/presentations';
+// import { showData, homePageStructure } from '../data/presentations';
+import { getHomePageStructure, getAllShows } from '../lib/data';
 
-export default function sitemap() {
+export default async function sitemap() {
+
+  const homePageStructure = await getHomePageStructure();
+  const showData = await getAllShows();
   const baseUrl = 'https://www.ronitluz.co.il'; 
   
   // תיקון: יצירת תאריך בפורמט פשוט שגוגל אוהב (YYYY-MM-DD)
