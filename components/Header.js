@@ -45,7 +45,7 @@ export default function Header({ homePageStructure, showData }) {
 
             <div className="header-left">
                 <Link href="/" onClick={closeMenu}>
-                    <img src="public\logo2.jpeg" alt="Logo" className="img_item_header" />
+                    <img src="/public/logo2.jpeg" alt="Logo" className="img_item_header" />
                 </Link>
             </div>
 
