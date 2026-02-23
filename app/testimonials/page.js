@@ -1,7 +1,6 @@
 import Link from 'next/link';
-// מחקנו את הייבוא הסטטי:
-// import { recommendationsData } from '../../data/presentations';
 import { getRecommendations } from '../../lib/data';
+import { plainTextToHtml } from '../../lib/recommendationContent';
 import '../styles/testimonials.css'; 
 
 // 1. הוספנו async
@@ -43,7 +42,7 @@ export default async function TestimonialsPage() {
             {/* תוכן ההמלצה */}
             <div 
               className="recommendation-body"
-              dangerouslySetInnerHTML={{ __html: rec.content }}
+              dangerouslySetInnerHTML={{ __html: plainTextToHtml(rec.content) }}
             />
 
             {/* פוטר הכרטיס */}

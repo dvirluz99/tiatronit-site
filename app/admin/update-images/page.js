@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { db, storage } from '../../../lib/firebase';
 import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { ref, getDownloadURL } from 'firebase/storage';
+import AdminGuard from '../../../components/admin/AdminGuard';
 
-export default function UpdateImagesPage() {
+function UpdateImagesContent() {
     const [status, setStatus] = useState('ממתין ללחיצה...');
 
     const cleanPath = (path) => {
@@ -170,5 +171,13 @@ export default function UpdateImagesPage() {
             </button>
             <h3 style={{ marginTop: '30px' }}>{status}</h3>
         </div>
+    );
+}
+
+export default function UpdateImagesPage() {
+    return (
+        <AdminGuard>
+            <UpdateImagesContent />
+        </AdminGuard>
     );
 }

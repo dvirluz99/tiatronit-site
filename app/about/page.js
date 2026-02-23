@@ -1,31 +1,29 @@
 import Link from 'next/link';
-// import { aboutData } from '../../data/presentations';
-import {getAboutData} from '../../lib/data'
+import { getAboutData } from '../../lib/data';
+import { plainTextToHtml } from '../../lib/recommendationContent';
 
 export default async function AboutPage() {
-
-    const aboutData = await getAboutData();
+    const aboutData = await getAboutData() || {};
+    const mainImageSrc = aboutData.mainImage
+      ? (aboutData.mainImage.startsWith('http') ? aboutData.mainImage : `/${aboutData.mainImage}`)
+      : '';
 
     return (
     <main className="continer_main_for_home">
       <div className="about-page-wrapper">
         
-        {/* --- חלק עליון: תמונה וטקסט --- */}
         <div className="about-top-section">
-            
-            {/* תמונה (אם יש) */}
-            {aboutData.mainImage && (
+            {mainImageSrc && (
                 <div className="about-image-container">
-                    <img src={`/${aboutData.mainImage}`} alt="רונית לוז" />
+                    <img src={mainImageSrc} alt="רונית לוז" />
                 </div>
             )}
 
-            {/* טקסט ראשי */}
             <div className="about-text-content">
                 <h1 className="about-title">{aboutData.title}</h1>
-                <div 
+                <div
                     className="about-description"
-                    dangerouslySetInnerHTML={{ __html: aboutData.mainDescription }}
+                    dangerouslySetInnerHTML={{ __html: plainTextToHtml(aboutData.mainDescription) }}
                 />
             </div>
         </div>

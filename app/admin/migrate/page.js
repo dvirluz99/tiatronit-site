@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { db } from '../../../lib/firebase.js'; 
 import { doc, setDoc } from 'firebase/firestore';
-
+import AdminGuard from '../../../components/admin/AdminGuard';
 
 // הנתונים המעודכנים לפי שמות התיקיות ב-Storage
 const homeGalleryData = {
@@ -37,7 +37,7 @@ const homeGalleryData = {
 
 
 
-export default function MigratePuppetsPage() {
+function MigrateContent() {
     const [status, setStatus] = useState('ממתין...');
 
     const uploadHomeGallery = async () => {
@@ -57,5 +57,13 @@ export default function MigratePuppetsPage() {
             </button>
             <p style={{ marginTop: '20px', fontWeight: 'bold' }}>{status}</p>
         </div>
+    );
+}
+
+export default function MigratePuppetsPage() {
+    return (
+        <AdminGuard>
+            <MigrateContent />
+        </AdminGuard>
     );
 }

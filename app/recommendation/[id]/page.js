@@ -1,6 +1,6 @@
 import Link from 'next/link';
-// import { recommendationsData, showData } from '../../../data/presentations';
-import {getRecommendations, getAllShows} from '../../../lib/data'
+import { getRecommendations, getAllShows } from '../../../lib/data';
+import { plainTextToHtml } from '../../../lib/recommendationContent';
 
 export default async function RecommendationsPage({ params }) {
   const { id } = await params;
@@ -55,10 +55,10 @@ export default async function RecommendationsPage({ params }) {
                 <span className="rec-date">{rec.date}</span>
               </div>
               
-              {/* תוכן ההמלצה (מכיל HTML ולכן משתמשים ב-dangerouslySetInnerHTML) */}
+              {/* תוכן ההמלצה: טקסט רגיל מומר ל-HTML או HTML קיים (תאימות לאחור) */}
               <div 
                 className="rec-content"
-                dangerouslySetInnerHTML={{ __html: rec.content }}
+                dangerouslySetInnerHTML={{ __html: plainTextToHtml(rec.content) }}
               />
 
               <div className="rec-footer">

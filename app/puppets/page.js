@@ -1,10 +1,8 @@
 import styles from './page.module.css';
-import { getPuppetsData } from '../../lib/data'; // ודא שהנתיב נכון
+import { getPuppetsData } from '../../lib/data';
+import { plainTextToHtml } from '../../lib/recommendationContent';
 
-// מחקנו את ה-'use client' כדי שנוכל להשתמש ב-async/await (Server Component)
 export default async function PuppetsPage() {
-  
-  // מושכים את הנתונים מ-Firebase
   const data = await getPuppetsData();
 
   if (!data) return <div style={{textAlign: 'center', padding: '50px'}}>טוען נתונים...</div>;
@@ -12,13 +10,11 @@ export default async function PuppetsPage() {
   return (
     <div className={styles.container}>
       
-      {/* כותרת הדף */}
       <header className={styles.header}>
         <h1 className={styles.title}>{data.title}</h1>
-        {/* שימוש ב-dangerouslySetInnerHTML בגלל ה-<br /> שיש בכותרת המשנה */}
-        <p 
-            className={styles.subtitle} 
-            dangerouslySetInnerHTML={{ __html: data.subtitle }} 
+        <p
+            className={styles.subtitle}
+            dangerouslySetInnerHTML={{ __html: plainTextToHtml(data.subtitle) }}
         />
       </header>
 
@@ -40,7 +36,7 @@ export default async function PuppetsPage() {
         <div className={styles.infoCard}>
           
           <h2 className={styles.infoTitle}>{data.infoTitle}</h2>
-          <p className={styles.paragraph}>{data.paragraph}</p>
+          <div className={styles.paragraph} dangerouslySetInnerHTML={{ __html: plainTextToHtml(data.paragraph) }} />
 
           <div className={styles.divider}></div>
 

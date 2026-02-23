@@ -1,6 +1,6 @@
 import Link from 'next/link';
-// import { recommendationsData } from '../data/presentations';
-import {getRecommendations} from '../lib/data'
+import { getRecommendations } from '../lib/data';
+import { plainTextToHtml } from '../lib/recommendationContent';
 import styles from './ShowRecommendations.module.css'; 
 
 // הוספנו את userVideos לכאן
@@ -34,7 +34,7 @@ export default async function ShowRecommendations({ recommendationIds, showId, u
                     {/* --- התיקון כאן: שימוש ב-className במקום style --- */}
                     <div
                         className={styles.testiText} 
-                        dangerouslySetInnerHTML={{ __html: rec.content }}
+                        dangerouslySetInnerHTML={{ __html: plainTextToHtml(rec.content) }}
                     />
                     {/* ------------------------------------------------ */}
 
