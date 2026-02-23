@@ -53,7 +53,7 @@ export default function HeroSection() {
                   loop 
                   playsInline
               >
-                  <source src="/AllDir/videos/Hero_bg.mp4" type="video/mp4" />
+                  <source src="https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fvideos%2FHero_bg.mp4?alt=media&token=55e77b04-89c6-4d38-b502-4e7274b46272" type="video/mp4" />
                   הדפדפן שלך לא תומך בוידאו.
               </video>
           </div>
