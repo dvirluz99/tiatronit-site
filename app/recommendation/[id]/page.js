@@ -6,6 +6,7 @@ import {
   linkedTargetTitle,
 } from '../../../lib/data';
 import { plainTextToHtml } from '../../../lib/recommendationContent';
+import ScrollReveal from '../../../components/ScrollReveal';
 
 export default async function RecommendationsPage({ params }) {
   const { id } = await params;
@@ -46,27 +47,36 @@ export default async function RecommendationsPage({ params }) {
   }
 
   return (
-    <main className="continer_main_for_home">
+    <main>
       <div className="recommendation-page-wrapper">
 
-        <h2 className="recommendation-header">המלצות חמות</h2>
+        <ScrollReveal variant="fade" as="h2" className="recommendation-header">
+          המלצות חמות
+        </ScrollReveal>
 
-        <div
-          className="recommendations-list-container"
-          style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
-        >
-          {relevant.map((rec) => {
+        <div className="recommendations-list-container">
+          {relevant.map((rec, index) => {
             const title = linkedTargetTitle(rec.linkedTarget, shows, collectionsById);
             return (
-              <div key={rec.id} className="recommendation-card-full">
-
+              <ScrollReveal
+                key={rec.id}
+                as="article"
+                className="recommendation-card-full"
+                delay={Math.min(index * 80, 320)}
+              >
                 <div className="rec-meta">
                   <span className="rec-role">
                     <strong>{rec.recommenderName}</strong>
-                    <br />
-                    <span style={{ fontSize: '0.9em', color: '#666' }}>{rec.recommenderRole}</span>
+                    {rec.recommenderRole && (
+                      <>
+                        <br />
+                        <span style={{ fontSize: 'var(--fs-sm)', color: 'var(--c-text-muted)' }}>
+                          {rec.recommenderRole}
+                        </span>
+                      </>
+                    )}
                   </span>
-                  <span className="rec-date">{rec.date}</span>
+                  {rec.date && <span className="rec-date">{rec.date}</span>}
                 </div>
 
                 <div
@@ -76,18 +86,18 @@ export default async function RecommendationsPage({ params }) {
 
                 {title && (
                   <div className="rec-footer">
-                    <p><strong>מתייחס להצגה:</strong> {title}</p>
+                    <strong>מתייחס ל-</strong>
+                    {title}
                   </div>
                 )}
-
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
 
         <div className="rec-cta-container">
-          <Link href="/contact" className="cta-button-large contact_us">
-            להזמנת הצגה / סדנא צרו קשר
+          <Link href="/contact" className="cta-button-large">
+            להזמנת הצגה / סדנא
           </Link>
         </div>
 

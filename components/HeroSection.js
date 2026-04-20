@@ -1,66 +1,72 @@
-'use client'; 
+'use client';
 
 import styles from './HeroSection.module.css';
-import FeaturedShow from './FeaturedShow';
+import ScrollReveal from './ScrollReveal';
 
 export default function HeroSection() {
-  
+
   const scrollToShows = () => {
-    const showsSection = document.getElementById('shows-grid');
-    if (showsSection) {
-      showsSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    const target = document.getElementById('shows-grid');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    // קונטיינר ראשי שקוף - אחראי רק על המיקום
-    <div className={styles.layoutContainer}>
-      
-      {/* צד ימין: ההמלצה (מחוץ לרקע) */}
-      <div className={styles.sidebarWrapper}>
-        <FeaturedShow />
-      </div>
-      
-      {/* צד שמאל: כרטיס ה-Hero המעוצב */}
-      <section className={styles.heroCard}>
-        
-        {/* טקסט */}
-        <div className={styles.textContent}>
-          <h1 className={styles.title}>
-          <span className={styles.highlight}>תיאטרונית-</span>
-          תיאטרון בובות רגשי חברתי
-          </h1>
-          
-          <p className={styles.description}>
-            הקמתי את תיאטרונית מתוך אהבה ושליחות - לחבר בין אנשים, רגשות ובמה.
-            <br />
-            <strong> בובהתרפיה</strong> 
-            <span> היא כלי עוצמתי ליצירת קשר, עיבוד רגשי והעצמה- לילדים, נוער, מבוגרים, וקשישים. שילוב ייחודי של אמנות, טיפול וחינוך, המעניק חוויה מקרבת, מרגשת ובלתי נשכחת.</span>
-          </p>
+    <section className={styles.hero} aria-labelledby="hero-title">
+      <ScrollReveal variant="slide-right" className={styles.content}>
+        <span className={styles.eyebrow}>תיאטרון בובות רגשי–חברתי</span>
 
-          <button onClick={scrollToShows} className={styles.ctaButton}>
-            מוזמנים לראות את ההצגות שלנו ⬇️
+        <h1 id="hero-title" className={styles.title}>
+          <span className={styles.titleAccent}>תיאטרונית</span>
+          {' '}— חוויה של נפש ובמה
+        </h1>
+
+        <p className={styles.subtitle}>
+          הקמתי את תיאטרונית מתוך אהבה ושליחות, לחבר בין אנשים, רגשות ובמה.{' '}
+          <strong>בובהתרפיה</strong> היא כלי עוצמתי ליצירת קשר, עיבוד רגשי והעצמה —
+          לילדים, בני נוער, מבוגרים וקשישים. שילוב ייחודי של אמנות, טיפול וחינוך,
+          המעניק חוויה מקרבת, מרגשת ובלתי נשכחת.
+        </p>
+
+        <div className={styles.actions}>
+          <button onClick={scrollToShows} className={styles.ctaPrimary}>
+            לראות את ההצגות
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14" />
+              <path d="M19 12l-7 7-7-7" />
+            </svg>
           </button>
+          <a href="/contact" className={styles.ctaSecondary}>
+            ליצירת קשר
+          </a>
         </div>
+      </ScrollReveal>
 
-        {/* וידאו/תמונה */}
-        <div className={styles.mediaContent}>
-          <div className={styles.videoWrapper}>
-              <video 
-                  className={styles.videoElement}
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
-              >
-                  <source src="https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fvideos%2FHero_bg.mp4?alt=media&token=55e77b04-89c6-4d38-b502-4e7274b46272" type="video/mp4" />
-                  הדפדפן שלך לא תומך בוידאו.
-              </video>
-          </div>
+      <ScrollReveal variant="slide-left" className={styles.media} delay={120}>
+        <div className={styles.videoFrame}>
+          <video autoPlay muted loop playsInline preload="auto">
+            <source
+              src="https://firebasestorage.googleapis.com/v0/b/teatronit-db.firebasestorage.app/o/AllDir%2Fvideos%2FHero_bg.mp4?alt=media&token=55e77b04-89c6-4d38-b502-4e7274b46272"
+              type="video/mp4"
+            />
+          </video>
+          <div className={styles.mediaBadge}>עם הלב, בכל גיל</div>
         </div>
+      </ScrollReveal>
 
-      </section>
-
-    </div>
+      <ScrollReveal className={styles.stats} delay={240}>
+        <div className={styles.stat}>
+          <div className={styles.statNumber}>+15</div>
+          <div className={styles.statLabel}>הצגות וסדנאות</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statNumber}>+20</div>
+          <div className={styles.statLabel}>המלצות מקצועיות</div>
+        </div>
+        <div className={styles.stat}>
+          <div className={styles.statNumber}>כל הגילאים</div>
+          <div className={styles.statLabel}>מילדים עד הגיל השלישי</div>
+        </div>
+      </ScrollReveal>
+    </section>
   );
 }

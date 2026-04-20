@@ -1,164 +1,163 @@
-/* --- מסגרת הקרוסלה --- */
+/* ============================================================
+   Testimonials carousel — warm, understated
+   ============================================================ */
+
 .carousel-section {
-    max-width: 1000px;
-    margin: 4rem auto 2rem auto;
-    padding: 0 20px;
-    text-align: center;
-    position: relative;
+  max-width: 1100px;
+  margin: var(--section-padding-y) auto 0;
+  padding: 0 var(--content-pad) var(--section-padding-y);
+  text-align: center;
+  position: relative;
 }
 
 .carousel-title {
-    color: #1a4f7c;
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-    position: relative;
-    display: inline-block;
+  font-family: var(--font-serif);
+  color: var(--c-primary-900);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-4);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
 }
 
 .carousel-title::after {
-    content: '';
-    display: block;
-    width: 60%;
-    height: 4px;
-    background: #8ec5fc;
-    margin: 5px auto 0;
-    border-radius: 2px;
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin: var(--sp-3) auto var(--sp-8);
+  border-radius: var(--r-pill);
 }
 
-/* --- המיכל של הכרטיסים והכפתורים --- */
 .carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  position: relative;
 }
 
-/* --- רשת הכרטיסים --- */
 .carousel-track {
-    display: grid;
-    /* במחשב: 2 עמודות שוות */
-    grid-template-columns: 1fr 1fr; 
-    gap: 20px;
-    width: 100%;
-    /* אפקט מעבר חלק (אם נרצה בעתיד) */
-    transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  width: 100%;
+  transition: all var(--dur-base) var(--ease-out);
 }
 
-/* --- כרטיס המלצה בודד --- */
 .carousel-card {
-    background: #ffffff;
-    border: 1px solid #eef2f6;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 50, 100, 0.05);
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 220px; /* גובה אחיד */
-    text-decoration: none; /* שלא יהיה קו תחתון כי זה לינק */
-    animation: slideIn 0.4s ease-out forwards;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: clamp(1.5rem, 2.5vw, 2.25rem);
+  box-shadow: var(--shadow-sm);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 240px;
+  text-decoration: none;
+  position: relative;
+  animation: fadeIn var(--dur-slow) var(--ease-gentle) forwards;
 }
 
 .carousel-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(41, 152, 244, 0.15);
-    border-color: #2998f4;
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-accent-300);
 }
 
 .carousel-quote-icon {
-    font-size: 2rem;
-    color: #b3d7ff;
-    margin-bottom: 1rem;
-    line-height: 1;
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--c-accent-300);
+  line-height: 0.5;
+  margin-bottom: var(--sp-4);
 }
 
 .carousel-text {
-    font-size: 1.05rem;
-    color: #4a5568;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-    /* מגביל את הטקסט ל-3 שורות כדי לשמור על גובה אחיד */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-5);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-style: normal;
 }
 
 .carousel-author {
-    font-weight: 700;
-    color: #1a4f7c;
-    font-size: 0.95rem;
-    border-top: 1px solid #f0f7ff;
-    padding-top: 10px;
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
+  font-size: var(--fs-base);
+  border-top: 1px solid var(--c-border);
+  padding-top: var(--sp-3);
+  font-family: var(--font-sans);
 }
 
 .carousel-show-name {
-    font-size: 0.85rem;
-    color: #2998f4;
-    margin-top: 5px;
-    display: block;
+  font-size: var(--fs-sm);
+  color: var(--c-accent-600);
+  margin-top: var(--sp-1);
+  display: block;
+  font-weight: var(--fw-medium);
 }
 
-/* --- כפתורי ניווט (חצים) --- */
+/* ——— Nav buttons ——— */
 .carousel-btn {
-    background: white;
-    border: 1px solid #e0e0e0;
-    color: #1a4f7c;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: all 0.2s;
-    z-index: 2;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  color: var(--c-primary-700);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+  z-index: 2;
+  flex-shrink: 0;
 }
 
 .carousel-btn:hover {
-    background: #2998f4;
-    color: white;
-    border-color: #2998f4;
+  background: var(--c-primary-700);
+  color: var(--c-text-inverse);
+  border-color: var(--c-primary-700);
+  transform: scale(1.08);
+  box-shadow: var(--shadow-md);
 }
 
-/* --- התאמה למובייל --- */
+.carousel-btn:active {
+  transform: scale(0.96);
+}
+
 @media (max-width: 768px) {
-    .carousel-track {
-        /* במובייל: עמודה אחת בלבד */
-        grid-template-columns: 1fr; 
-    }
-    
-    /* מסתיר את הכרטיס השני במובייל (כי אין מקום) */
-    .carousel-card:nth-child(2) {
-        display: none;
-    }
-
-    .carousel-section {
-        padding: 0 10px;
-        margin-top: 3rem;
-    }
-
-    .carousel-card {
-        animation: slideIn 0.3s ease-out forwards;
-    }
+  .carousel-track {
+    grid-template-columns: 1fr;
+  }
+  .carousel-card:nth-child(2) {
+    display: none;
+  }
+  .carousel-section {
+    padding-bottom: calc(var(--section-padding-y) * 0.7);
+  }
 }
 
-/* הגדרת האנימציה: שקיפות + תזוזה קטנה */
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(20px); /* מתחיל קצת בצד */
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0); /* מגיע למקום */
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

@@ -1,186 +1,154 @@
-/* components/ShowRecommendations.module.css */
+/* ============================================================
+   ShowRecommendations — compact, warm, fits show + collection pages
+   ============================================================ */
 
 .container {
-    width: 100%;
-    padding: 2rem 1rem;
-    margin-bottom: 2rem;
-    background-color: #f8fbff;
-    border-top: 1px solid #eef6ff;
-    border-bottom: 1px solid #eef6ff;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-10);
 }
 
 .title {
-    text-align: center;
-    font-size: 2rem;
-    color: #1a4f7c;
-    margin-bottom: 2rem;
-    font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  margin: 0 0 var(--sp-6);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin: var(--sp-2) auto 0;
+  border-radius: var(--r-pill);
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-5);
 }
 
 .card {
-    background: #f0f7ff;
-    padding: 2.5rem 2rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    position: relative;
-    transition: all 0.3s ease;
-    border: 1px solid #dceeff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.12);
-    background: #ffffff;
-    border-color: #2998f4;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-accent-300);
 }
 
-/* --- תוספת עבור סרטוני המלצה (מתוקן לגודל קטן) --- */
+.card :global(.quote-icon) {
+  font-family: var(--font-serif);
+  font-size: 2.75rem;
+  color: var(--c-accent-200);
+  line-height: 0.5;
+  margin-bottom: var(--sp-2);
+}
+
+.testiText {
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text);
+  flex: 1;
+}
+
+.testiText p {
+  margin: 0 0 var(--sp-2);
+}
+
+.testiText p:last-child {
+  margin-bottom: 0;
+}
+
+.card :global(.testi-author) {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
+  font-size: var(--fs-base);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-border);
+  display: block;
+}
+
+/* ——— Customer video section ——— */
 
 .videoSection {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px dashed #b3d7ff;
+  padding-top: var(--sp-8);
+  border-top: 1px dashed var(--c-border);
 }
 
 .subTitle {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #1a4f7c;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  margin: 0 0 var(--sp-6);
 }
 
 .videoGrid {
-    display: flex; /* במקום Grid, נשתמש ב-Flex כדי לשלוט בגודל טוב יותר */
-    flex-wrap: wrap; /* ירד שורה אם אין מקום */
-    justify-content: center; /* ממורכז לאמצע */
-    gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-5);
 }
 
 .videoCard {
-    background: #ffffff;
-    padding: 8px; 
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 50, 100, 0.05);
-    border: 1px solid #dceeff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
-    /* --- הגבלת הגודל --- */
-    width: 400px; /* רוחב קבוע וקטן (כמו טלפון קטן) */
-    flex-shrink: 0; /* מונע כיווץ יתר */
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base);
 }
 
 .videoCard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(41, 152, 244, 0.2);
-    border-color: #2998f4;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
-.videoPlayer {
-    width: 100%;
-    /* יחס של סרטון עומד (כמו וואטסאפ/סטורי) */
-    aspect-ratio: 16 / 12; 
-    border-radius: 8px;
-    background-color: #000;
-    object-fit: cover;
+.videoResponsive {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: var(--c-primary-900);
+}
+
+.videoResponsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .videoCaption {
-    text-align: center;
-    margin-top: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #1a4f7c;
-}
-
-/* ... שאר הקוד ... */
-
-/* עיצוב הטקסט בתוך הכרטיס */
-.testiText {
-    font-size: 1rem;
-    color: #334155;
-    margin-bottom: 1.5rem; /* רווח קבוע מהחלק התחתון */
-    line-height: 1.6;
-    
-    /* --- הקסם לחיתוך טקסט מרובה שורות --- */
-    display: -webkit-box;
-    -webkit-line-clamp: 6; /* מקסימום 6 שורות (בערך 150px) */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis; /* מוסיף ... בסוף */
-    /* ------------------------------------- */
-}
-
-/* המעטפת ששומרת על יחס 16:9 */
-.videoResponsive {
-    position: relative;
-    padding-bottom: 56.25%; /* יחס גובה-רוחב של יוטיוב standard */
-    height: 0;
-    overflow: hidden;
-    border-radius: 8px; /* אופציונלי: לעיגול פינות */
-    background-color: #000; /* רקע שחור למקרה שהסרטון נטען לאט */
-}
-
-/* עיצוב ה-iframe עצמו בתוך המעטפת */
-.videoResponsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-/* ============================ */
-/* === התאמה למובייל === */
-/* ============================ */
-@media (max-width: 768px) {
-    .container {
-        padding: 1.5rem 0.5rem;
-    }
-
-    .title {
-        font-size: 1.6rem;
-        margin-bottom: 1.5rem;
-    }
-
-    /* התאמה לכרטיסי טקסט */
-    .grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .card {
-        padding: 1.5rem;
-        border-radius: 16px;
-    }
-
-    /* התאמה לוידאו במובייל */
-    .videoGrid {
-        display: grid; /* במובייל נחזור לגריד כדי שיהיה מסודר */
-        grid-template-columns: 1fr; /* 2 בשורה */
-        gap: 10px;
-    }
-
-    .videoCard {
-        width: 100%; /* במובייל הוא יתפוס את רוחב העמודה שלו */
-    }
-
-    .testiText {
-        -webkit-line-clamp: 8; /* במובייל ניתן קצת יותר שורות כי הגלילה ארוכה */
-        font-size: 0.95rem;
-        margin-bottom: 1rem;
-    }
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-semibold);
 }

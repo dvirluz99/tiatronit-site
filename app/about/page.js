@@ -1,62 +1,69 @@
 import Link from 'next/link';
 import { getAboutData } from '../../lib/data';
 import { plainTextToHtml } from '../../lib/recommendationContent';
+import ScrollReveal from '../../components/ScrollReveal';
 
 export default async function AboutPage() {
-    const aboutData = await getAboutData() || {};
-    const mainImageSrc = aboutData.mainImage
-      ? (aboutData.mainImage.startsWith('http') ? aboutData.mainImage : `/${aboutData.mainImage}`)
-      : '';
+  const aboutData = (await getAboutData()) || {};
+  const mainImageSrc = aboutData.mainImage
+    ? aboutData.mainImage.startsWith('http') ? aboutData.mainImage : `/${aboutData.mainImage}`
+    : '';
 
-    return (
-    <main className="continer_main_for_home">
+  return (
+    <main>
       <div className="about-page-wrapper">
-        
-        <div className="about-top-section">
-            {mainImageSrc && (
-                <div className="about-image-container">
-                    <img src={mainImageSrc} alt="רונית לוז" />
-                </div>
-            )}
 
-            <div className="about-text-content">
-                <h1 className="about-title">{aboutData.title}</h1>
-                <div
-                    className="about-description"
-                    dangerouslySetInnerHTML={{ __html: plainTextToHtml(aboutData.mainDescription) }}
-                />
-            </div>
-        </div>
+        <section className="about-top-section">
+          {mainImageSrc && (
+            <ScrollReveal variant="slide-right" className="about-image-container">
+              <img src={mainImageSrc} alt="רונית לוז" />
+            </ScrollReveal>
+          )}
 
-        {/* --- חלק תחתון: כרטיסיות ציטוטים --- */}
+          <ScrollReveal variant="slide-left" className="about-text-content">
+            <h1 className="about-title">{aboutData.title}</h1>
+            <div
+              className="about-description"
+              dangerouslySetInnerHTML={{ __html: plainTextToHtml(aboutData.mainDescription) }}
+            />
+          </ScrollReveal>
+        </section>
+
         {aboutData.testimonials && aboutData.testimonials.length > 0 && (
-            <div className="testimonials-section">
-                <h3>מילים חמות מהשטח</h3>
-                <div className="testimonials-grid">
-                    {aboutData.testimonials.map((item, index) => (
-                        
-                        /* כאן התיקון: הורדנו את ה-Link שעטף הכל, וה-key עבר ל-div */
-                        <div key={index} className="testimonial-mini-card">
-                            <div className="quote-icon">❝</div>
-                            <p className="testi-text">{item.text}</p>
-                            <span className="testi-author">- {item.author}</span>
-                            
-                            {/* קישור ראשון: לעמוד ההצגה */}
-                            <Link href={`/show/${item.showId}`}>
-                                <span className="testi-from-Pres">{item.fromShowTitle}</span>
-                            </Link>
+          <section className="testimonials-section">
+            <ScrollReveal variant="fade">
+              <h3>מילים חמות מהשטח</h3>
+            </ScrollReveal>
+            <div className="testimonials-grid">
+              {aboutData.testimonials.map((item, index) => (
+                <ScrollReveal
+                  key={index}
+                  as="div"
+                  className="testimonial-mini-card"
+                  delay={Math.min(index * 70, 420)}
+                >
+                  <div className="quote-icon">❝</div>
+                  <p className="testi-text">{item.text}</p>
+                  <span className="testi-author">— {item.author}</span>
 
-                            {/* קישור שני: לעמוד ההמלצה המלא */}
-                            <div style={{ marginTop: '15px' }}>
-                                <Link href={`/recommendation/${item.recommendationId}`} style={{ color: '#2998f4', fontWeight: 'bold' }}>
-                                    קראו את ההמלצה המלאה &gt;
-                                </Link>
-                            </div>
-                        </div>
+                  {item.fromShowTitle && item.showId && (
+                    <Link href={`/show/${item.showId}`}>
+                      <span className="testi-from-Pres">{item.fromShowTitle}</span>
+                    </Link>
+                  )}
 
-                    ))}
-                </div>
+                  {item.recommendationId && (
+                    <Link
+                      href={`/recommendation/${item.recommendationId}`}
+                      style={{ color: 'var(--c-accent-600)', fontWeight: 600, fontSize: 'var(--fs-sm)' }}
+                    >
+                      קראו את ההמלצה המלאה ←
+                    </Link>
+                  )}
+                </ScrollReveal>
+              ))}
             </div>
+          </section>
         )}
 
       </div>

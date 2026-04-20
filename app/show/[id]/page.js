@@ -2,9 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getShowById, getAllShows } from '../../../lib/data';
 import dynamic from 'next/dynamic';
+import ScrollReveal from '../../../components/ScrollReveal';
 
 const Gallery = dynamic(() => import('../../../components/Gallery'));
 const ShowRecommendations = dynamic(() => import('../../../components/ShowRecommendations'));
+
+const CATEGORY_LABEL = { kids: 'ילדים', youth: 'בני נוער', adults: 'מבוגרים' };
 
 export async function generateStaticParams() {
   const shows = await getAllShows();
@@ -28,110 +31,141 @@ export async function generateMetadata({ params }) {
   };
 }
 
+const IconAudience = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="7" r="4" /><path d="M3 21v-2a6 6 0 016-6h0a6 6 0 016 6v2" /><circle cx="17" cy="5" r="2" />
+  </svg>
+);
+
+const IconTag = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20.59 13.41L13.42 20.58a2 2 0 01-2.83 0L3 13V3h10l7.59 7.59a2 2 0 010 2.82z" />
+    <line x1="7" y1="7" x2="7.01" y2="7" />
+  </svg>
+);
+
 export default async function ShowPage({ params }) {
   const { id } = await params;
   const show = await getShowById(id);
 
   if (!show) {
-    return <div style={{ textAlign: 'center', marginTop: '50px' }}>הצגה לא נמצאה</div>;
+    return (
+      <main className="div_presentation">
+        <p style={{ textAlign: 'center', marginTop: '3rem' }}>הצגה לא נמצאה</p>
+      </main>
+    );
   }
 
   const formats = show.presentationFormats || [];
-  const hasMultipleFormats = formats.length >= 2;
+  const heroImage = show.mainImg || formats[0]?.image;
 
   const trailers = show.video?.trailers || [];
   const clips = show.video?.clips || [];
   const customerClips = show.video?.customerClips || [];
 
+  const categoryLabel = CATEGORY_LABEL[show.category] || show.category;
+
   return (
-    <div className="div_presentation">
+    <main className="div_presentation">
 
-      {hasMultipleFormats ? (
-        <div className="header-double-layout">
-
-          <div className="logo-wrapper">
-            <Image
-              src={formats[0].image}
-              alt="גרסה ראשונה"
-              className="show-flyer-img"
-              width={500}
-              height={500}
-            />
-            {formats[0].caption && <p className="logo-caption">{formats[0].caption}</p>}
-          </div>
+      <section className="show-hero">
+        <ScrollReveal variant="slide-right" className="show-hero-text">
+          <span className="show-eyebrow">
+            {show.priority === 'featured' ? 'ההצגה המועברת ביותר' : 'הצגה / סדנא'}
+          </span>
 
           <h1 className="presentation-page-title">{show.title}</h1>
 
-          <div className="logo-wrapper">
-            <Image
-              src={formats[1].image}
-              alt="גרסה שנייה"
-              className="show-flyer-img"
-              width={500}
-              height={500}
-            />
-            {formats[1].caption && <p className="logo-caption">{formats[1].caption}</p>}
+          {show.description && (
+            <p className="show-hero-description">{show.description}</p>
+          )}
+
+          <div className="show-meta">
+            <span className="show-meta-chip"><IconTag />{categoryLabel}</span>
+            {show.audience && <span className="show-meta-chip"><IconAudience />{show.audience}</span>}
           </div>
-        </div>
-      ) : (
-        <div className="show-header-wrapper">
-          <h1 className="presentation-page-title">{show.title}</h1>
-          {(show.mainImg || formats[0]?.image) && (
+
+          <div className="cta-container">
+            {show.recommendationIds && show.recommendationIds.length > 0 && (
+              <Link href={`/recommendation/${show.id}`} className="cta-button">
+                קראו המלצות
+              </Link>
+            )}
+            <Link href="/contact" className="cta-button invitation-button">
+              להזמנה
+            </Link>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal variant="slide-left" className="show-hero-media" delay={120}>
+          {heroImage && (
             <Image
-              src={show.mainImg || formats[0].image}
-              alt="פלאייר ההצגה"
-              className="show-flyer-img"
-              width={500}
-              height={500}
+              src={heroImage}
+              alt={show.title}
+              width={700}
+              height={875}
+              priority
             />
           )}
-        </div>
+        </ScrollReveal>
+      </section>
+
+      {formats.length >= 2 && (
+        <ScrollReveal>
+          <div className="show-formats">
+            {formats.slice(0, 2).map((f, i) => (
+              <div key={i} className="show-format-item">
+                <div className="show-format-img">
+                  <Image src={f.image} alt={f.caption || `גרסה ${i + 1}`} width={400} height={400} />
+                </div>
+                {f.caption && <p className="show-format-caption">{f.caption}</p>}
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       )}
 
       {trailers.length > 0 && (
-        <div className="div_trailer">
-          {trailers.map((youtubeId) => (
-            <iframe
-              key={youtubeId}
-              className="vidue_iframe"
-              src={`https://www.youtube.com/embed/${youtubeId}`}
-              title="טריילר ההצגה"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              loading="lazy"
-            />
-          ))}
-        </div>
+        <ScrollReveal variant="fade">
+          <div className="div_trailer">
+            {trailers.map((youtubeId) => (
+              <iframe
+                key={youtubeId}
+                className="vidue_iframe"
+                src={`https://www.youtube.com/embed/${youtubeId}`}
+                title="טריילר ההצגה"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </ScrollReveal>
       )}
 
-      <div className="show-details-container">
-        <h2 className="show-title">{show.title}</h2>
-        <p className="show-description">{show.description}</p>
+      <ScrollReveal className="show-details-container">
+        <h2 className="show-title">על ההצגה</h2>
+        {show.description && <p className="show-description">{show.description}</p>}
 
-        <div className="creator-bio">
-          <p className="creator-intro">{show.creatorIntro}</p>
-          <p className="creator-name">{show.creatorName}</p>
-          <p className="creator-credentials">{show.creatorCredentials}</p>
-        </div>
+        {(show.creatorName || show.creatorIntro || show.creatorCredentials) && (
+          <div className="creator-bio">
+            {show.creatorIntro && <p className="creator-intro">{show.creatorIntro}</p>}
+            {show.creatorName && <p className="creator-name">{show.creatorName}</p>}
+            {show.creatorCredentials && <p className="creator-credentials">{show.creatorCredentials}</p>}
+          </div>
+        )}
 
-        <p className="audience-highlight">{show.audience}</p>
+        {show.audience && (
+          <p className="audience-highlight">{show.audience}</p>
+        )}
 
-        <div className="cta-container">
-          {show.recommendationIds && show.recommendationIds.length > 0 && (
-            <Link href={`/recommendation/${show.id}`} className="cta-button">
-              להמלצות
-            </Link>
-          )}
-          <Link href="/contact" className="invitation-button contact_us">
-            להזמנה
-          </Link>
-        </div>
-
-        <div className="social-proof">
-          <h4>ניסיון וקהלים:</h4>
-          <p>{show.socialProof}</p>
-        </div>
-      </div>
+        {show.socialProof && (
+          <div className="social-proof">
+            <h4>ניסיון וקהלים</h4>
+            <p>{show.socialProof}</p>
+          </div>
+        )}
+      </ScrollReveal>
 
       <ShowRecommendations
         recommendationIds={show.recommendationIds}
@@ -140,17 +174,15 @@ export default async function ShowPage({ params }) {
       />
 
       {clips.length > 0 && (
-        <div className="show-clips-section">
+        <ScrollReveal className="show-clips-section">
           <h3 className="clips-title">טעימות מההצגה</h3>
           <div className="clips-grid">
             {clips.map((clip, index) => (
               <div key={index} className="clip-card">
                 <div className="video-responsive">
                   <iframe
-                    width="100%"
-                    height="250"
                     src={`https://www.youtube.com/embed/${clip.youtubeId}`}
-                    title={clip.caption || 'YouTube video player'}
+                    title={clip.caption || 'קטע מההצגה'}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     loading="lazy"
@@ -160,20 +192,17 @@ export default async function ShowPage({ params }) {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       )}
 
       {show.gallery && show.gallery.length > 0 && (
-        <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-          <h2
-            className="collection-section-title"
-            style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}
-          >
+        <ScrollReveal>
+          <h3 className="gallery-title" style={{ display: 'block', textAlign: 'center' }}>
             גלריית תמונות
-          </h2>
+          </h3>
           <Gallery images={show.gallery} />
-        </div>
+        </ScrollReveal>
       )}
-    </div>
+    </main>
   );
 }

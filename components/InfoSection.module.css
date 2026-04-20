@@ -1,175 +1,228 @@
-/* components/InfoSection.module.css */
+/* ============================================================
+   Info section — alternating editorial blocks
+   ============================================================ */
 
-/* המיכל הראשי */
 .wrapper {
-    width: 100%;
-    overflow: hidden;
-    background-color: #fff;
+  width: 100%;
 }
 
-/* --- סקשן בודד --- */
-.fullWidthSection {
-    width: 100%;
-    padding: 6rem 0; /* מרווח נדיב */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+.section {
+  width: 100%;
+  padding: var(--section-padding-y) 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* רקע לבן נקי */
-.bgWhite {
-    background-color: #ffffff;
+.sectionAlt {
+  background: var(--c-surface-alt);
 }
 
-/* רקע כחול עמוק ומדורג - נותן את ה"עומק" שרצית */
-.bgBlue {
-    background: linear-gradient(135deg, #f0f8ff 0%, #e6f0fa 100%);
-    border-top: 1px solid #eef6ff;
-    border-bottom: 1px solid #eef6ff;
+/* decorative corner accent */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: -6rem;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c-accent-50), transparent 70%);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* --- תוכן פנימי --- */
-.contentContainer {
-    max-width: 1100px;
-    width: 90%;
-    display: flex;
-    align-items: center; /* ממרכז גובה */
-    justify-content: space-between; /* מרווח בין טקסט לתמונה */
-    gap: 60px; /* רווח גדול בין התמונה לטקסט */
+.sectionAlt::before {
+  right: auto;
+  left: -6rem;
+  top: 30%;
+  background: radial-gradient(circle, var(--c-primary-100), transparent 70%);
 }
 
-/* הופך את הסדר (תמונה משמאל) */
-.reverseLayout {
-    flex-direction: row-reverse;
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-pad);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
 }
 
-/* --- צד הטקסט --- */
-.textContent {
-    flex: 1; 
+.reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.reverse .text  { grid-column: 2; grid-row: 1; }
+.reverse .media { grid-column: 1; grid-row: 1; }
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.label {
+  align-self: flex-start;
+  padding: var(--sp-1) var(--sp-4);
+  background: var(--c-accent-100);
+  color: var(--c-accent-700);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  border-radius: var(--r-pill);
+  text-transform: uppercase;
 }
 
 .title {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #1a4f7c;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-    position: relative;
-}
-
-/* פס קישוט קטן ליד הכותרת */
-.title::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 4px;
-    background: linear-gradient(to right, #2998f4, #8ec5fc);
-    margin-bottom: 15px;
-    border-radius: 2px;
+  font-family: var(--font-serif);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-primary-900);
+  margin: 0;
+  position: relative;
 }
 
 .description {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #4a5568;
-    margin-bottom: 2rem;
-    white-space: pre-line;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text-muted);
+  margin: 0;
+  white-space: pre-line;
 }
 
-.button {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: transparent;
-    color: #1a4f7c;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 50px;
-    border: 2px solid #1a4f7c;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+.cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.8rem 1.8rem;
+  background: transparent;
+  color: var(--c-primary-700);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  border: 1.5px solid var(--c-primary-700);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+  font-family: inherit;
+  text-decoration: none;
 }
 
-.button:hover {
-    background: #1a4f7c;
-    color: white;
-    box-shadow: 0 5px 15px rgba(26, 79, 124, 0.2);
-    transform: translateY(-2px);
+.cta:hover {
+  background: var(--c-primary-700);
+  color: var(--c-text-inverse);
+  transform: translateY(-2px);
 }
 
-/* --- צד התמונה (העיצוב החדש והקטן) --- */
-.imageWrapper {
-    /* גודל קבוע! לא ימתח יותר מזה */
-    flex: 0 0 280px; 
-    width: 280px;
-    height: 280px;
-    
-    position: relative;
-    z-index: 1;
+.cta svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
-/* אלמנט דקורטיבי מאחורי התמונה (עיגול צבעוני) */
-.imageWrapper::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 100%;
-    height: 100%;
-    background: rgba(41, 152, 244, 0.1); /* צללית כחולה */
-    border-radius: 30px;
-    z-index: -1;
-    transition: transform 0.3s ease;
+.cta:hover svg {
+  transform: translateX(-4px); /* RTL: arrow moves "forward" to the left */
 }
 
-/* התמונה עצמה */
+/* ——— Media ——— */
+.media {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  justify-self: center;
+  aspect-ratio: 4 / 5;
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  transform: rotate(-1deg);
+  transition: transform var(--dur-slow) var(--ease-gentle);
+}
+
+.reverse .imageWrap {
+  transform: rotate(1deg);
+}
+
+.media:hover .imageWrap {
+  transform: rotate(0);
+}
+
 .image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 30px; /* פינות עגולות מאוד */
-    
-    /* מסגרת לבנה עבה + צללית = מראה יוקרתי */
-    border: 8px solid #ffffff;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    
-    transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-gentle);
 }
 
-/* אנימציה עדינה בריחוף */
-.fullWidthSection:hover .image {
-    transform: scale(1.02);
+.media:hover .image {
+  transform: scale(1.04);
 }
 
-.fullWidthSection:hover .imageWrapper::before {
-    transform: translate(10px, -10px); /* הזזת הרקע האחורי */
+/* decorative outline frame, offset */
+.media::before {
+  content: '';
+  position: absolute;
+  inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+  border: 2px solid var(--c-accent-300);
+  border-radius: var(--r-xl);
+  z-index: -1;
+  transition: inset var(--dur-slow) var(--ease-gentle);
 }
 
-/* --- מובייל --- */
+.reverse .media::before {
+  inset: 1.25rem 1.25rem -1.25rem -1.25rem;
+}
+
+.media:hover::before {
+  inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+}
+
+.reverse .media:hover::before {
+  inset: 0.75rem 0.75rem -0.75rem -0.75rem;
+}
+
+/* ——— Mobile ——— */
 @media (max-width: 900px) {
-    .fullWidthSection {
-        padding: 4rem 0;
-    }
+  .container,
+  .reverse {
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 2.5rem);
+    text-align: start;
+  }
 
-    .contentContainer {
-        flex-direction: column-reverse; /* תמונה למעלה, טקסט למטה */
-        gap: 2rem;
-        text-align: center;
-    }
+  .reverse .text  { grid-column: 1; grid-row: 2; }
+  .reverse .media { grid-column: 1; grid-row: 1; }
 
-    /* במובייל מבטלים את ההיפוך צדדים, הכל אותו דבר */
-    .reverseLayout {
-        flex-direction: column-reverse;
-    }
+  .text {
+    grid-row: 2;
+  }
 
-    .title::before {
-        margin: 0 auto 15px auto; /* מרכוז הפס */
-    }
+  .media {
+    grid-row: 1;
+    max-width: 360px;
+    aspect-ratio: 4 / 3;
+  }
 
-    .imageWrapper {
-        /* במובייל נקטין טיפה אבל נשאיר ריבוע */
-        width: 240px;
-        height: 240px;
-        flex: 0 0 240px;
-    }
+  .imageWrap,
+  .reverse .imageWrap {
+    transform: none;
+  }
+
+  .media::before,
+  .reverse .media::before {
+    inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+  }
 }

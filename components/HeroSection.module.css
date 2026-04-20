@@ -1,215 +1,350 @@
-/* קונטיינר כללי - אחראי על הסידור של ההמלצה מול ה-Hero */
-.layoutContainer {
-    display: flex;
-    align-items: center; /* כדי שיהיו באותו גובה אם תרצה */
-    justify-content: center;
-    gap: 2rem;
-    max-width: 1300px;
-    margin: 2rem auto 4rem auto;
-    padding: 0 1rem;
+/* ============================================================
+   Hero section — modern, warm, breathing
+   ============================================================ */
+
+.hero {
+  position: relative;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: clamp(2rem, 3vw + 1rem, 5rem) var(--content-pad) var(--section-gap);
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(2rem, 4vw, 5rem);
+  align-items: center;
 }
 
-/* --- האזור הצדדי (FeaturedShow) --- */
-.sidebarWrapper {
-    display: block;
-    flex: 0 0 300px; /* רוחב קבוע להמלצה */
-    z-index: 5;
-    animation: fadeInRight 0.8s ease-out;
-    /* אין כאן רקע - זה יושב ישירות על רקע האתר */
+/* Subtle warm accent blob that sits behind the layout */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -4rem;
+  left: -10rem;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, var(--c-accent-100), transparent 60%);
+  opacity: 0.75;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(40px);
 }
 
-@keyframes fadeInRight {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -8rem;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--c-primary-100), transparent 65%);
+  opacity: 0.9;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(40px);
 }
 
-/* --- הכרטיס המעוצב (Hero) --- */
-.heroCard {
-    flex: 1; /* תופס את שאר המקום */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 2rem;
-    
-    /* העיצוב הועבר לכאן */
-    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
-    border-radius: 30px;
-    box-shadow: 0 20px 40px rgba(0, 50, 100, 0.05);
-    border: 1px solid #eef6ff;
-    position: relative;
-    overflow: visible;
-    gap: 2rem;
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
 }
 
-/* קישוט רקע עדין - בתוך הכרטיס */
-.heroCard::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 200px;
-    height: 200px;
-    background: #dceeff;
-    border-radius: 50%;
-    opacity: 0.5;
-    z-index: 0;
-    pointer-events: none;
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  align-self: flex-start;
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--c-surface);
+  color: var(--c-accent-600);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--c-border);
 }
 
-/* --- תוכן ה-Hero (טקסט ומדיה) --- */
-
-.textContent {
-    flex: 1;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    position: relative;
-    z-index: 1;
-    min-width: 300px;
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-accent-400);
+  box-shadow: 0 0 0 4px rgba(209, 135, 88, 0.18);
 }
 
 .title {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1a4f7c;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
+  font-family: var(--font-serif);
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-primary-900);
+  margin: 0;
 }
 
-.highlight {
-    color: #2998f4;
-    position: relative;
-    display: inline-block;
+.titleAccent {
+  color: var(--c-accent-500);
+  position: relative;
+  display: inline-block;
 }
 
-.highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background: #b3d7ff;
-    z-index: -1;
-    opacity: 0.6;
-    border-radius: 4px;
+.titleAccent::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0.1em 0;
+  height: 0.16em;
+  background: var(--c-accent-200);
+  z-index: -1;
+  border-radius: var(--r-xs);
+  transform: scaleX(1.04);
+  transform-origin: right;
 }
 
-.description {
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: #4a5568;
-    margin-bottom: 2rem;
-    max-width: 100%;
+.subtitle {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text-muted);
+  margin: 0;
+  max-width: 48ch;
 }
 
-.ctaButton {
-    display: inline-block;
-    background: linear-gradient(135deg, #2998f4, #1a73e8);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 700;
-    padding: 0.8rem 2.5rem;
-    border-radius: 50px;
-    box-shadow: 0 10px 20px rgba(41, 152, 244, 0.3);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
+.subtitle strong {
+  color: var(--c-primary-700);
+  font-weight: var(--fw-semibold);
 }
 
-.ctaButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.4);
-    background: linear-gradient(135deg, #4dabf5, #2998f4);
+.actions {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--sp-2);
 }
 
-.mediaContent {
-    flex: 1;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: flex-end;
-    min-width: 300px;
+/* Primary CTA — solid, warm */
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.95rem 2rem;
+  background: var(--c-primary-700);
+  color: var(--c-text-inverse);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  border: none;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
 }
 
-.videoWrapper {
-    width: 100%;
-    max-width: 480px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 20px 20px 0px rgba(230, 240, 255, 1), 0 10px 30px rgba(0,0,0,0.1);
-    transform: rotate(-2deg);
-    transition: transform 0.5s ease;
-    border: 4px solid #fff;
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--c-primary-800);
+  color: var(--c-text-inverse);
 }
 
-.videoWrapper:hover {
-    transform: rotate(0deg) scale(1.02);
+.ctaPrimary:active {
+  transform: translateY(0);
 }
 
-.videoElement {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+.ctaPrimary svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--dur-base) var(--ease-out);
 }
 
-/* --- התאמה למסכים בינוניים (טאבלט) --- */
-@media (max-width: 1100px) {
-    .sidebarWrapper {
-        display: none; /* מסתירים את ההמלצה הצדדית */
-    }
-    
-    .layoutContainer {
-        display: block; /* מבטל את הפלקס הראשי */
-        max-width: 900px;
-        padding: 0 1rem;
-    }
-
-    .heroCard {
-        width: 100%;
-        justify-content: center;
-        gap: 3rem;
-    }
-
-    .textContent {
-        padding-right: 0;
-    }
+.ctaPrimary:hover svg {
+  transform: translateY(3px);
 }
 
-/* --- התאמה למובייל --- */
+/* Secondary CTA — quiet, text button */
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.8rem 1.5rem;
+  background: transparent;
+  color: var(--c-primary-700);
+  font-weight: var(--fw-semibold);
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+}
+
+.ctaSecondary:hover {
+  border-color: var(--c-primary-700);
+  background: var(--c-primary-50);
+  color: var(--c-primary-800);
+}
+
+/* ——— Media ——— */
+.media {
+  position: relative;
+  z-index: 1;
+}
+
+.videoFrame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  background: var(--c-primary-900);
+  transform: rotate(-1.5deg);
+  transition: transform var(--dur-slow) var(--ease-gentle);
+}
+
+.videoFrame:hover {
+  transform: rotate(0);
+}
+
+.videoFrame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Decorative frame offset */
+.media::before {
+  content: '';
+  position: absolute;
+  inset: 1.5rem -1.5rem -1.5rem 1.5rem;
+  border: 2px solid var(--c-accent-200);
+  border-radius: var(--r-xl);
+  z-index: -1;
+  transition: inset var(--dur-slow) var(--ease-gentle);
+}
+
+.media:hover::before {
+  inset: 1rem -1rem -1rem 1rem;
+}
+
+/* Subtle floating badge on the media */
+.mediaBadge {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--c-surface);
+  color: var(--c-text);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  z-index: 2;
+}
+
+.mediaBadge::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c-accent-400);
+  animation: pulse 2s infinite var(--ease-out);
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(209, 135, 88, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(209, 135, 88, 0); }
+}
+
+/* ——— Stats strip (below the grid) ——— */
+.stats {
+  grid-column: 1 / -1;
+  margin-top: clamp(2rem, 4vw, 4rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--sp-6);
+  padding: var(--sp-6) var(--sp-8);
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat {
+  text-align: center;
+}
+
+.statNumber {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-black);
+  color: var(--c-primary-700);
+  line-height: 1;
+}
+
+.statLabel {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  font-weight: var(--fw-medium);
+}
+
+.stat + .stat {
+  position: relative;
+}
+
+.stat + .stat::before {
+  content: '';
+  position: absolute;
+  right: calc(var(--sp-6) * -0.5);
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: var(--c-border);
+}
+
+/* ——— Mobile ——— */
 @media (max-width: 900px) {
-    .heroCard {
-        flex-direction: column-reverse;
-        padding: 2rem 1.5rem;
-        text-align: center;
-        gap: 2rem;
-    }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 6vw, 3rem);
+    text-align: start;
+  }
 
-    .textContent {
-        padding: 0;
-        margin: 0;
-        min-width: unset;
-        width: 100%;
-    }
+  .hero::before {
+    top: -2rem;
+    left: -50%;
+    width: 300px;
+    height: 300px;
+  }
 
-    .title {
-        font-size: 2.2rem;
-    }
+  .hero::after {
+    display: none;
+  }
 
-    .description {
-        font-size: 1.1rem;
-    }
+  .content {
+    order: 1;
+  }
 
-    .mediaContent {
-        justify-content: center;
-        min-width: unset;
-        width: 100%;
-    }
+  .media {
+    order: 0;
+  }
 
-    .videoWrapper {
-        max-width: 100%;
-        transform: rotate(0deg);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
+  .videoFrame {
+    transform: none;
+    aspect-ratio: 16 / 10;
+  }
+
+  .media::before {
+    inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+  }
+
+  .stat + .stat::before {
+    display: none;
+  }
 }

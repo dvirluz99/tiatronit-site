@@ -1,421 +1,475 @@
+/* ============================================================
+   Show detail page — editorial, rich, responsive
+   ============================================================ */
+
 .div_presentation {
-    display: grid;
-    place-items: center;
-    gap: 15px;
-    font-size: 20px;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 4rem) var(--content-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
 }
 
-/* --- קוד קיים ללוגו יחיד --- */
-.show-header-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    margin: 1.5rem 0 2rem 0;
-    position: relative;
-    width: 100%;
-    padding-bottom: 20px; 
+/* ——— Hero for the show ——— */
+
+.show-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+  position: relative;
 }
 
-/* --- קוד חדש: תצוגה כפולה (2 לוגואים) --- */
-.header-double-layout {
-    display: flex;
-    align-items: center; /* ממרכז אנכית */
-    justify-content: center;
-    gap: 40px; /* רווח בין האלמנטים */
-    margin: 1.5rem 0 2rem 0;
-    width: 100%;
-    max-width: 1200px;
-    padding-bottom: 20px;
+.show-hero::after {
+  content: '';
+  position: absolute;
+  top: -3rem;
+  right: -6rem;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--c-accent-100), transparent 70%);
+  opacity: 0.7;
+  filter: blur(50px);
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* עיצוב הפלאייר */
-.show-flyer-img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 3px solid #fff;
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.show-hero-media {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  transform: rotate(-1deg);
+  transition: transform var(--dur-slow) var(--ease-gentle);
 }
 
-@keyframes popIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+.show-hero-media:hover {
+  transform: rotate(0);
 }
 
-/* כותרת ראשית */
+.show-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-gentle);
+}
+
+.show-hero-media:hover img {
+  transform: scale(1.04);
+}
+
+.show-hero-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.show-eyebrow {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-4);
+  background: var(--c-primary-100);
+  color: var(--c-primary-800);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  border-radius: var(--r-pill);
+}
+
+.show-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-accent-400);
+}
+
 .presentation-page-title {
-    /* הסרתי את text-align: right הספציפי כדי שיתאים גם למרכז */
-    text-align: center; 
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1a4f7c;
-    margin: 0;
-    line-height: 1.2;
-    text-shadow: 2px 2px 0px rgba(255,255,255,1), 0px 4px 10px rgba(0,0,0,0.05);
-    position: relative; /* חשוב לאלמנטים המצוירים */
+  font-family: var(--font-serif);
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-black);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-primary-900);
+  margin: 0;
 }
 
-/* אם זה בתוך ה-wrapper הישן (לוגו בודד), נחזיר לימין */
-.show-header-wrapper .presentation-page-title {
-    text-align: right;
+.show-hero-description {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text-muted);
+  margin: 0;
+  max-width: 48ch;
 }
 
-/* קו עיצובי מתחת לכותרת */
-.presentation-page-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px; /* הורדתי קצת למטה שיהיה מרווח */
-    left: 50%;
-    transform: translateX(-50%); 
-    width: 80px; 
-    height: 6px;
-    background: linear-gradient(to right, #2998f4, #8ec5fc); 
-    border-radius: 10px;
+.show-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
 }
 
-/* נקודה קטנה ועיצובית במרכז הקו */
-.presentation-page-title::before {
-    content: '♦';
-    position: absolute;
-    bottom: -23px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #1a4f7c;
-    font-size: 1.5rem;
-    padding: 0 10px;
-    z-index: 2;
+.show-meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.4rem 0.85rem;
+  background: var(--c-surface);
+  color: var(--c-primary-900);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
 }
 
-/* --- כרטיס פרטי ההצגה --- */
+.show-meta-chip svg {
+  width: 14px;
+  height: 14px;
+  color: var(--c-accent-500);
+}
+
+/* ——— Double format layout (presentationFormats) ——— */
+
+.show-formats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-6);
+  border-top: 1px dashed var(--c-border);
+}
+
+.show-format-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  text-align: start;
+}
+
+.show-format-img {
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: var(--c-primary-900);
+}
+
+.show-format-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.show-format-caption {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  line-height: var(--lh-snug);
+}
+
+/* ——— CTA row ——— */
+
+.cta-container {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: var(--sp-2);
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.9rem 1.8rem;
+  background: transparent;
+  color: var(--c-primary-700);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  border: 1.5px solid var(--c-primary-700);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--c-primary-700);
+  color: var(--c-text-inverse);
+  transform: translateY(-2px);
+}
+
+.invitation-button,
+.cta-button.invitation-button {
+  background: var(--c-accent-500);
+  color: var(--c-surface);
+  border-color: var(--c-accent-500);
+  box-shadow: var(--shadow-warm);
+}
+
+.invitation-button:hover,
+.cta-button.invitation-button:hover {
+  background: var(--c-accent-600);
+  border-color: var(--c-accent-600);
+  color: var(--c-surface);
+  box-shadow: 0 20px 34px rgba(190, 108, 64, 0.25);
+}
+
+/* ——— Content section ——— */
+
 .show-details-container {
-    width: 90%;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem 2.5rem;
-    background-color: #f0f7ff;
-    border: 1px solid #dceeff;
-    box-shadow: 0 8px 25px rgba(0, 50, 100, 0.05);
-    border-radius: 15px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: clamp(1.75rem, 3vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  position: relative;
+}
+
+.show-details-container::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  width: 4px;
+  height: 56px;
+  background: var(--c-accent-400);
+  border-radius: var(--r-pill);
+  transform: translateX(50%);
 }
 
 .show-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #1a4f7c;
-    margin-top: 0;
-    margin-bottom: 1rem;
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-bold);
+  margin: 0;
+  line-height: var(--lh-snug);
 }
 
 .show-description {
-    text-align: center;
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: #4a5568;
-    margin-bottom: 2rem;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text);
+  margin: 0;
 }
 
-/* ביוגרפיה */
 .creator-bio {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    border: 1px solid #eef2f6;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--c-bg-subtle);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  border-inline-start: 3px solid var(--c-accent-400);
 }
 
-.creator-intro { font-size: 1rem; margin: 0; color: #64748b; }
-.creator-name { font-size: 1.3rem; font-weight: 700; color: #1e293b; margin: 0.25rem 0; }
-.creator-credentials { font-size: 0.9rem; font-style: italic; color: #64748b; margin: 0; }
+.creator-intro {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  margin: 0;
+}
+
+.creator-name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
+  margin: 0;
+}
+
+.creator-credentials {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  line-height: var(--lh-relaxed);
+  margin: 0;
+}
 
 .audience-highlight {
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #0c4a6e;
-    background: #e0f2fe;
-    border: 1px solid #bae6fd;
-    padding: 0.75rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  color: var(--c-accent-700);
+  background: var(--c-accent-50);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
 
-/* כפתורים */
-.cta-container {
-    text-align: center;
-    margin-bottom: 2.5rem;
-}
-
-.cta-button, .invitation-button {
-    display: inline-block;
-    background: linear-gradient(135deg, #2998f4, #1a73e8);
-    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3);
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-decoration: none;
-    padding: 0.8rem 2.5rem;
-    border-radius: 30px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin: 5px;
-    border: none;
-}
-
-.cta-button:hover, .invitation-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(26, 115, 232, 0.5);
-    background: linear-gradient(135deg, #4dabf5, #2998f4);
+.audience-highlight::before {
+  content: '👥';
+  font-size: 1.1em;
 }
 
 .social-proof {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #64748b;
-    border-top: 1px dashed #b3d7ff;
-    padding-top: 1.5rem;
+  padding-top: var(--sp-5);
+  border-top: 1px dashed var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
+
+.social-proof h4 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-base);
+  color: var(--c-primary-800);
+  margin: 0;
+}
+
+.social-proof p {
+  font-size: var(--fs-base);
+  color: var(--c-text-muted);
+  margin: 0;
+  line-height: var(--lh-relaxed);
+}
+
+/* ——— Trailers ——— */
 
 .div_trailer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    margin: 20px auto;
-    width: 100%;
-}
-
-.div_trailer iframe {
-    max-width: 90%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
 }
 
 .vidue_iframe {
-    width: 450px;
-    height: 300px;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--c-primary-900);
 }
 
-.gallery-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 15px;
-    padding: 15px;
-}
+/* ——— Clips section ——— */
 
-.gallery-grid a {
-    display: block;
-    width: 150px; 
-    aspect-ratio: 1 / 1; 
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease-in-out;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.gallery-grid a:hover {
-    transform: scale(1.05);
-    z-index: 2;
-}
-
-.gallery-grid img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* קטעים מההצגה */
 .show-clips-section {
-    width: 100%;
-    max-width: 1000px;
-    margin: 3rem auto;
-    text-align: center;
+  text-align: center;
 }
 
-.clips-title, .gallery-title {
-    font-size: 2rem;
-    color: #1a4f7c;
-    margin-bottom: 1.5rem;
-    font-weight: 800;
-    text-align: center;
+.clips-title,
+.gallery-title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--sp-8);
+  position: relative;
+  display: inline-block;
+  letter-spacing: var(--ls-tight);
+}
+
+.clips-title::after,
+.gallery-title::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin: var(--sp-2) auto 0;
+  border-radius: var(--r-pill);
 }
 
 .clips-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--sp-5);
 }
 
 .clip-card {
-    background: #fff;
-    padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border: 1px solid #dceeff;
-    width: 450px;
+  background: var(--c-surface);
+  padding: var(--sp-3);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--c-border);
+  text-align: start;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
 }
 
-.clip-video {
-    width: 100%;
-    border-radius: 8px;
-    aspect-ratio: 16 / 9;
-    background: #000;
+.clip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .clip-caption {
-    margin-top: 8px;
-    color: #1a4f7c;
-    font-weight: 600;
-    font-size: 0.95rem;
+  margin-top: var(--sp-2);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
 }
 
 .video-responsive {
-    overflow: hidden;
-    padding-bottom: 56.25%; /* שומר על יחס צפייה של 16:9 (כמו ביוטיוב) */
-    position: relative;
-    height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+  border-radius: var(--r-md);
 }
 
 .video-responsive iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    border-radius: 8px; /* אופציונלי: פינות עגולות */
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  border-radius: var(--r-md);
+  border: none;
 }
 
-/* --- מובייל --- */
-@media (max-width: 768px) {
-    .show-details-container { padding: 1.5rem 1rem; }
-    .show-title { font-size: 2rem; }
-    .cta-button, .invitation-button { padding: 0.7rem 2rem; font-size: 1.1rem; }
-    
-    /* עיצוב רגיל (לוגו בודד) במובייל */
-    .show-header-wrapper {
-        width: 90%;
-        gap: 15px;
-        text-align: center;
-    }
+/* ——— Mobile ——— */
 
-    /* === עיצוב חדש ל-2 לוגואים במובייל === */
-    .header-double-layout {
-        display: grid; /* עובר ל-Grid במקום Flex */
-        grid-template-columns: 1fr 1fr; /* שתי עמודות לתמונות */
-        grid-template-rows: auto auto; /* שורה לכותרת, שורה לתמונות */
-        gap: 20px;
-        justify-items: center; /* ממרכז את התוכן בכל תא */
-        width: 95%;
-        margin: 1rem auto;
-    }
-
-    /* הכותרת תתפוס את כל הרוחב בשורה הראשונה */
-    .header-double-layout .presentation-page-title {
-        grid-column: 1 / -1; /* פורש על כל העמודות */
-        grid-row: 1; /* שורה ראשונה */
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    /* התמונות ייכנסו אוטומטית לשורה השנייה, כל אחת בעמודה משלה */
-    
-    .show-flyer-img {
-        width: 150px;
-        height: 150px;
-    }
-
-    .presentation-page-title {
-        text-align: center;
-        font-size: 2.2rem;
-        margin: 1rem 0 1.5rem 0;
-        padding-bottom: 10px;
-    }
-
-    .div_trailer {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        align-items: center;
-    }
-    
-    .vidue_iframe {
-        width: 100%;
-        max-width: 800px;
-        height: 200px;
-    }
-
-    .gallery-grid a {
-        width: calc(50% - 10px); 
-    }
-
-    .clip-card {
-        width: 90%;
-    }
+@media (max-width: 900px) {
+  .show-hero {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+    text-align: start;
+  }
+  .show-hero-media {
+    transform: none;
+    aspect-ratio: 16 / 10;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .show-hero::after {
+    display: none;
+  }
+  .show-formats {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
 }
 
-
-/* --- תוספות עבור טקסט מתחת לתמונות --- */
-
-/* העוטף של כל תמונה + טקסט */
-.logo-wrapper {
-    display: flex;
-    flex-direction: column; /* מסדר את התמונה מעל הטקסט */
-    align-items: center;    /* ממרכז אותם אחד ביחס לשני */
-    max-width: 250px;       /* מגביל את רוחב הטקסט שלא יימרח */
-}
-
-/* עיצוב הטקסט שמתחת לתמונה */
-.logo-caption {
-    margin-top: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1a4f7c; /* אותו צבע כחול של המותג */
-    text-align: center;
-    line-height: 1.3;
-    background: rgba(255, 255, 255, 0.7); /* רקע לבן חצי שקוף לקריאות */
-    padding: 5px 10px;
-    border-radius: 8px;
-}
-
-/* --- עדכון למובייל עבור המבנה החדש --- */
-@media (max-width: 768px) {
-    
-    /* בגלל שעטפנו ב-div, הגריד עכשיו עובד על ה-wrapper ולא על התמונה ישירות.
-       זה מצוין, כי זה שומר את הטקסט צמוד לתמונה שלו.
-    */
-    
-    .header-double-layout {
-        /* שומרים על הגדרות הגריד הקודמות */
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto; 
-        gap: 20px;
-        justify-items: center;
-        align-items: start; /* חשוב: יישור לחלק העליון במקרה שטקסט אחד ארוך מהשני */
-    }
-
-    /* הכותרת עדיין למעלה */
-    .header-double-layout .presentation-page-title {
-        grid-column: 1 / -1;
-        grid-row: 1;
-    }
-
-    /* התאמות לטקסט במובייל */
-    .logo-caption {
-        font-size: 0.9rem; /* קצת יותר קטן במובייל */
-        padding: 0;
-        margin-top: 5px;
-    }
-    
-    .logo-wrapper {
-        width: 100%; /* שינצל את רוחב העמודה בגריד */
-    }
+@media (max-width: 520px) {
+  .show-hero-text {
+    gap: var(--sp-4);
+  }
+  .show-details-container {
+    padding: var(--sp-5) var(--sp-4);
+  }
+  .cta-button {
+    padding: 0.8rem 1.4rem;
+    font-size: var(--fs-sm);
+    flex: 1;
+    justify-content: center;
+  }
+  .show-formats {
+    grid-template-columns: 1fr;
+  }
 }

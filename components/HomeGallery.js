@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
-import styls from './homeGallery.module.css'; 
+import styles from './homeGallery.module.css';
 
 
 export default function HomeGallery({ images }) {
@@ -27,24 +27,20 @@ export default function HomeGallery({ images }) {
     };
   }, []);
 
-  // שכפול התמונות ליצירת לופ אינסופי באנימציה
-  const infiniteImages = [...images, ...images];
+  // duplicate for seamless looping marquee
+  const loop = [...images, ...images];
 
   return (
-    <section className={styls.homeGallerySection}>
-      <div className={styls.galleryTrack}>
-        {infiniteImages.map((src, index) => (
-          <a 
-              key={index} 
-              href={src} // הנתיב לתמונה הגדולה
-              data-fancybox="home-gallery" // שם הקבוצה (כדי שיוכלו לדפדף ביניהן)
-              className={styls.galleryItem}
+    <section className={styles.section} aria-label="גלריית תמונות מהצגות וסדנאות">
+      <div className={styles.track}>
+        {loop.map((src, index) => (
+          <a
+            key={index}
+            href={src}
+            data-fancybox="home-gallery"
+            className={styles.item}
           >
-            <img 
-                src={src} 
-                alt={`Gallery item ${index}`} 
-                className={styls.galleryImg} 
-            />
+            <img src={src} alt={`תמונה מהפעילויות ${(index % images.length) + 1}`} className={styles.img} loading="lazy" />
           </a>
         ))}
       </div>

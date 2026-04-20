@@ -1,54 +1,90 @@
+/* ============================================================
+   Footer — warm, compact, tonally aligned with the site
+   ============================================================ */
+
 footer {
-    grid-area: footer;
-    background: linear-gradient(135deg, #7fc0f5, #2998f4);   
-    padding: 1rem 0;
+  grid-area: footer;
+  background: var(--c-bg-subtle);
+  color: var(--c-text);
+  padding: clamp(1.25rem, 2.5vw, 2rem) var(--content-pad);
+  margin-top: var(--section-padding-y);
+  position: relative;
+  border-top: 1px solid var(--c-border);
 }
 
-footer div{
-    display: flex;
-    padding: 5px;
-    justify-content: space-around;
-    align-items: center; 
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 2px;
+  background: var(--c-accent-400);
+  border-radius: var(--r-pill);
+}
+
+footer > div {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .contact-links-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-    gap: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: var(--sp-2);
 }
 
 .contact-item a {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #ffffff; 
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
-    transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  text-decoration: none;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-text-muted);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
-.contact-item a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
+.contact-item a:hover,
+.contact-item a:focus-visible {
+  background: var(--c-surface);
+  color: var(--c-primary-800);
+  border-color: var(--c-border-strong);
+  transform: translateY(-1px);
 }
 
 .contact-item a i {
-    font-size: 1.1rem;
+  font-size: 1rem;
+  color: var(--c-accent-500);
 }
 
-/* מובייל */
-@media (max-width: 768px) {
-    footer div {
-        flex-direction: column;
-        gap: 0.8rem;
-        text-align: center;
-    }
+@media (max-width: 640px) {
+  footer > div {
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+  .contact-links-list {
+    gap: var(--sp-1);
+  }
+  .contact-item a {
+    padding: 0.45rem 0.75rem;
+    font-size: var(--fs-xs);
+  }
 }

@@ -1,167 +1,178 @@
-/* app/styles/testimonials.css */
+/* ============================================================
+   Testimonials listing page
+   ============================================================ */
 
 .testimonials-page-header {
-    text-align: center;
-    padding: 4rem 20px;
-    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
-    margin-bottom: 3rem;
-    border-bottom: 1px solid #eef6ff;
+  text-align: center;
+  padding: var(--section-padding-y) var(--content-pad) 0;
+  max-width: 820px;
+  margin: 0 auto var(--sp-10);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.testimonials-page-header::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin-top: var(--sp-3);
+  border-radius: var(--r-pill);
 }
 
 .testimonials-title {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1a4f7c;
-    margin-bottom: 1rem;
+  font-family: var(--font-serif);
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-black);
+  color: var(--c-primary-900);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  margin: 0;
 }
 
 .testimonials-subtitle {
-    font-size: 1.2rem;
-    color: #5a6b7c;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
+  font-size: var(--fs-lg);
+  color: var(--c-text-muted);
+  line-height: var(--lh-relaxed);
+  max-width: 60ch;
+  margin: 0;
 }
 
-/* הגריד הראשי */
+/* Grid */
 .testimonials-grid {
-    display: grid;
-    /* כרטיסים רחבים יותר ונוחים לקריאה */
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 4rem 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--sp-5);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--content-pad);
 }
 
-/* כרטיס המלצה בודד */
 .testimonial-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.04);
-    border: 1px solid #f0f7ff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  position: relative;
+  overflow: hidden;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(41, 152, 244, 0.1);
-    border-color: #dbeafe;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-accent-300);
 }
 
-/* פס קישוט צבעוני בצד */
+/* Accent stripe on side */
 .testimonial-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 6px;
-    height: 100%;
-    background: linear-gradient(to bottom, #2998f4, #8ec5fc);
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--c-accent-400);
 }
 
-/* אייקון ציטוט */
+/* Large quote mark */
 .quote-icon-large {
-    font-size: 4rem;
-    color: #eef6ff;
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    font-family: serif;
-    z-index: 0;
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  color: var(--c-accent-200);
+  position: absolute;
+  top: 12px;
+  left: 24px;
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* פרטי הממליץ */
 .recommender-info {
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .recommender-name {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #1a4f7c;
-    margin-bottom: 0.3rem;
-    display: block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
 }
 
 .recommender-role {
-    font-size: 0.95rem;
-    color: #64748b;
-    font-style: italic;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
 }
 
-/* תוכן ההמלצה */
 .recommendation-body {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #334155;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
-    flex-grow: 1; /* דוחף את הפוטר למטה */
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text);
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
 }
 
-/* אזור תחתון (שם ההצגה וכפתור) */
+.recommendation-body p + p {
+  margin-top: var(--sp-2);
+}
+
+/* Footer */
 .card-footer {
-    padding-top: 1.5rem;
-    border-top: 1px dashed #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+  padding-top: var(--sp-4);
+  border-top: 1px dashed var(--c-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
 }
 
 .show-name {
-    font-size: 0.9rem;
-    color: #1a4f7c;
-    font-weight: 600;
-    background: #f0f9ff;
-    padding: 5px 12px;
-    border-radius: 20px;
+  font-size: var(--fs-sm);
+  color: var(--c-accent-700);
+  font-weight: var(--fw-semibold);
+  background: var(--c-accent-50);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--r-pill);
 }
 
 .details-btn {
-    font-size: 0.9rem;
-    color: #2998f4;
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  font-size: var(--fs-sm);
+  color: var(--c-primary-700);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast);
 }
 
 .details-btn:hover {
-    color: #1a4f7c;
+  color: var(--c-primary-800);
+  transform: translateX(-2px);
 }
 
-/* כפתור תחתון גדול */
-.bottom-cta {
-    text-align: center;
-    padding: 3rem 0 5rem 0;
-}
-
-/* מובייל */
-@media (max-width: 768px) {
-    .testimonials-grid {
-        grid-template-columns: 1fr; /* טור אחד */
-        padding: 0 15px 3rem 15px;
-    }
-    
-    .testimonial-card {
-        padding: 1.5rem;
-    }
-    
-    .testimonials-title {
-        font-size: 2.2rem;
-    }
-
+/* Mobile */
+@media (max-width: 640px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .quote-icon-large {
+    font-size: 3rem;
+  }
 }

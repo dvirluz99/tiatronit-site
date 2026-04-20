@@ -1,427 +1,493 @@
-/* --- צור קשר --- */
-/* --- כותרת איזור הכרטיסיות בדף הבית --- */
+/* ============================================================
+   Pages — about, contact, testimonials, recommendation
+   (home cards-section-header overrides live in cards.css)
+   ============================================================ */
 
-.cards-section-header {
-    text-align: center;
-    margin-top: 4rem; /* רווח מהסקשן הקודם */
-    margin-bottom: 2rem;
-    padding: 0 20px;
-    position: relative;
-}
-
-.cards-title {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: #1a4f7c; /* הכחול הכהה שלך */
-    margin: 0;
-    line-height: 1.2;
-}
-
-/* פס הפרדה צבעוני */
-.cards-divider {
-    width: 60px;
-    height: 6px;
-    background: linear-gradient(to right, #2998f4, #8ec5fc); /* גרדיאנט תכלת */
-    border-radius: 10px;
-    margin: 15px auto; /* מרכוז */
-}
-
-.cards-subtitle {
-    font-size: 1.15rem;
-    color: #64748b; /* אפור-כחלחל */
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-}
+/* ——— Contact page ——— */
 
 .contact-page-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
-    text-align: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--content-pad);
+  text-align: center;
 }
 
-.contact-page-container h2 { 
-    font-size: 2.5rem; 
-    color: #1a4f7c; /* כחול כהה ועמוק לכותרת */
-    margin-bottom: 0.5rem; 
-    font-weight: 800;
+.contact-page-container h2 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-3xl);
+  color: var(--c-primary-900);
+  margin-bottom: var(--sp-3);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
 }
 
-.contact-page-container p { 
-    font-size: 1.15rem; 
-    line-height: 1.6; 
-    margin-bottom: 2.5rem; 
-    color: #5a6b7c; /* אפור-כחלחל מודרני */
+.contact-page-container > p {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-10);
+  color: var(--c-text-muted);
+  max-width: 52ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .contact-options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-5);
 }
 
 .contact-card {
-    background: #ffffff;
-    padding: 2rem 1.5rem;
-    border-radius: 16px; /* פינות עגולות יותר */
-    box-shadow: 0 10px 30px rgba(0, 50, 100, 0.05); /* צל כחלחל עדין */
-    color: #333;
-    transition: all 0.3s ease;
-    border: 1px solid #f0f7ff;
+  background: var(--c-surface);
+  padding: clamp(1.5rem, 3vw, 2.2rem) var(--sp-6);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  color: var(--c-text);
+  text-decoration: none;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  text-align: center;
 }
 
-.contact-card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 15px 35px rgba(41, 152, 244, 0.15); /* צל כחול בולט בריחוף */
-    border-color: #dbeafe;
+.contact-card:hover,
+.contact-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-accent-300);
 }
 
-.contact-card i { font-size: 3rem; margin-bottom: 1rem; }
+.contact-card i {
+  font-size: 2.2rem;
+  margin-bottom: var(--sp-2);
+}
 
+.contact-card h3 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  margin: 0;
+  color: var(--c-primary-900);
+}
 
+.contact-card p {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  margin: 0;
+}
 
-/* כאן שמרתי על צבעי המותג המקוריים כי זה חשוב לזיהוי (וואטסאפ ירוק וכו'), 
-   אבל הכרטיס עצמו נשאר נקי */
-.contact-card.whatsapp i, .contact-card.whatsapp h3 { color: #25D366; }
-.contact-card.email i, .contact-card.email h3 { color: #DB4437; }
-.contact-card.facebook i, .contact-card.facebook h3 { color: #1877F2; }
+/* Keep brand colors for the icons + titles */
+.contact-card.whatsapp i,
+.contact-card.whatsapp h3 { color: #1FB560; }
+.contact-card.email i,
+.contact-card.email h3    { color: #CE4B3F; }
+.contact-card.facebook i,
+.contact-card.facebook h3 { color: #1869DB; }
 
-/* --- אודות (About) --- */
+/* ——— About page ——— */
+
 .about-page-wrapper {
-    max-width: 1100px;
-    margin: 3rem auto;
-    padding: 0 20px;
-    color: #2c3e50;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--content-pad);
+  color: var(--c-text);
 }
 
 .about-top-section {
-    display: flex;
-    gap: 4rem;
-    align-items: flex-start;
-    margin-bottom: 5rem;
-    background: #ffffff;
-    padding: 3rem;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 60, 120, 0.04); 
-    border: 1px solid #eef6ff;
-    position: relative;
-    overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+  margin-bottom: var(--section-gap);
+  position: relative;
 }
 
-/* אפקט דקורטיבי עדין ברקע */
 .about-top-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, #2998f4, #8ec5fc);
+  content: '';
+  position: absolute;
+  top: -4rem;
+  left: -6rem;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, var(--c-accent-100), transparent 70%);
+  opacity: 0.7;
+  filter: blur(50px);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .about-image-container {
-    flex: 1;
-    max-width: 380px;
-    position: relative;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  max-width: 440px;
+  justify-self: center;
+  width: 100%;
+  z-index: 1;
 }
 
 .about-image-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    object-fit: cover;
-    /* החלפתי את הצל הכתום בצל כחול מודרני */
-    box-shadow: 
-        15px 15px 0px rgba(41, 152, 244, 0.1), 
-        -10px -10px 0px rgba(240, 245, 255, 1);
-    transition: transform 0.4s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-xl);
+  transform: rotate(-1deg);
+  transition: transform var(--dur-slow) var(--ease-gentle);
 }
 
-.about-image-container img:hover { transform: scale(1.02) rotate(1deg); }
+.about-image-container::before {
+  content: '';
+  position: absolute;
+  inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+  border: 2px solid var(--c-accent-300);
+  border-radius: var(--r-xl);
+  z-index: -1;
+  transition: inset var(--dur-slow) var(--ease-gentle);
+}
 
-.about-text-content { flex: 2; }
+.about-image-container:hover img {
+  transform: rotate(0);
+}
+
+.about-image-container:hover::before {
+  inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+}
+
+.about-text-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
 
 .about-title {
-    color: #0f3460; /* כחול-לילה כהה */
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    position: relative;
-    line-height: 1.2;
+  font-family: var(--font-serif);
+  color: var(--c-primary-900);
+  font-size: var(--fs-4xl);
+  font-weight: var(--fw-black);
+  margin: 0;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  position: relative;
 }
 
 .about-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 6px;
-    background: linear-gradient(to right, #2998f4, #6dd5fa); /* גרדיאנט כחול-תכלת */
-    margin-top: 10px;
-    border-radius: 3px;
+  content: '';
+  display: block;
+  width: 64px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin-top: var(--sp-3);
+  border-radius: var(--r-pill);
 }
 
-.about-description { font-size: 1.15rem; line-height: 1.9; color: #4a5568; }
+.about-description {
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text-muted);
+}
 
-/* המלצות בדף אודות */
+.about-description p + p {
+  margin-top: var(--sp-3);
+}
+
+/* Testimonials section inside about */
+
 .testimonials-section {
-    text-align: center;
-    margin-top: 4rem;
-    padding-top: 3rem;
-    border-top: 2px dashed #b3d7ff; /* קו כחול בהיר */
+  margin-top: var(--section-gap);
+  padding-top: var(--sp-10);
+  border-top: 1px dashed var(--c-border);
 }
 
 .testimonials-section h3 {
-    text-align: center;
-    font-size: 2.8rem; /* גודל מרשים */
-    font-weight: 800;
-    color: #1a4f7c; /* הכחול הכהה שלך */
-    margin-bottom: 3rem; /* רווח מהכרטיסים */
-    position: relative;
-    padding-bottom: 15px; /* מקום לקו התחתון */
-    letter-spacing: -1px; /* צפיפות אותיות מודרנית */
+  font-family: var(--font-serif);
+  text-align: center;
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
+  margin-bottom: var(--sp-8);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
 }
 
-/* הקו המעוצב מתחת לכותרת */
 .testimonials-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%); /* ממרכז את הקו */
-    width: 60px; /* רוחב הקו */
-    height: 5px; /* עובי הקו */
-    /* גרדיאנט נעים משמאל לימין */
-    background: linear-gradient(to right, #2998f4, #8ec5fc); 
-    border-radius: 10px; /* קצוות עגולים לקו */
-    box-shadow: 0 2px 10px rgba(41, 152, 244, 0.3); /* צללית עדינה לקו */
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin: var(--sp-3) auto 0;
+  border-radius: var(--r-pill);
 }
 
 .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--sp-5);
 }
 
 .testimonial-mini-card {
-    background: #f0f7ff; /* רקע כחול-לבן בהיר מאוד */
-    padding: 2.5rem 2rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    position: relative;
-    transition: all 0.3s ease;
-    border: 1px solid #dceeff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  background: var(--c-surface);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  border: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
 }
 
 .testimonial-mini-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(41, 152, 244, 0.12);
-    background: #ffffff;
-    border-color: #2998f4;
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--c-accent-300);
 }
 
 .quote-icon {
-    font-size: 3.5rem;
-    color: #8ec5fc; /* תכלת עדין */
-    opacity: 0.5;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-family: serif;
-    line-height: 1;
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  color: var(--c-accent-300);
+  line-height: 0.3;
+  margin-bottom: var(--sp-2);
 }
 
-.testi-text { 
-    font-size: 1.1rem; 
-    color: #2d3748; /* אפור כהה */
-    font-style: italic; 
-    margin-bottom: 2rem; 
-    position: relative; 
-    z-index: 1; 
+.testi-text {
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  line-height: var(--lh-relaxed);
+  position: relative;
+  z-index: 1;
+  flex: 1;
 }
 
-.testi-author { 
-    font-weight: 700; 
-    color: #1a73e8; /* כחול גוגל/פייסבוק נעים */
-    font-size: 0.95rem; 
-    border-top: 1px solid rgba(0,0,0,0.05); 
-    padding-top: 15px; 
+.testi-author {
+  font-weight: var(--fw-bold);
+  color: var(--c-primary-900);
+  font-size: var(--fs-base);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--c-border);
+  font-family: var(--font-sans);
 }
 
-.testi-from-Pres { 
-    margin-top: 12px; 
-    padding: 6px 16px; 
-    background-color: #e3f2fd; /* תכלת בהיר */
-    color: #1565c0; /* כחול בינוני */
-    font-size: 0.85rem; 
-    font-weight: 600; 
-    border-radius: 20px; 
-    border: 1px solid #bbdefb; 
-    display: inline-block;
+.testi-from-Pres {
+  padding: 0.35rem 0.85rem;
+  background: var(--c-accent-50);
+  color: var(--c-accent-700);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--r-pill);
+  align-self: flex-start;
 }
 
-/* --- דף המלצות מלא --- */
+/* ——— Recommendation page ——— */
+
 .recommendation-page-wrapper {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--content-pad);
 }
 
 .recommendation-header {
-    text-align: center;
-    color: #1a4f7c;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    position: relative;
-    font-weight: 700;
+  font-family: var(--font-serif);
+  text-align: center;
+  color: var(--c-primary-900);
+  margin-bottom: var(--sp-10);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  position: relative;
+}
+
+.recommendation-header::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--c-accent-400);
+  margin: var(--sp-3) auto 0;
+  border-radius: var(--r-pill);
+}
+
+.recommendations-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-8);
 }
 
 .recommendation-card-full {
-    background-color: #fff;
-    border: 1px solid #eef2f6;
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
-    position: relative;
-    transition: transform 0.2s;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-xl);
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base);
 }
 
 .recommendation-card-full:hover {
-    border-color: #d0e1fd;
+  border-color: var(--c-accent-300);
+  box-shadow: var(--shadow-md);
+}
+
+.recommendation-card-full::before {
+  content: '❝';
+  font-family: var(--font-serif);
+  font-size: 4.5rem;
+  color: var(--c-accent-200);
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .rec-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  border-bottom: 1px solid var(--c-border);
+  gap: var(--sp-3);
 }
 
-/* --- עיצוב תוכן ההמלצה (החלק החדש והמשופר) --- */
+.rec-role strong {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  color: var(--c-primary-900);
+  font-weight: var(--fw-bold);
+}
+
+.rec-date {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+
 .rec-content {
-    font-size: 1.15rem; /* טקסט מעט גדול וקריא */
-    line-height: 1.85; /* מרווח נושם בין שורות */
-    color: #334155; /* אפור כהה איכותי */
-    
-    /* רקע עדין מאוד בצד שמאל שיוצר תחושת עומק */
-    background: linear-gradient(to left, rgba(41, 152, 244, 0.05), transparent); 
-    
-    padding: 1.2rem 1.5rem; /* ריווח פנימי */
-    border-radius: 12px; /* פינות עגולות */
-    
-    /* קו הדגשה כחול בצד ימין - נותן תחושת ציטוט */
-    border-right: 5px solid #2998f4; 
-    
-    margin-bottom: 2rem;
-    position: relative;
+  font-size: var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--c-text);
+  padding: 0 0 0 var(--sp-2);
+  border: none;
+  border-radius: 0;
+  background: none;
+  border-inline-start: 3px solid var(--c-accent-400);
+  padding-inline-start: var(--sp-5);
+  margin-bottom: var(--sp-6);
 }
 
-/* עיצוב לפסקאות בתוך ההמלצה כדי שלא יהיו דבוקות */
 .rec-content p {
-    margin-bottom: 1rem;
+  margin-bottom: var(--sp-3);
 }
 
 .rec-content p:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .rec-footer {
-    background-color: #f8fbff;
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: #555;
-    border-right: 4px solid #8ec5fc; /* פס תכלת בצד */
-    margin-top: 1rem;
+  background: var(--c-bg-subtle);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  margin-top: var(--sp-3);
 }
 
-/* --- כפתור CTA גדול (מתוקן למרכוז ומובייל) --- */
-.cta-button-large {
-    /* הגדרות תצוגה למרכוז */
-    display: block; /* הופך לבלוק כדי שהמרג'ין יעבוד */
-    width: fit-content; /* הרוחב יהיה בדיוק לפי הטקסט */
-    margin: 2rem auto; /* למעלה/למטה 2rem, צדדים אוטומטי (ממרכז) */
-    
-    /* עיצוב */
-    background: linear-gradient(135deg, #2998f4, #1a73e8);
-    color: white;
-    font-size: 1.3rem;
-    font-weight: 700;
-    padding: 1rem 4rem; /* קצת יותר רחב בצדדים שיראה מרשים */
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(26, 115, 232, 0.3);
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-align: center;
+.rec-footer strong {
+  color: var(--c-primary-900);
 }
 
-.cta-button-large:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(26, 115, 232, 0.4);
-    background: linear-gradient(135deg, #4dabf5, #2998f4);
+/* ——— Big CTA button (reused on testimonials + recommendation) ——— */
+
+.cta-button-large,
+.cta-button-large.contact_us {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  width: fit-content;
+  margin: var(--sp-10) auto 0;
+  background: var(--c-accent-500);
+  color: var(--c-surface);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  box-shadow: var(--shadow-warm);
+  transition:
+    background var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+  text-align: center;
+  text-decoration: none;
 }
 
-/* --- התאמות למובייל --- */
+.cta-button-large:hover,
+.cta-button-large:focus-visible {
+  background: var(--c-accent-600);
+  color: var(--c-surface);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 34px rgba(190, 108, 64, 0.25);
+}
+
+.rec-cta-container,
+.bottom-cta {
+  text-align: center;
+  margin-top: var(--section-gap);
+}
+
+/* ——— Mobile ——— */
+
 @media (max-width: 900px) {
-    /* סידור האלמנטים בעמוד אודות */
-        .cards-section-header {
-        margin-top: 3rem;
-    }
-    
-    .cards-title {
-        font-size: 2rem;
-    }
-    
-    .cards-subtitle {
-        font-size: 1rem;
-    }
+  .about-top-section {
+    grid-template-columns: 1fr;
+    gap: var(--sp-6);
+  }
+  .about-image-container {
+    transform: none;
+  }
+  .about-image-container::before {
+    inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+  }
+  .about-top-section::before {
+    display: none;
+  }
+  .rec-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+  }
+  .rec-content {
+    font-size: var(--fs-base);
+    padding-inline-start: var(--sp-4);
+  }
+}
 
-    .about-top-section { 
-        flex-direction: column; 
-        gap: 2rem; 
-        padding: 1.5rem; 
-    }
-    
-    .about-image-container { 
-        max-width: 100%; 
-        margin-bottom: 1rem; 
-    }
-    
-    .testimonials-grid { 
-        grid-template-columns: 1fr; 
-    }
-    
-    .rec-meta { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 0.5rem; 
-    }
-
-    /* --- תיקון הכפתור למובייל --- */
-    .cta-button-large {
-        width: 90%; /* הכפתור יתפוס 90% מרוחב המסך */
-        max-width: 300px; /* אבל לא יהיה ענק מדי */
-        padding: 1rem 0; /* פאדינג רק למעלה ולמטה (הרוחב נקבע ע"י width) */
-        font-size: 1.1rem; /* טקסט טיפה קטן יותר */
-    }
-    
-    .recommendation-card-full {
-        padding: 1.5rem;
-    }
-    
-    .rec-content {
-        font-size: 1.05rem;
-        padding: 1rem;
-    }
-
-    .testimonials-section h3 {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
+@media (max-width: 520px) {
+  .cta-button-large {
+    width: 100%;
+    max-width: 360px;
+    padding: 0.95rem 1.5rem;
+    font-size: var(--fs-base);
+  }
+  .recommendation-card-full::before {
+    font-size: 3rem;
+  }
 }

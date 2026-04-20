@@ -1,0 +1,146 @@
+/* ============================================================
+   Design tokens — Tiatronit 2026
+   Warm, soft, modern. Primary slate-blue with terracotta accent
+   on a cream surface. Everything else references these.
+   ============================================================ */
+
+:root {
+  /* ——— Brand: slate blue (softer, warmer than pure navy) ——— */
+  --c-primary-50:  #F2F6FA;
+  --c-primary-100: #E2EBF3;
+  --c-primary-200: #C0D3E4;
+  --c-primary-300: #95B1CB;
+  --c-primary-400: #6089AE;
+  --c-primary-500: #3A6691;
+  --c-primary-600: #264B72;
+  --c-primary-700: #1C3858;
+  --c-primary-800: #142A42;
+  --c-primary-900: #0C1C2E;
+
+  /* ——— Accent: warm terracotta / honey ——— */
+  --c-accent-50:  #FBF3EC;
+  --c-accent-100: #F4E1CF;
+  --c-accent-200: #EBC5A5;
+  --c-accent-300: #DFA67B;
+  --c-accent-400: #D18758;
+  --c-accent-500: #BE6C40;
+  --c-accent-600: #9B5430;
+  --c-accent-700: #6F3B21;
+
+  /* ——— Surfaces (warm neutrals) ——— */
+  --c-bg:            #F8F4ED;  /* page bg — warm cream */
+  --c-bg-subtle:     #F0EAE0;  /* secondary bg */
+  --c-surface:       #FFFDF9;  /* cards, raised */
+  --c-surface-alt:   #FAF5EC;  /* alternate section bg */
+
+  /* ——— Text ——— */
+  --c-text:         #17253A;   /* primary text */
+  --c-text-muted:   #516378;   /* secondary text */
+  --c-text-subtle:  #8593A6;   /* caption/label text */
+  --c-text-inverse: #FBF7F0;   /* on dark bg */
+
+  /* ——— Borders & dividers ——— */
+  --c-border:        rgba(23, 37, 58, 0.08);
+  --c-border-strong: rgba(23, 37, 58, 0.16);
+
+  /* ——— Semantic shortcuts ——— */
+  --c-link:        var(--c-primary-600);
+  --c-link-hover:  var(--c-primary-700);
+
+  /* ——— Typography ——— */
+  --font-sans:  "Heebo", "Assistant", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Frank Ruhl Libre", "David Libre", Georgia, "Times New Roman", serif;
+
+  /* Fluid type scale (clamp for smooth min→max across viewports) */
+  --fs-xs:   clamp(0.78rem, 0.76rem + 0.10vw, 0.84rem);
+  --fs-sm:   clamp(0.88rem, 0.86rem + 0.15vw, 0.95rem);
+  --fs-base: clamp(1.00rem, 0.96rem + 0.25vw, 1.10rem);
+  --fs-lg:   clamp(1.13rem, 1.06rem + 0.40vw, 1.28rem);
+  --fs-xl:   clamp(1.35rem, 1.22rem + 0.70vw, 1.68rem);
+  --fs-2xl:  clamp(1.70rem, 1.44rem + 1.50vw, 2.35rem);
+  --fs-3xl:  clamp(2.10rem, 1.62rem + 2.60vw, 3.25rem);
+  --fs-4xl:  clamp(2.60rem, 1.85rem + 4.00vw, 4.60rem);
+  --fs-hero: clamp(2.90rem, 1.95rem + 5.40vw, 5.80rem);
+
+  /* Line heights */
+  --lh-tight:   1.12;
+  --lh-snug:    1.30;
+  --lh-normal:  1.55;
+  --lh-relaxed: 1.80;
+
+  /* Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    900;
+
+  /* Letter spacing */
+  --ls-tight:  -0.02em;
+  --ls-normal: 0;
+  --ls-wide:   0.04em;
+
+  /* ——— Spacing scale (4px base) ——— */
+  --sp-1:  0.25rem;
+  --sp-2:  0.5rem;
+  --sp-3:  0.75rem;
+  --sp-4:  1rem;
+  --sp-5:  1.25rem;
+  --sp-6:  1.5rem;
+  --sp-8:  2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+  --sp-24: 6rem;
+  --sp-32: 8rem;
+
+  /* Section rhythm */
+  --section-padding-y: clamp(3rem, 5vw + 2rem, 7rem);
+  --section-gap:       clamp(2.5rem, 4vw + 1rem, 5.5rem);
+
+  /* ——— Radii ——— */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   14px;
+  --r-lg:   22px;
+  --r-xl:   32px;
+  --r-2xl:  48px;
+  --r-pill: 9999px;
+
+  /* ——— Shadows (soft, warm-tinted) ——— */
+  --shadow-xs: 0 1px 2px  rgba(23, 37, 58, 0.04);
+  --shadow-sm: 0 2px 6px  rgba(23, 37, 58, 0.05), 0 1px 2px rgba(23, 37, 58, 0.03);
+  --shadow-md: 0 8px 20px rgba(23, 37, 58, 0.07), 0 3px 6px rgba(23, 37, 58, 0.04);
+  --shadow-lg: 0 22px 42px rgba(23, 37, 58, 0.09), 0 8px 14px rgba(23, 37, 58, 0.04);
+  --shadow-xl: 0 34px 64px rgba(23, 37, 58, 0.11), 0 14px 26px rgba(23, 37, 58, 0.05);
+
+  /* Warm glow (accent-tinted) */
+  --shadow-warm: 0 14px 30px rgba(190, 108, 64, 0.12), 0 4px 10px rgba(190, 108, 64, 0.06);
+
+  /* ——— Motion ——— */
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-gentle:  cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-fast:  180ms;
+  --dur-base:  280ms;
+  --dur-slow:  480ms;
+  --dur-slower: 780ms;
+
+  /* ——— Layout ——— */
+  --content-max: 1240px;
+  --content-pad: clamp(1rem, 4vw, 2.5rem);
+  --header-h:    85px;
+}
+
+/* ——— Respect reduced motion ——— */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

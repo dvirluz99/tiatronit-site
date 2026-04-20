@@ -1,84 +1,91 @@
+/* ============================================================
+   Header — fixed, glass-ish, warm
+   ============================================================ */
+
 header {
-    background: linear-gradient(135deg,  #7fc0f5, #2998f4);
-    grid-area: header;
+  grid-area: header;
 }
 
 .site-header {
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    
-    /* --- השינוי החשוב: Fixed במקום Sticky --- */
-    position: fixed; 
-    top: 0;
-    left: 0; /* מבטיח שיתחיל מקצה המסך */
-    right: 0; /* מבטיח שיימתח עד הסוף */
-    /* ---------------------------------------- */
-    
-    z-index: 1000;
-    width: 100%;
-    
-    /* אופציונלי: טרנזישן חלק אם תרצה בעתיד להקטין אותו בגלילה */
-    transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--header-h);
+  z-index: 1000;
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: saturate(140%) blur(18px);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  border-bottom: 1px solid var(--c-border);
+  transition: box-shadow var(--dur-base) var(--ease-out), background var(--dur-base);
 }
 
 .continer_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-2) var(--content-pad);
+  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  height: 100%;
 }
 
-/* עיצוב הכותרת הראשית */
 .header-title {
-    font-family: 'Varela Round', 'Rubik', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin: 0;
-    text-align: center;
-    
-    background: linear-gradient(135deg, #048dfd 0%, #063863 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    
-    flex-grow: 1; 
-    letter-spacing: -1px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+  font-weight: var(--fw-black);
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  letter-spacing: var(--ls-tight);
+  color: var(--c-primary-900);
+  background: linear-gradient(135deg, var(--c-primary-700) 0%, var(--c-primary-900) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .img_item_header {
-    height: 60px;
-    width: auto;
-    border-radius: 50%;
-    border: 2px solid white;
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+  border: 2px solid var(--c-surface);
+  box-shadow: var(--shadow-sm);
+  object-fit: cover;
+  transition: transform var(--dur-base) var(--ease-spring);
 }
 
-/* כפתור המבורגר */
+.img_item_header:hover {
+  transform: scale(1.06) rotate(-4deg);
+}
+
 .hamburger-btn {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: #333;
-    cursor: pointer;
-    padding: 10px;
-    
-    /* תיקון חשוב: הורדתי את ה-Z-Index ל-1001 (או פחות).
-       התפריט עצמו ב-SideMenu הוא 1001.
-       אם אתה רוצה שהכפתור ייעלם מאחורי התפריט הלבן כשהוא נפתח, שים פה ערך נמוך יותר.
-       אם אתה רוצה שהוא יצוף מעל, תשאיר גבוה.
-       ההמלצה שלי: תשאיר אותו נגיש, אבל וודא שיש רווח בתוך התפריט.
-    */
-    z-index: 1002; 
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--c-primary-800);
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  transition: background var(--dur-fast) var(--ease-out);
+  z-index: 1002;
 }
 
-/* מובייל */
-@media (max-width: 768px) {
-    .img_item_header {
-        height: 45px;
-        width: 45px;
-    }
+.hamburger-btn:hover {
+  background: var(--c-primary-50);
+}
 
-    .header-title {
-        font-size: 1.4rem;
-    }
+@media (max-width: 768px) {
+  .site-header {
+    height: 70px;
+  }
+  .img_item_header {
+    height: 44px;
+    width: 44px;
+  }
+  .header-title {
+    font-size: 1.2rem;
+  }
 }

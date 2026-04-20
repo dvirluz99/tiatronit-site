@@ -1,3 +1,4 @@
+import './styles/tokens.css';
 import './styles/base.css';
 import './styles/header.css';
 import './styles/cards.css';
@@ -53,7 +54,7 @@ export default async function RootLayout({ children }) {
         {/* קישורים לפונטים ולאייקונים כמו בקובץ המקורי */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Varela+Round&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
       </head>
       <body>

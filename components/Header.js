@@ -20,10 +20,16 @@ export default function Header({ homePageStructure, showData }) {
       document.body.style.touchAction = '';
     }
 
+    const onKey = (e) => {
+      if (e.key === 'Escape' && isOpen) setIsOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       document.body.style.touchAction = '';
+      window.removeEventListener('keydown', onKey);
     };
   }, [isOpen]);
 
