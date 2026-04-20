@@ -1,69 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-import { db } from '../../../lib/firebase.js'; 
-import { doc, setDoc } from 'firebase/firestore';
-import AdminGuard from '../../../components/admin/AdminGuard';
+// Legacy migration UI — DISABLED.
+// The real migration from v1 to v2 is performed by scripts/migrate-to-v2.ts,
+// which was run once on 2026-04-20. This page is kept as a placeholder so any
+// bookmarks don't 404, but the button no longer mutates data.
 
-// הנתונים המעודכנים לפי שמות התיקיות ב-Storage
-const homeGalleryData = {
-  images: [
-    'AllDir/general_photo/image1.jpg',
-    'AllDir/general_photo/image2.jpg',
-    'AllDir/general_photo/image3.jpg',
-    'AllDir/general_photo/image4.jpg',
-    'AllDir/general_photo/image5.jpg',
-    'AllDir/general_photo/image6.jpg',
-    'AllDir/general_photo/image7.jpg',
-    'AllDir/general_photo/image8.jpg',
-    'AllDir/general_photo/image9.jpg',
-    'AllDir/general_photo/image10.jpg',
-    'AllDir/general_photo/image11.jpeg',
-    'AllDir/general_photo/image12.jpeg',
-    'AllDir/general_photo/image13.jpeg',
-    'AllDir/general_photo/image14.jpeg',
-    'AllDir/general_photo/image15.jpeg',
-    'AllDir/general_photo/image16.jpeg',
-    'AllDir/general_photo/image17.jpeg',
-    'AllDir/havale_shoah/image13.jpg',
-    'AllDir/havale_shoah/image14.jpg',
-    'AllDir/havale_shoah/image15.jpg',
-    'AllDir/havale_shoah/image18.jpg',
-    'AllDir/Kindergarden_and_preschool/imge5.jpg',
-    'AllDir/Kindergarden_and_preschool/imge1.jpg',
-    'AllDir/the_third_age/imge5.jpg',
-  ]
-};
-
-
-
-function MigrateContent() {
-    const [status, setStatus] = useState('ממתין...');
-
-    const uploadHomeGallery = async () => {
-    try {
-        await setDoc(doc(db, 'settings', 'homeGallery'), homeGalleryData);
-        alert('הגלריה עלתה בהצלחה!');
-    } catch (error) {
-        console.error("Error uploading gallery: ", error);
-        alert('שגיאה בהעלאה');
-    }
-};
-
-    return (
-        <div style={{ padding: '50px', textAlign: 'center' }}>
-            <button onClick={uploadHomeGallery} style={{ padding: '15px', fontSize: '18px', background: '#2998f4', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
-                העלה את נתוני הבובות 🎭
-            </button>
-            <p style={{ marginTop: '20px', fontWeight: 'bold' }}>{status}</p>
-        </div>
-    );
-}
-
-export default function MigratePuppetsPage() {
-    return (
-        <AdminGuard>
-            <MigrateContent />
-        </AdminGuard>
-    );
+export default function MigratePage() {
+  return (
+    <div style={{ padding: '2rem', maxWidth: 720, margin: '0 auto' }}>
+      <h1>כלי מיגרציה (לא פעיל)</h1>
+      <p style={{ color: '#555' }}>
+        הכלי הזה הושבת. המיגרציה הגדולה ל-v2 הושלמה בצורה חד-פעמית דרך
+        <code> scripts/migrate-to-v2.ts</code>, והדשבורד כותב עכשיו גם ל-v2 אוטומטית.
+      </p>
+      <p style={{ color: '#555' }}>
+        אם אתה צריך להריץ תיקונים נוספים על הנתונים, תעשה את זה דרך סקריפטים עם
+        גיבוי מראש (ראה <code>scripts/backup-firestore.mjs</code>).
+      </p>
+    </div>
+  );
 }

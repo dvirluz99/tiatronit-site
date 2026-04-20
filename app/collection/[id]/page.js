@@ -1,121 +1,135 @@
 import Link from 'next/link';
-// import { homePageStructure, showData } from '../../../data/presentations';
+import Image from 'next/image';
 import { getHomePageStructure, getAllShows } from '../../../lib/data';
-import Gallery from '../../../components/Gallery';
-import ShowRecommendations from '../../../components/ShowRecommendations';
+import dynamic from 'next/dynamic';
+
+const Gallery = dynamic(() => import('../../../components/Gallery'));
+const ShowRecommendations = dynamic(() => import('../../../components/ShowRecommendations'));
+
+export async function generateStaticParams() {
+  const homePageStructure = await getHomePageStructure();
+  const collections = homePageStructure.filter((c) => c.type === 'collection');
+  return collections.map((c) => ({ id: c.id }));
+}
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const homePageStructure = await getHomePageStructure();
+  const card = homePageStructure.find((item) => item.id === id);
+
+  if (!card) return { title: 'אוסף לא נמצא' };
+
+  return {
+    title: card.title || 'אוסף הצגות',
+    description: card.description || 'תיאטרון בובות רגשי חברתי - רונית לוז',
+    openGraph: {
+      title: card.title || 'אוסף הצגות',
+      description: card.description,
+      images: [card.mainImg || '/AllDir/logo/logo1.jpg'],
+    },
+  };
+}
 
 export default async function CollectionPage({ params }) {
-  // 1. מחלצים את ה-ID של האוסף (למשל card_4)
   const { id } = await params;
 
   const homePageStructure = await getHomePageStructure();
-  const showData = await getAllShows();
-  
-  // 2. מוצאים את הגדרת האוסף מתוך המבנה של דף הבית
-  const collectionCard = homePageStructure.find((item) => item.id === id);
+  const shows = await getAllShows();
 
-  if (!collectionCard) {
-    return <div style={{textAlign: 'center', marginTop: '50px'}}>אוסף לא נמצא</div>;
+  const card = homePageStructure.find((item) => item.id === id);
+
+  if (!card) {
+    return <div style={{ textAlign: 'center', marginTop: '50px' }}>אוסף לא נמצא</div>;
   }
 
-  // 3. "הקסם": המרת רשימת ה-IDs (כמו p4, p5) לאובייקטים מלאים של הצגות
-  // אם המערך contains ריק, הרשימה תהיה ריקה
-  const showsInCollection = (collectionCard.contains || []).map((showId) => {
-      return showData[showId];
-  }).filter(Boolean); // ה-filter מנקה למקרה שיש ID שגוי שלא קיים ב-showData
+  const showIds = card.showIds || [];
+  const showsInCollection = showIds.map((sid) => shows[sid]).filter(Boolean);
+
+  const videos = card.videos || [];
+  const gallery = card.gallery || [];
+  const recommendationIds = card.recommendationIds || [];
 
   return (
     <main className="continer_main_for_home">
-      
-      {/* --- אזור הכותרת והתיאור המעוצב --- */}
+
       <div className="collection-header-wrapper">
-          <h1 className="collection-title">
-            {collectionCard.title}
-          </h1>
-          
-          {collectionCard.description && (
-            <div className="collection-description">
-              {collectionCard.description}
-            </div>
-          )}
+        <h1 className="collection-title">{card.title}</h1>
+        {card.description && <div className="collection-description">{card.description}</div>}
       </div>
 
-            {(collectionCard.collectionVideo || collectionCard.extraContent) && (
+      {(videos.length > 0 || card.extendedHtml) && (
         <div className="collection-media-section">
-            
-            {/* 1. הצגת וידאו */}
-            {collectionCard.collectionVideo && (
-                <div>
-                    <h2 className="collection-section-title">צפו בטעימה מהסדנא</h2>
-                    {/* עוטף הוידאו - משתמשים ב-div_trailer הקיים מ-show.css שממרכז את הוידאו */}
-                    <div 
-                        className="div_trailer" 
-                        dangerouslySetInnerHTML={{ 
-                            __html: Array.isArray(collectionCard.collectionVideo) 
-                                ? collectionCard.collectionVideo.join('') // אם זה מערך - תחבר בלי פסיק
-                                : collectionCard.collectionVideo          // אם זו סתם מחרוזת - תציג רגיל
-                        }} 
-                    />
-                </div>
-            )}
 
-            {/* 2. הצגת טקסט נוסף */}
-            {collectionCard.extraContent && (
-                <div 
-                    className="collection-text-box"
-                    dangerouslySetInnerHTML={{ __html: collectionCard.extraContent }}
-                />
-            )}
-            
+          {videos.length > 0 && (
+            <div>
+              <h2 className="collection-section-title">צפו בטעימה מהסדנא</h2>
+              <div className="div_trailer">
+                {videos.map((youtubeId) => (
+                  <iframe
+                    key={youtubeId}
+                    className="vidue_iframe"
+                    src={`https://www.youtube.com/embed/${youtubeId}`}
+                    title="סרטון האוסף"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {card.extendedHtml && (
+            <div
+              className="collection-text-box"
+              dangerouslySetInnerHTML={{ __html: card.extendedHtml }}
+            />
+          )}
+
         </div>
       )}
-      
-      {/* רשת הכרטיסיות (אותו עיצוב כמו דף הבית) */}
+
       <div className="continer_main_for_all">
         {showsInCollection.map((show) => {
-             // כאן זה תמיד הצגה בודדת, אז הלינק פשוט
-             const linkHref = `/show/${show.id}`;
-
-             return (
-              <div key={show.id} className={`div_card ${show.importance ? `importance-${show.importance}` : ''}`}>
-                <Link href={linkHref}>
-                  <figure>
-                    <img 
-                      src={`${show.mainImg}`} 
-                      alt={show.title} 
-                      className="img_for_card" 
-                    />
-                    <figcaption className={show.importance === 'recommended' ? 'caption-highlight' : ''}>
-                      {show.title}
-                    </figcaption>
-                  </figure>
-                </Link>
-              </div>
-             );
+          const importanceClass = show.priority === 'featured' ? 'importance-recommended' : 'importance-accustomed';
+          return (
+            <div key={show.id} className={`div_card ${importanceClass}`}>
+              <Link href={`/show/${show.id}`}>
+                <figure>
+                  <Image
+                    src={`${show.mainImg || show.presentationFormats?.[0]?.image || ''}`}
+                    alt={show.title}
+                    className="img_for_card"
+                    width={500}
+                    height={500}
+                  />
+                  <figcaption className={show.priority === 'featured' ? 'caption-highlight' : ''}>
+                    {show.title}
+                  </figcaption>
+                </figure>
+              </Link>
+            </div>
+          );
         })}
       </div>
 
-      {/* הודעה אם אין הצגות באוסף הזה */}
       {showsInCollection.length === 0 && (
-          <p style={{textAlign: 'center'}}>כרגע אין הצגות בקטגוריה זו.</p>
+        <p style={{ textAlign: 'center' }}>כרגע אין הצגות בקטגוריה זו.</p>
       )}
 
-      {collectionCard.linkRec.length >0 && (
-          <ShowRecommendations 
-          recommendationIds={collectionCard.linkRec} 
-          showId={collectionCard.id}
-      />
+      {recommendationIds.length > 0 && (
+        <ShowRecommendations recommendationIds={recommendationIds} showId={card.id} />
       )}
 
-      {collectionCard.collectionGallery && collectionCard.collectionGallery.length > 0 && (
+      {gallery.length > 0 && (
         <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-            {/* כותרת יפה לגלריה (משתמשים באותו עיצוב של הכותרות האחרות בדף) */}
-            <h2 className="collection-section-title" style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}>
-                גלריית תמונות
-            </h2>
-            
-            {/* השימוש בקומפוננטה הקיימת */}
-            <Gallery images={collectionCard.collectionGallery} />
+          <h2
+            className="collection-section-title"
+            style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}
+          >
+            גלריית תמונות
+          </h2>
+          <Gallery images={gallery} />
         </div>
       )}
 

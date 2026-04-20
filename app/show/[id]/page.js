@@ -1,174 +1,179 @@
 import Link from 'next/link';
-// import { showData } from '../../../data/presentations';
-import {getShowById} from '../../../lib/data'
-import Gallery from '../../../components/Gallery';
-import ShowRecommendations from '../../../components/ShowRecommendations';
+import Image from 'next/image';
+import { getShowById, getAllShows } from '../../../lib/data';
+import dynamic from 'next/dynamic';
+
+const Gallery = dynamic(() => import('../../../components/Gallery'));
+const ShowRecommendations = dynamic(() => import('../../../components/ShowRecommendations'));
+
+export async function generateStaticParams() {
+  const shows = await getAllShows();
+  return Object.keys(shows).map((id) => ({ id }));
+}
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const show = await getShowById(id);
+
+  if (!show) return { title: 'הצגה לא נמצאה' };
+
+  const title = show.title || 'הצגה';
+  const description = show.description || 'תיאטרון בובות רגשי חברתי - רונית לוז';
+  const imageUrl = show.mainImg || show.presentationFormats?.[0]?.image || '/AllDir/logo/logo1.jpg';
+
+  return {
+    title,
+    description,
+    openGraph: { title, description, images: [imageUrl] },
+  };
+}
 
 export default async function ShowPage({ params }) {
-  // 1. חילוץ ה-ID
   const { id } = await params;
-  
-  // 2. שליפת המידע
-  const presentation = await getShowById(id);
+  const show = await getShowById(id);
 
-  if (!presentation) {
-    return <div style={{textAlign: 'center', marginTop: '50px'}}>הצגה לא נמצאה</div>;
+  if (!show) {
+    return <div style={{ textAlign: 'center', marginTop: '50px' }}>הצגה לא נמצאה</div>;
   }
 
-  // בדיקה האם יש שני לוגואים
-  const hasDoubleLogo = presentation.mainImg1 && presentation.mainImg2;
+  const formats = show.presentationFormats || [];
+  const hasMultipleFormats = formats.length >= 2;
 
-  // 3. לוגיקה לטריילר
-  let trailerContent = null;
-  if (presentation.vidue && presentation.vidue.Trailer) {
-      if (Array.isArray(presentation.vidue.Trailer) && presentation.vidue.Trailer.length > 0) {
-          trailerContent = presentation.vidue.Trailer.join(" ");
-      } else if (typeof presentation.vidue.Trailer === 'string') {
-          trailerContent = presentation.vidue.Trailer;
-      }
-  }
-
-  let vidueCustomers = null;
-  if(presentation.vidue && presentation.vidue.customers){
-        if(Array.isArray(presentation.vidue.customers)){
-            vidueCustomers = presentation.vidue.customers;
-        }
-  }
-
-  let showClips = null;
-  if(presentation.vidue && presentation.vidue.clips && Array.isArray(presentation.vidue.clips)){
-      showClips = presentation.vidue.clips;
-  }
+  const trailers = show.video?.trailers || [];
+  const clips = show.video?.clips || [];
+  const customerClips = show.video?.customerClips || [];
 
   return (
     <div className="div_presentation">
-    
-      {/* --- אזור הכותרת והלוגו (לוגיקה משתנה) --- */}
-      
-{hasDoubleLogo ? (
-        // === אפשרות א': יש 2 לוגואים עם טקסט ===
+
+      {hasMultipleFormats ? (
         <div className="header-double-layout">
-           
-           {/* צד ימין: עוטף את התמונה והטקסט */}
-           <div className="logo-wrapper">
-               <img 
-                 src={`${presentation.mainImg1}`} 
-                 alt="לוגו ימני" 
-                 className="show-flyer-img"
-               />
-               {presentation.textUnderImg1 && (
-                   <p className="logo-caption">{presentation.textUnderImg1}</p>
-               )}
-           </div>
-           
-           {/* כותרת באמצע */}
-           <h1 className="presentation-page-title">{presentation.title}</h1>
-           
-           {/* צד שמאל: עוטף את התמונה והטקסט */}
-           <div className="logo-wrapper">
-               <img 
-                 src={`${presentation.mainImg2}`} 
-                 alt="לוגו שמאלי" 
-                 className="show-flyer-img"
-               />
-               {presentation.textUnderImg2 && (
-                   <p className="logo-caption">{presentation.textUnderImg2}</p>
-               )}
-           </div>
+
+          <div className="logo-wrapper">
+            <Image
+              src={formats[0].image}
+              alt="גרסה ראשונה"
+              className="show-flyer-img"
+              width={500}
+              height={500}
+            />
+            {formats[0].caption && <p className="logo-caption">{formats[0].caption}</p>}
+          </div>
+
+          <h1 className="presentation-page-title">{show.title}</h1>
+
+          <div className="logo-wrapper">
+            <Image
+              src={formats[1].image}
+              alt="גרסה שנייה"
+              className="show-flyer-img"
+              width={500}
+              height={500}
+            />
+            {formats[1].caption && <p className="logo-caption">{formats[1].caption}</p>}
+          </div>
         </div>
       ) : (
-        // === אפשרות ב': לוגו אחד רגיל ===
         <div className="show-header-wrapper">
-          <h1 className="presentation-page-title">{presentation.title}</h1>
-          {presentation.mainImg && (
-             <img 
-               src={`${presentation.mainImg}`} 
-               alt="פלאייר ההצגה" 
-               className="show-flyer-img"
-             />
+          <h1 className="presentation-page-title">{show.title}</h1>
+          {(show.mainImg || formats[0]?.image) && (
+            <Image
+              src={show.mainImg || formats[0].image}
+              alt="פלאייר ההצגה"
+              className="show-flyer-img"
+              width={500}
+              height={500}
+            />
           )}
         </div>
       )}
 
-      {/* --- המשך הדף כרגיל --- */}
-
-      {/* אזור הטריילר */}
-      {trailerContent && (
-        <div 
-            className="div_trailer" 
-            dangerouslySetInnerHTML={{ __html: trailerContent }} 
-        />
+      {trailers.length > 0 && (
+        <div className="div_trailer">
+          {trailers.map((youtubeId) => (
+            <iframe
+              key={youtubeId}
+              className="vidue_iframe"
+              src={`https://www.youtube.com/embed/${youtubeId}`}
+              title="טריילר ההצגה"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+            />
+          ))}
+        </div>
       )}
 
-      {/* פרטי ההצגה */}
       <div className="show-details-container">
-          <h2 className="show-title">{presentation.showData.title}</h2>
-          <p className="show-description">{presentation.showData.description}</p>
-          
-          <div className="creator-bio">
-              <p className="creator-intro">{presentation.showData.creatorIntro}</p>
-              <p className="creator-name">{presentation.showData.creatorName}</p>
-              <p className="creator-credentials">{presentation.showData.creatorCredentials}</p>
-          </div>
-          
-          <p className="audience-highlight">{presentation.showData.audience}</p>
-          
-          <div className="cta-container">
-              {presentation.linkRec && presentation.linkRec.length > 0 && (
-                  <Link href={`/recommendation/${presentation.id}`} className="cta-button">
-                      להמלצות
-                  </Link>
-              )}
-              <Link href="/contact" className="invitation-button contact_us">
-                  להזמנה
-              </Link>
-          </div>
+        <h2 className="show-title">{show.title}</h2>
+        <p className="show-description">{show.description}</p>
 
-          <div className="social-proof">
-              <h4>ניסיון וקהלים:</h4>
-              <p>{presentation.showData.socialProof}</p>
-          </div>
+        <div className="creator-bio">
+          <p className="creator-intro">{show.creatorIntro}</p>
+          <p className="creator-name">{show.creatorName}</p>
+          <p className="creator-credentials">{show.creatorCredentials}</p>
+        </div>
+
+        <p className="audience-highlight">{show.audience}</p>
+
+        <div className="cta-container">
+          {show.recommendationIds && show.recommendationIds.length > 0 && (
+            <Link href={`/recommendation/${show.id}`} className="cta-button">
+              להמלצות
+            </Link>
+          )}
+          <Link href="/contact" className="invitation-button contact_us">
+            להזמנה
+          </Link>
+        </div>
+
+        <div className="social-proof">
+          <h4>ניסיון וקהלים:</h4>
+          <p>{show.socialProof}</p>
+        </div>
       </div>
 
-        <ShowRecommendations 
-          recommendationIds={presentation.linkRec} 
-          showId={presentation.id}
-          userVideos = {vidueCustomers}
-        />
+      <ShowRecommendations
+        recommendationIds={show.recommendationIds}
+        showId={show.id}
+        userVideos={customerClips}
+      />
 
-        {showClips && showClips.length > 0 && (
-            <div className="show-clips-section">
-                <h3 className="clips-title">טעימות מההצגה</h3>
-                <div className="clips-grid">
-                    {showClips.map((clip, index) => (
-                        <div key={index} className="clip-card">
-                            {/* עטיפה לשמירה על יחס גובה-רוחב */}
-                            <div className="video-responsive"> 
-                                <iframe
-                                    width="100%"
-                                    height="250"
-                                    // כאן אנחנו בונים את הכתובת דינמית לפי ה-ID
-                                    src={`https://www.youtube.com/embed/${clip.youtubeId}`}
-                                    title={clip.caption || "YouTube video player"}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowFullScreen
-                                ></iframe>
-                            </div>
-                            {clip.caption && <p className="clip-caption">{clip.caption}</p>}
-                        </div>
-                    ))}
+      {clips.length > 0 && (
+        <div className="show-clips-section">
+          <h3 className="clips-title">טעימות מההצגה</h3>
+          <div className="clips-grid">
+            {clips.map((clip, index) => (
+              <div key={index} className="clip-card">
+                <div className="video-responsive">
+                  <iframe
+                    width="100%"
+                    height="250"
+                    src={`https://www.youtube.com/embed/${clip.youtubeId}`}
+                    title={clip.caption || 'YouTube video player'}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
                 </div>
-            </div>
-        )}
+                {clip.caption && <p className="clip-caption">{clip.caption}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
-        {presentation.arrayGallery && presentation.arrayGallery.length > 0 && (
-            <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
-                <h2 className="collection-section-title" style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}>
-                    גלריית תמונות
-                </h2>
-                <Gallery images={presentation.arrayGallery} />
-            </div>
-        )}
+      {show.gallery && show.gallery.length > 0 && (
+        <div style={{ marginTop: '4rem', marginBottom: '2rem' }}>
+          <h2
+            className="collection-section-title"
+            style={{ display: 'block', textAlign: 'center', marginBottom: '2rem' }}
+          >
+            גלריית תמונות
+          </h2>
+          <Gallery images={show.gallery} />
+        </div>
+      )}
     </div>
   );
 }

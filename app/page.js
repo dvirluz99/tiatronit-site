@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 // import { homePageStructure } from '../data/presentations';
 import {getHomePageStructure, getAboutData, getHomeGalleryImages} from '../lib/data'
-import TestimonialsCarousel from '../components/TestimonialsCarousel';
+import dynamic from 'next/dynamic';
+
+const TestimonialsCarousel = dynamic(() => import('../components/TestimonialsCarousel'));
+const HomeGallery = dynamic(() => import('../components/HomeGallery'));
 import HeroSection from '../components/HeroSection';
-import HomeGallery from '../components/HomeGallery';
 import InfoSection from '../components/InfoSection';
 
 export default async function Home() {
@@ -43,15 +46,17 @@ export default async function Home() {
           }
 
           return (
-            <div key={card.id} className={`div_card ${card.importance ? `importance-${card.importance}` : ''}`}>
+            <div key={card.id} className={`div_card ${card.priority ? `importance-${card.priority === 'featured' ? 'recommended' : 'accustomed'}` : ''}`}>
               <Link href={linkHref}>
                 <figure>
-                  <img 
-                    src={`${card.mainImg}`} 
-                    alt={card.title} 
-                    className="img_for_card" 
+                  <Image
+                    src={`${card.mainImg}`}
+                    alt={card.title}
+                    className="img_for_card"
+                    width={500}
+                    height={500}
                   />
-                  <figcaption className={card.importance === 'recommended' ? 'caption-highlight' : ''}>
+                  <figcaption className={card.priority === 'featured' ? 'caption-highlight' : ''}>
                     {card.title}
                   </figcaption>
                 </figure>

@@ -80,16 +80,16 @@ export default function TestimonialsCarousel({aboutData}) {
                 {/* אזור הכרטיסים */}
                 <div className="carousel-track">
                     {visibleItems.map((item, index) => (
-                        <Link 
-                            key={`${item.linkRecId}-${index}`} 
-                            href={`/recommendation/${item.linkRecId}`}
+                        <Link
+                            key={`${item.recommendationId}-${index}`}
+                            href={`/recommendation/${item.recommendationId}`}
                             className="carousel-card"
                         >
                             <div className="carousel-quote-icon">❝</div>
                             <p className="carousel-text">{item.text}</p>
                             <div>
                                 <div className="carousel-author">{item.author}</div>
-                                <span className="carousel-show-name">{item.fromPresention}</span>
+                                <span className="carousel-show-name">{item.fromShowTitle}</span>
                             </div>
                         </Link>
                     ))}

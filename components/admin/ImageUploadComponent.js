@@ -5,12 +5,14 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../lib/firebase';
 
 /**
- * רכיב העלאת תמונה ל-Firebase Storage.
- * @param {string} subfolder - תת-תיקייה תחת AllDir (למשל "general_photo" או "havale_shoah")
- * @param {(url: string) => void} onUpload - callback עם ה-URL הציבורי אחרי העלאה
- * @param {string} currentImageUrl - תמונה נוכחית להצגה (אופציונלי)
- * @param {string} label - תווית לשדה (אופציונלי)
+ * @typedef {object} ImageUploadComponentProps
+ * @property {string} [subfolder]
+ * @property {(url: string) => void} onUpload
+ * @property {string} [currentImageUrl]
+ * @property {string} [label]
  */
+
+/** @param {ImageUploadComponentProps} props */
 export default function ImageUploadComponent({ subfolder = '', onUpload, currentImageUrl = '', label = 'תמונה' }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
@@ -26,7 +28,7 @@ export default function ImageUploadComponent({ subfolder = '', onUpload, current
     setUploading(true);
     try {
       const normalized = (subfolder || '').replace(/^AllDir\/?/, '').replace(/^\/+|\/+$/g, '').trim();
-    const path = normalized ? `AllDir/${normalized}/${Date.now()}_${file.name}` : `AllDir/${Date.now()}_${file.name}`;
+      const path = normalized ? `AllDir/${normalized}/${Date.now()}_${file.name}` : `AllDir/${Date.now()}_${file.name}`;
       const storageRef = ref(storage, path);
       await uploadBytes(storageRef, file);
       const url = await getDownloadURL(storageRef);

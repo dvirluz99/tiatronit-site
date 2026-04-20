@@ -76,7 +76,7 @@ export default async function ShowRecommendations({ recommendationIds, showId, u
                                     title={video.caption || "User review"}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                     allowFullScreen
-                                    
+                                    loading="lazy"
                                 ></iframe>
                             </div>
 

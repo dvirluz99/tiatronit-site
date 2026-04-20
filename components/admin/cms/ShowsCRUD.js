@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
+import { saveShow, deleteShow } from '../../../lib/v1-to-v2-sync';
 import ImageUploadComponent from '../ImageUploadComponent';
 import GalleryEditor from '../GalleryEditor';
 
@@ -255,13 +256,8 @@ export default function ShowsCRUD({ showToast }) {
         },
       };
 
-      if (editingId) {
-        await updateDoc(doc(db, 'shows', docId), data);
-        showToast?.('ההצגה עודכנה בהצלחה');
-      } else {
-        await setDoc(doc(db, 'shows', docId), { id: docId, ...data });
-        showToast?.('ההצגה נוספה בהצלחה');
-      }
+      await saveShow(docId, data);
+      showToast?.(editingId ? 'ההצגה עודכנה בהצלחה' : 'ההצגה נוספה בהצלחה');
       closeForm();
       load();
     } catch (e) {
@@ -276,7 +272,7 @@ export default function ShowsCRUD({ showToast }) {
     const id = deleteConfirm;
     setDeleteConfirm(null);
     try {
-      await deleteDoc(doc(db, 'shows', id));
+      await deleteShow(id);
       showToast?.('ההצגה נמחקה');
       load();
     } catch (e) {

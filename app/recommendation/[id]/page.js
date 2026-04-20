@@ -1,35 +1,46 @@
 import Link from 'next/link';
-import { getRecommendations, getAllShows } from '../../../lib/data';
+import {
+  getRecommendations,
+  getAllShows,
+  getHomePageStructure,
+  linkedTargetTitle,
+} from '../../../lib/data';
 import { plainTextToHtml } from '../../../lib/recommendationContent';
 
 export default async function RecommendationsPage({ params }) {
   const { id } = await params;
 
-  const recommendationsData = await getRecommendations()
-  const showData = await getAllShows();
+  const [recommendationsData, shows, homePageStructure] = await Promise.all([
+    getRecommendations(),
+    getAllShows(),
+    getHomePageStructure(),
+  ]);
 
-  // --- לוגיקה לשליפת ההמלצות (כמו ב-ClassPresentation שלך) ---
-  let relevantRecommendations = [];
-  
-  // מקרה א': ה-ID הוא של המלצה ספציפית (מתחיל ב-rec)
+  const collectionsById = Object.fromEntries(homePageStructure.map((c) => [c.id, c]));
+
+  let relevant = [];
+
   if (id.startsWith('rec')) {
-    if (recommendationsData[id]) {
-      relevantRecommendations.push(recommendationsData[id]);
-    }
-  } 
-  // מקרה ב': ה-ID הוא של הצגה (למשל p2), אז מביאים את כל ההמלצות שלה
-  else if (showData[id] && showData[id].linkRec) {
-    relevantRecommendations = showData[id].linkRec.map(recId => recommendationsData[recId]).filter(Boolean);
+    if (recommendationsData[id]) relevant.push(recommendationsData[id]);
+  } else if (shows[id] && shows[id].recommendationIds) {
+    relevant = shows[id].recommendationIds
+      .map((recId) => recommendationsData[recId])
+      .filter(Boolean);
+  } else if (collectionsById[id] && collectionsById[id].recommendationIds) {
+    relevant = collectionsById[id].recommendationIds
+      .map((recId) => recommendationsData[recId])
+      .filter(Boolean);
   }
 
-  // אם לא מצאנו כלום
-  if (relevantRecommendations.length === 0) {
+  if (relevant.length === 0) {
     return (
       <main className="continer_main_for_home">
-         <div style={{textAlign: 'center', marginTop: '50px'}}>
-            <h2>לא נמצאו המלצות</h2>
-            <Link href="/" style={{color: 'blue', textDecoration: 'underline'}}>חזרה לדף הבית</Link>
-         </div>
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <h2>לא נמצאו המלצות</h2>
+          <Link href="/" style={{ color: 'blue', textDecoration: 'underline' }}>
+            חזרה לדף הבית
+          </Link>
+        </div>
       </main>
     );
   }
@@ -37,39 +48,43 @@ export default async function RecommendationsPage({ params }) {
   return (
     <main className="continer_main_for_home">
       <div className="recommendation-page-wrapper">
-        
-        {/* כותרת הדף */}
+
         <h2 className="recommendation-header">המלצות חמות</h2>
 
-        {/* רשימת הכרטיסים */}
-        <div className="recommendations-list-container" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          {relevantRecommendations.map((rec) => (
-            <div key={rec.id} className="recommendation-card-full">
-              
-              <div className="rec-meta">
-                <span className="rec-role">
-                  <strong>{rec.recommenderName}</strong>
-                  <br />
-                  <span style={{ fontSize: '0.9em', color: '#666' }}>{rec.recommenderRole}</span>
-                </span>
-                <span className="rec-date">{rec.date}</span>
-              </div>
-              
-              {/* תוכן ההמלצה: טקסט רגיל מומר ל-HTML או HTML קיים (תאימות לאחור) */}
-              <div 
-                className="rec-content"
-                dangerouslySetInnerHTML={{ __html: plainTextToHtml(rec.content) }}
-              />
+        <div
+          className="recommendations-list-container"
+          style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}
+        >
+          {relevant.map((rec) => {
+            const title = linkedTargetTitle(rec.linkedTarget, shows, collectionsById);
+            return (
+              <div key={rec.id} className="recommendation-card-full">
 
-              <div className="rec-footer">
-                <p><strong>מתייחס להצגה:</strong> {rec.relatedShow}</p>
-              </div>
+                <div className="rec-meta">
+                  <span className="rec-role">
+                    <strong>{rec.recommenderName}</strong>
+                    <br />
+                    <span style={{ fontSize: '0.9em', color: '#666' }}>{rec.recommenderRole}</span>
+                  </span>
+                  <span className="rec-date">{rec.date}</span>
+                </div>
 
-            </div>
-          ))}
+                <div
+                  className="rec-content"
+                  dangerouslySetInnerHTML={{ __html: plainTextToHtml(rec.content) }}
+                />
+
+                {title && (
+                  <div className="rec-footer">
+                    <p><strong>מתייחס להצגה:</strong> {title}</p>
+                  </div>
+                )}
+
+              </div>
+            );
+          })}
         </div>
 
-        {/* כפתור הנעה לפעולה בתחתית */}
         <div className="rec-cta-container">
           <Link href="/contact" className="cta-button-large contact_us">
             להזמנת הצגה / סדנא צרו קשר

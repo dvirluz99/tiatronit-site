@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
+import { saveCollection, deleteCollection } from '../../../lib/v1-to-v2-sync';
 import ImageUploadComponent from '../ImageUploadComponent';
 import GalleryEditor from '../GalleryEditor';
 
@@ -160,13 +161,8 @@ export default function CollectionsCRUD({ showToast }) {
         data.contains = [];
       }
 
-      if (editingId) {
-        await updateDoc(doc(db, 'collections', docId), data);
-        showToast?.('הכרטיסייה עודכנה בהצלחה');
-      } else {
-        await setDoc(doc(db, 'collections', docId), { id: docId, ...data });
-        showToast?.('הכרטיסייה נוספה בהצלחה');
-      }
+      await saveCollection(docId, data);
+      showToast?.(editingId ? 'הכרטיסייה עודכנה בהצלחה' : 'הכרטיסייה נוספה בהצלחה');
       closeForm();
       load();
     } catch (e) {
@@ -181,7 +177,7 @@ export default function CollectionsCRUD({ showToast }) {
     const id = deleteConfirm;
     setDeleteConfirm(null);
     try {
-      await deleteDoc(doc(db, 'collections', id));
+      await deleteCollection(id);
       showToast?.('הכרטיסייה נמחקה');
       load();
     } catch (e) {

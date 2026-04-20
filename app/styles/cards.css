@@ -76,9 +76,10 @@ figure:hover {
 }
 
 figure img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
     background-color: #000000;
 }
 

@@ -43,3 +43,9 @@ next-env.d.ts
 # data
 /data
 public/AllDir/
+
+# firestore backups (local safety net — do not commit)
+/firestore-backup/
+
+# MCP config (local tool settings)
+.mcp.json

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
+import { savePageAbout, savePagePuppets, saveHomeGallery } from '../../../lib/v1-to-v2-sync';
 import ImageUploadComponent from '../ImageUploadComponent';
 import { htmlToPlain } from '../../../lib/recommendationContent';
 
@@ -93,7 +94,9 @@ export default function PagesSettingsCRUD({ showToast }) {
         toSave.subtitle = puppetsSubtitlePlain;
       }
 
-      await setDoc(doc(db, activeDoc.collection, activeDoc.id), toSave);
+      if (activeDoc.id === 'about') await savePageAbout(toSave);
+      else if (activeDoc.id === 'puppets') await savePagePuppets(toSave);
+      else if (activeDoc.id === 'homeGallery') await saveHomeGallery(toSave);
       showToast?.('נשמר בהצלחה');
       setData(toSave);
     } catch (e) {

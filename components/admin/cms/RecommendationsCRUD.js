@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
+import { saveRecommendation, deleteRecommendation } from '../../../lib/v1-to-v2-sync';
 import { htmlToPlain } from '../../../lib/recommendationContent';
 
 const CONTENT_MAX_LENGTH = 15000;
@@ -109,13 +110,8 @@ export default function RecommendationsCRUD({ showToast }) {
         linkedShowId: form.linkedShowId.trim() || '',
         contactInfo: form.contactInfo.trim() || '',
       };
-      if (editingId) {
-        await updateDoc(doc(db, 'recommendations', docId), data);
-        showToast?.('ההמלצה עודכנה בהצלחה');
-      } else {
-        await setDoc(doc(db, 'recommendations', docId), { id: docId, ...data });
-        showToast?.('ההמלצה נוספה בהצלחה');
-      }
+      await saveRecommendation(docId, data);
+      showToast?.(editingId ? 'ההמלצה עודכנה בהצלחה' : 'ההמלצה נוספה בהצלחה');
       closeForm();
       load();
     } catch (e) {
@@ -130,7 +126,7 @@ export default function RecommendationsCRUD({ showToast }) {
     const id = deleteConfirm;
     setDeleteConfirm(null);
     try {
-      await deleteDoc(doc(db, 'recommendations', id));
+      await deleteRecommendation(id);
       showToast?.('ההמלצה נמחקה');
       load();
     } catch (e) {

@@ -42,13 +42,13 @@ export default async function AboutPage() {
                             <span className="testi-author">- {item.author}</span>
                             
                             {/* קישור ראשון: לעמוד ההצגה */}
-                            <Link href={`/show/${item.linkP}`}>
-                                <span className="testi-from-Pres">{item.fromPresention}</span>
+                            <Link href={`/show/${item.showId}`}>
+                                <span className="testi-from-Pres">{item.fromShowTitle}</span>
                             </Link>
 
-                            {/* קישור שני: לעמוד ההמלצה המלא (הוספתי שורת רווח קטנה כדי שייראה טוב) */}
+                            {/* קישור שני: לעמוד ההמלצה המלא */}
                             <div style={{ marginTop: '15px' }}>
-                                <Link href={`/recommendation/${item.linkRecId}`} style={{ color: '#2998f4', fontWeight: 'bold' }}>
+                                <Link href={`/recommendation/${item.recommendationId}`} style={{ color: '#2998f4', fontWeight: 'bold' }}>
                                     קראו את ההמלצה המלאה &gt;
                                 </Link>
                             </div>

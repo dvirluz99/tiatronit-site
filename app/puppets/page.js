@@ -27,6 +27,7 @@ export default async function PuppetsPage() {
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            loading="lazy"
           ></iframe>
         </div>
       </section>
@@ -35,12 +36,12 @@ export default async function PuppetsPage() {
       <section className={styles.infoSection}>
         <div className={styles.infoCard}>
           
-          <h2 className={styles.infoTitle}>{data.infoTitle}</h2>
+          <h2 className={styles.infoTitle}>{data.infoSectionTitle}</h2>
           <div className={styles.paragraph} dangerouslySetInnerHTML={{ __html: plainTextToHtml(data.paragraph) }} />
 
           <div className={styles.divider}></div>
 
-          <h3 className={styles.subTitle}>{data.subTitle}</h3>
+          <h3 className={styles.subTitle}>{data.infoListTitle}</h3>
           
           <ul className={styles.infoList}>
             {/* רצים על מערך העקרונות במקום לכתוב אותם ידנית */}
