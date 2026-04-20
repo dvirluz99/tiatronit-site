@@ -57,6 +57,7 @@ export default async function ShowPage({ params }) {
   }
 
   const formats = show.presentationFormats || [];
+  const hasFormats = formats.length >= 2;
   const heroImage = show.mainImg || formats[0]?.image;
 
   const trailers = show.video?.trailers || [];
@@ -97,33 +98,39 @@ export default async function ShowPage({ params }) {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal variant="slide-left" className="show-hero-media" delay={120}>
-          {heroImage && (
-            <Image
-              src={heroImage}
-              alt={show.title}
-              width={700}
-              height={875}
-              priority
-            />
-          )}
-        </ScrollReveal>
-      </section>
-
-      {formats.length >= 2 && (
-        <ScrollReveal>
-          <div className="show-formats">
+        {hasFormats ? (
+          <ScrollReveal variant="slide-left" className="show-hero-formats" delay={120}>
+            <span className="show-hero-formats-label">שתי מתכונות הצגה</span>
             {formats.slice(0, 2).map((f, i) => (
-              <div key={i} className="show-format-item">
-                <div className="show-format-img">
-                  <Image src={f.image} alt={f.caption || `גרסה ${i + 1}`} width={400} height={400} />
+              <div key={i} className="show-format-card">
+                <div className="show-format-card-img">
+                  <Image
+                    src={f.image}
+                    alt={f.caption || `מתכונת ${i + 1}`}
+                    width={320}
+                    height={320}
+                  />
                 </div>
-                {f.caption && <p className="show-format-caption">{f.caption}</p>}
+                {f.caption && (
+                  <p className="show-format-card-caption">{f.caption}</p>
+                )}
               </div>
             ))}
-          </div>
-        </ScrollReveal>
-      )}
+          </ScrollReveal>
+        ) : (
+          <ScrollReveal variant="slide-left" className="show-hero-media" delay={120}>
+            {heroImage && (
+              <Image
+                src={heroImage}
+                alt={show.title}
+                width={640}
+                height={640}
+                priority
+              />
+            )}
+          </ScrollReveal>
+        )}
+      </section>
 
       {trailers.length > 0 && (
         <ScrollReveal variant="fade">

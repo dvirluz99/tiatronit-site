@@ -15,7 +15,7 @@
 
 .show-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
   position: relative;
@@ -38,7 +38,10 @@
 .show-hero-media {
   position: relative;
   z-index: 1;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
+  max-width: 320px;
+  width: 100%;
+  margin-inline: auto;
   border-radius: var(--r-xl);
   overflow: hidden;
   box-shadow: var(--shadow-xl);
@@ -135,42 +138,99 @@
   color: var(--c-accent-500);
 }
 
-/* ——— Double format layout (presentationFormats) ——— */
+/* ——— Hero variant: 2 formats side-by-side (replaces single hero image) ——— */
+/* Idea: when a show has 2 presentation formats (puppet theater vs solo),
+   the hero's media column shows both variants as small paired cards. */
 
-.show-formats {
+.show-hero-formats {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--sp-6);
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-6);
-  border-top: 1px dashed var(--c-border);
+  gap: var(--sp-3);
+  max-width: 440px;
+  width: 100%;
+  margin-inline: auto;
+  align-items: start;
 }
 
-.show-format-item {
+.show-hero-formats-label {
+  grid-column: 1 / -1;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--c-accent-700);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  margin-bottom: var(--sp-1);
+  position: relative;
+  padding: 0 var(--sp-3);
+}
+
+.show-hero-formats-label::before,
+.show-hero-formats-label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 1px;
+  background: var(--c-border-strong);
+}
+
+.show-hero-formats-label::before { right: 100%; }
+.show-hero-formats-label::after  { left: 100%; }
+
+.show-format-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-2);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
-  text-align: start;
+  gap: var(--sp-2);
+  text-align: center;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
 }
 
-.show-format-img {
+.show-format-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-accent-300);
+}
+
+.show-format-card:nth-child(2) { transform: rotate(1deg); }
+.show-format-card:nth-child(3) { transform: rotate(-1deg); }
+.show-format-card:nth-child(2):hover,
+.show-format-card:nth-child(3):hover { transform: translateY(-4px) rotate(0); }
+
+.show-format-card-img {
   aspect-ratio: 1;
+  width: 100%;
   border-radius: var(--r-md);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
   background: var(--c-primary-900);
 }
 
-.show-format-img img {
+.show-format-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.show-format-caption {
-  font-size: var(--fs-sm);
+.show-format-card-caption {
+  font-size: var(--fs-xs);
   color: var(--c-text-muted);
   line-height: var(--lh-snug);
+  min-height: 2.2em;
+  font-weight: var(--fw-medium);
 }
 
 /* ——— CTA row ——— */
@@ -433,6 +493,48 @@
   border: none;
 }
 
+/* ——— Gallery grid (used by Gallery.js component on show + collection pages) ——— */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: clamp(0.5rem, 1vw + 0.25rem, 0.9rem);
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.gallery-grid a {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-grid a:hover,
+.gallery-grid a:focus-visible {
+  transform: scale(1.04);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.gallery-grid a:hover img {
+  transform: scale(1.06);
+}
+
 /* ——— Mobile ——— */
 
 @media (max-width: 900px) {
@@ -443,16 +545,21 @@
   }
   .show-hero-media {
     transform: none;
-    aspect-ratio: 16 / 10;
-    max-width: 600px;
+    aspect-ratio: 1;
+    max-width: 260px;
     margin: 0 auto;
   }
   .show-hero::after {
     display: none;
   }
-  .show-formats {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--sp-4);
+  .show-hero-formats {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 420px) {
+  .show-hero-formats {
+    max-width: 320px;
   }
 }
 

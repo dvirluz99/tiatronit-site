@@ -8,8 +8,8 @@
   margin: 0 auto;
   padding: clamp(2rem, 3vw + 1rem, 5rem) var(--content-pad) var(--section-gap);
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-  gap: clamp(2rem, 4vw, 5rem);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
 
@@ -190,11 +190,14 @@
 .media {
   position: relative;
   z-index: 1;
+  max-width: 440px;
+  justify-self: center;
+  width: 100%;
 }
 
 .videoFrame {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 4 / 3;
   border-radius: var(--r-xl);
   overflow: hidden;
   box-shadow: var(--shadow-xl);
@@ -218,7 +221,7 @@
 .media::before {
   content: '';
   position: absolute;
-  inset: 1.5rem -1.5rem -1.5rem 1.5rem;
+  inset: 1rem -1rem -1rem 1rem;
   border: 2px solid var(--c-accent-200);
   border-radius: var(--r-xl);
   z-index: -1;
@@ -226,7 +229,7 @@
 }
 
 .media:hover::before {
-  inset: 1rem -1rem -1rem 1rem;
+  inset: 0.6rem -0.6rem -0.6rem 0.6rem;
 }
 
 /* Subtle floating badge on the media */
@@ -333,15 +336,16 @@
 
   .media {
     order: 0;
+    max-width: 420px;
   }
 
   .videoFrame {
     transform: none;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 4 / 3;
   }
 
   .media::before {
-    inset: 0.75rem -0.75rem -0.75rem 0.75rem;
+    inset: 0.6rem -0.6rem -0.6rem 0.6rem;
   }
 
   .stat + .stat::before {
