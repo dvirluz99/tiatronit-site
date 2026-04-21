@@ -136,8 +136,6 @@
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
   line-height: var(--lh-snug);
-  word-break: break-word;
-  overflow-wrap: anywhere;
 }
 
 .show-meta-chip svg {
@@ -145,6 +143,14 @@
   height: 14px;
   color: var(--c-accent-500);
   flex-shrink: 0;
+}
+
+/* The inner span wraps the label so its min-width can be 0,
+   allowing the text to wrap inside the flex chip. */
+.show-meta-chip > span {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 /* ——— Hero variant: 2 formats side-by-side (replaces single hero image) ——— */
@@ -383,6 +389,11 @@
   gap: var(--sp-2);
   max-width: 100%;
   line-height: var(--lh-snug);
+}
+
+.audience-highlight > span {
+  min-width: 0;
+  overflow-wrap: break-word;
   word-break: break-word;
 }
 

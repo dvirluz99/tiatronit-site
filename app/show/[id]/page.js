@@ -82,8 +82,16 @@ export default async function ShowPage({ params }) {
           )}
 
           <div className="show-meta">
-            <span className="show-meta-chip"><IconTag />{categoryLabel}</span>
-            {show.audience && <span className="show-meta-chip"><IconAudience />{show.audience}</span>}
+            <span className="show-meta-chip">
+              <IconTag />
+              <span>{categoryLabel}</span>
+            </span>
+            {show.audience && (
+              <span className="show-meta-chip">
+                <IconAudience />
+                <span>{show.audience}</span>
+              </span>
+            )}
           </div>
 
           <div className="cta-container">
@@ -163,7 +171,7 @@ export default async function ShowPage({ params }) {
         )}
 
         {show.audience && (
-          <p className="audience-highlight">{show.audience}</p>
+          <p className="audience-highlight"><span>{show.audience}</span></p>
         )}
 
         {show.socialProof && (
