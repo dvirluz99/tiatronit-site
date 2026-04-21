@@ -91,15 +91,21 @@ function AboutEditor({ showToast }: { showToast: Props['showToast'] }) {
 
   async function save() {
     setSaving(true);
-    const result = await saveValidated('pages_v2', 'about', data, AboutPageSchema);
-    setSaving(false);
-    if (!result.ok) {
-      setErrors(result.errors);
-      showToast('יש שגיאות בטופס', 'error');
-      return;
+    try {
+      const result = await saveValidated('pages_v2', 'about', data, AboutPageSchema);
+      if (!result.ok) {
+        setErrors(result.errors);
+        showToast('יש שגיאות בטופס', 'error');
+        return;
+      }
+      setErrors({});
+      showToast('נשמר');
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    setErrors({});
-    showToast('נשמר');
   }
 
   return (
@@ -164,15 +170,21 @@ function PuppetsEditor({ showToast }: { showToast: Props['showToast'] }) {
 
   async function save() {
     setSaving(true);
-    const result = await saveValidated('pages_v2', 'puppets', data, PuppetsPageSchema);
-    setSaving(false);
-    if (!result.ok) {
-      setErrors(result.errors);
-      showToast('יש שגיאות בטופס', 'error');
-      return;
+    try {
+      const result = await saveValidated('pages_v2', 'puppets', data, PuppetsPageSchema);
+      if (!result.ok) {
+        setErrors(result.errors);
+        showToast('יש שגיאות בטופס', 'error');
+        return;
+      }
+      setErrors({});
+      showToast('נשמר');
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    setErrors({});
-    showToast('נשמר');
   }
 
   return (
@@ -237,13 +249,19 @@ function HomeGalleryEditor({ showToast }: { showToast: Props['showToast'] }) {
 
   async function save() {
     setSaving(true);
-    const result = await saveValidated('settings_v2', 'homeGallery', data, HomeGallerySchema);
-    setSaving(false);
-    if (!result.ok) {
-      showToast('שגיאה בשמירה: ' + result.messages.join(', '), 'error');
-      return;
+    try {
+      const result = await saveValidated('settings_v2', 'homeGallery', data, HomeGallerySchema);
+      if (!result.ok) {
+        showToast('שגיאה בשמירה: ' + result.messages.join(', '), 'error');
+        return;
+      }
+      showToast('נשמר');
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    showToast('נשמר');
   }
 
   return (

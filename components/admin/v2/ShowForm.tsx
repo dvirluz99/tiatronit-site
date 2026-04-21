@@ -72,18 +72,25 @@ export default function ShowForm({
   async function save() {
     if (idError) {
       setErrors((prev) => ({ ...prev, id: idError }));
+      showToast('יש שגיאה במזהה - ראה/י סימון אדום', 'error');
       return;
     }
     setSaving(true);
-    const result = await saveValidated('shows_v2', show.id, show, ShowSchema);
-    setSaving(false);
-    if (!result.ok) {
-      setErrors(result.errors);
-      showToast('יש שגיאות בטופס - ראה/י סימונים אדומים', 'error');
-      return;
+    try {
+      const result = await saveValidated('shows_v2', show.id, show, ShowSchema);
+      if (!result.ok) {
+        setErrors(result.errors);
+        showToast('יש שגיאות בטופס - ראה/י סימונים אדומים', 'error');
+        return;
+      }
+      showToast(isNew ? 'ההצגה נוספה' : 'ההצגה נשמרה');
+      onSaved(result.data);
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    showToast(isNew ? 'ההצגה נוספה' : 'ההצגה נשמרה');
-    onSaved(result.data);
   }
 
   async function doDelete() {

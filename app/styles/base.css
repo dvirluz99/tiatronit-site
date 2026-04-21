@@ -23,6 +23,7 @@ body {
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   font-family: var(--font-sans);
   font-size: var(--fs-base);
@@ -121,6 +122,10 @@ p, h1, h2, h3, h4, h5, h6, li, figcaption {
     padding-top: 70px;
   }
   main {
+    flex: 1 0 auto;
     padding: var(--sp-4) var(--sp-2);
+  }
+  footer {
+    flex-shrink: 0;
   }
 }

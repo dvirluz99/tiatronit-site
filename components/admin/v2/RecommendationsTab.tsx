@@ -167,18 +167,25 @@ function RecommendationEditor({
   async function save() {
     if (idError) {
       setErrors((prev) => ({ ...prev, id: idError }));
+      showToast('יש שגיאה במזהה', 'error');
       return;
     }
     setSaving(true);
-    const result = await saveValidated('recommendations_v2', rec.id, rec, RecommendationSchema);
-    setSaving(false);
-    if (!result.ok) {
-      setErrors(result.errors);
-      showToast('יש שגיאות בטופס', 'error');
-      return;
+    try {
+      const result = await saveValidated('recommendations_v2', rec.id, rec, RecommendationSchema);
+      if (!result.ok) {
+        setErrors(result.errors);
+        showToast('יש שגיאות בטופס', 'error');
+        return;
+      }
+      showToast(isNew ? 'ההמלצה נוספה' : 'ההמלצה נשמרה');
+      onSaved();
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    showToast(isNew ? 'ההמלצה נוספה' : 'ההמלצה נשמרה');
-    onSaved();
   }
 
   async function doDelete() {

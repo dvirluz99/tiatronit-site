@@ -177,18 +177,25 @@ function CollectionEditor({
   async function save() {
     if (idError) {
       setErrors((prev) => ({ ...prev, id: idError }));
+      showToast('יש שגיאה במזהה', 'error');
       return;
     }
     setSaving(true);
-    const result = await saveValidated('collections_v2', card.id, card, CollectionSchema);
-    setSaving(false);
-    if (!result.ok) {
-      setErrors(result.errors);
-      showToast('יש שגיאות בטופס', 'error');
-      return;
+    try {
+      const result = await saveValidated('collections_v2', card.id, card, CollectionSchema);
+      if (!result.ok) {
+        setErrors(result.errors);
+        showToast('יש שגיאות בטופס', 'error');
+        return;
+      }
+      showToast(isNew ? 'האוסף נוסף' : 'האוסף נשמר');
+      onSaved();
+    } catch (e) {
+      console.error('Save failed', e);
+      showToast('שגיאה בשמירה: ' + ((e as Error)?.message || 'בעיה לא ידועה'), 'error');
+    } finally {
+      setSaving(false);
     }
-    showToast(isNew ? 'האוסף נוסף' : 'האוסף נשמר');
-    onSaved();
   }
 
   async function doDelete() {
