@@ -230,9 +230,26 @@
   font-style: italic;
 }
 
-/* ——— Mobile ——— */
+/* ——— Responsive ——— */
 @media (max-width: 640px) {
+  .container {
+    padding-block: clamp(2rem, 8vw, 3rem);
+    gap: clamp(2.5rem, 8vw, 4rem);
+  }
+  .title {
+    font-size: var(--fs-3xl);
+  }
+  .subtitle {
+    font-size: var(--fs-base);
+  }
+  .infoTitle,
+  .subTitle {
+    font-size: var(--fs-2xl);
+  }
   .infoList {
     grid-template-columns: 1fr;
+  }
+  .summaryBox p {
+    font-size: var(--fs-lg);
   }
 }

@@ -311,19 +311,20 @@
   background: var(--c-border);
 }
 
-/* ——— Mobile ——— */
-@media (max-width: 900px) {
+/* ——— Responsive ——— */
+@media (max-width: 960px) {
   .hero {
     grid-template-columns: 1fr;
     gap: clamp(2rem, 6vw, 3rem);
     text-align: start;
+    padding-top: clamp(1.5rem, 3vw, 3rem);
   }
 
   .hero::before {
     top: -2rem;
-    left: -50%;
-    width: 300px;
-    height: 300px;
+    left: -30%;
+    width: 320px;
+    height: 320px;
   }
 
   .hero::after {
@@ -332,11 +333,13 @@
 
   .content {
     order: 1;
+    gap: var(--sp-4);
   }
 
   .media {
     order: 0;
     max-width: 420px;
+    justify-self: center;
   }
 
   .videoFrame {
@@ -348,7 +351,38 @@
     inset: 0.6rem -0.6rem -0.6rem 0.6rem;
   }
 
+  .stats {
+    padding: var(--sp-4) var(--sp-5);
+    gap: var(--sp-4);
+  }
+
   .stat + .stat::before {
     display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ctaPrimary,
+  .ctaSecondary {
+    justify-content: center;
+    padding: 0.9rem 1.5rem;
+  }
+  .title {
+    font-size: clamp(2.4rem, 10vw, 3.2rem);
+  }
+  .stats {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+    padding: var(--sp-4);
+  }
+  .mediaBadge {
+    bottom: 1rem;
+    right: 1rem;
+    font-size: var(--fs-xs);
+    padding: var(--sp-2) var(--sp-3);
   }
 }

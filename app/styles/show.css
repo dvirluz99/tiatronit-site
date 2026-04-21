@@ -535,13 +535,18 @@
   transform: scale(1.06);
 }
 
-/* ——— Mobile ——— */
+/* ——— Responsive ——— */
 
-@media (max-width: 900px) {
+/* Single-column stack for phones (portrait + landscape) and small tablets */
+@media (max-width: 960px) {
   .show-hero {
     grid-template-columns: 1fr;
-    gap: var(--sp-8);
+    gap: var(--sp-6);
     text-align: start;
+    justify-items: stretch;
+  }
+  .show-hero::after {
+    display: none;
   }
   .show-hero-media {
     transform: none;
@@ -549,34 +554,69 @@
     max-width: 260px;
     margin: 0 auto;
   }
-  .show-hero::after {
-    display: none;
-  }
   .show-hero-formats {
-    max-width: 380px;
+    max-width: 420px;
   }
-}
-
-@media (max-width: 420px) {
-  .show-hero-formats {
-    max-width: 320px;
+  .show-hero-formats-label::before,
+  .show-hero-formats-label::after {
+    width: 22px;
   }
 }
 
 @media (max-width: 520px) {
+  .div_presentation {
+    padding: clamp(1.5rem, 4vw, 2.5rem) var(--content-pad);
+    gap: clamp(2rem, 6vw, 3rem);
+  }
   .show-hero-text {
     gap: var(--sp-4);
+  }
+  .presentation-page-title {
+    font-size: var(--fs-3xl);
+  }
+  .show-hero-media {
+    max-width: 220px;
+  }
+  .show-hero-formats {
+    max-width: 320px;
+    gap: var(--sp-2);
+  }
+  .show-format-card {
+    padding: var(--sp-1);
+  }
+  .show-format-card-caption {
+    font-size: 0.72rem;
   }
   .show-details-container {
     padding: var(--sp-5) var(--sp-4);
   }
+  .show-details-container::before {
+    display: none;
+  }
+  .show-meta-chip {
+    font-size: var(--fs-xs);
+    padding: 0.3rem 0.7rem;
+  }
+  .cta-container {
+    gap: var(--sp-2);
+  }
   .cta-button {
-    padding: 0.8rem 1.4rem;
+    padding: 0.7rem 1.2rem;
     font-size: var(--fs-sm);
-    flex: 1;
+    flex: 1 1 140px;
     justify-content: center;
   }
-  .show-formats {
+  .vidue_iframe {
+    border-radius: var(--r-md);
+  }
+  .clips-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .show-hero-formats-label::before,
+  .show-hero-formats-label::after {
+    display: none;
   }
 }

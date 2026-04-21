@@ -453,15 +453,17 @@
   margin-top: var(--section-gap);
 }
 
-/* ——— Mobile ——— */
+/* ——— Responsive ——— */
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .about-top-section {
     grid-template-columns: 1fr;
     gap: var(--sp-6);
+    text-align: start;
   }
   .about-image-container {
     transform: none;
+    justify-self: center;
   }
   .about-image-container::before {
     inset: 0.75rem -0.75rem -0.75rem 0.75rem;
@@ -481,13 +483,35 @@
 }
 
 @media (max-width: 520px) {
+  .about-page-wrapper,
+  .recommendation-page-wrapper,
+  .contact-page-container {
+    padding-block: clamp(2rem, 8vw, 3rem);
+  }
+  .about-title {
+    font-size: var(--fs-3xl);
+  }
+  .about-description {
+    font-size: var(--fs-base);
+  }
+  .about-image-container {
+    max-width: 320px;
+  }
   .cta-button-large {
     width: 100%;
     max-width: 360px;
-    padding: 0.95rem 1.5rem;
+    padding: 0.9rem 1.25rem;
     font-size: var(--fs-base);
+  }
+  .recommendation-card-full {
+    padding: var(--sp-5) var(--sp-4);
   }
   .recommendation-card-full::before {
     font-size: 3rem;
+    top: 0.25rem;
+    right: 0.75rem;
+  }
+  .contact-card i {
+    font-size: 1.75rem;
   }
 }

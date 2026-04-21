@@ -244,14 +244,41 @@
   margin-top: var(--sp-3);
 }
 
-/* ——— Mobile ——— */
+/* ——— Responsive ——— */
 @media (max-width: 640px) {
+  .cards-section {
+    padding-block: clamp(2rem, 8vw, 3rem);
+  }
+  .cards-title {
+    font-size: var(--fs-3xl);
+  }
+  .cards-subtitle {
+    font-size: var(--fs-base);
+  }
   .continer_main_for_all {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: var(--sp-3);
   }
   .div_card figure figcaption {
     font-size: var(--fs-base);
     padding: var(--sp-3) var(--sp-3) var(--sp-4);
+  }
+  .caption-highlight::before {
+    font-size: 0.68rem;
+    padding: 3px 10px;
+    top: -12px;
+  }
+  .collection-header-wrapper {
+    margin: clamp(2rem, 8vw, 3rem) auto var(--sp-8);
+  }
+  .collection-title {
+    font-size: var(--fs-3xl);
+  }
+  .collection-description {
+    font-size: var(--fs-base);
+  }
+  .collection-text-box {
+    padding: var(--sp-5) var(--sp-4);
+    font-size: var(--fs-base);
   }
 }
