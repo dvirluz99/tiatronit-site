@@ -62,6 +62,11 @@ img, video {
   display: block;
 }
 
+/* Global safety: long text / URLs must not blow up layout */
+p, h1, h2, h3, h4, h5, h6, li, figcaption {
+  overflow-wrap: break-word;
+}
+
 ::selection {
   background: var(--c-accent-200);
   color: var(--c-text);

@@ -67,6 +67,7 @@
 .show-hero-text {
   position: relative;
   z-index: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
@@ -78,6 +79,7 @@
   align-items: center;
   gap: var(--sp-2);
   padding: var(--sp-1) var(--sp-4);
+  max-width: 100%;
   background: var(--c-primary-100);
   color: var(--c-primary-800);
   font-size: var(--fs-xs);
@@ -85,6 +87,7 @@
   letter-spacing: var(--ls-wide);
   text-transform: uppercase;
   border-radius: var(--r-pill);
+  word-break: break-word;
 }
 
 .show-eyebrow::before {
@@ -117,6 +120,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-2);
+  max-width: 100%;
 }
 
 .show-meta-chip {
@@ -124,18 +128,23 @@
   align-items: center;
   gap: var(--sp-2);
   padding: 0.4rem 0.85rem;
+  max-width: 100%;
   background: var(--c-surface);
   color: var(--c-primary-900);
   border: 1px solid var(--c-border);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-lg);
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .show-meta-chip svg {
   width: 14px;
   height: 14px;
   color: var(--c-accent-500);
+  flex-shrink: 0;
 }
 
 /* ——— Hero variant: 2 formats side-by-side (replaces single hero image) ——— */
@@ -370,8 +379,11 @@
   padding: var(--sp-3) var(--sp-4);
   margin: 0;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-2);
+  max-width: 100%;
+  line-height: var(--lh-snug);
+  word-break: break-word;
 }
 
 .audience-highlight::before {
