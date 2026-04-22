@@ -7,6 +7,7 @@ import {
   type Recommendation,
   type Show,
   type Collection,
+  type Category,
 } from '../../../lib/schema';
 import { listAll, saveValidated, removeDoc } from '../../../lib/firestore-v2';
 import TextField from './fields/TextField';
@@ -47,20 +48,27 @@ export default function RecommendationsTab({ showToast }: Props) {
   const [recs, setRecs] = useState<Array<{ id: string; data: Recommendation }>>([]);
   const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
   const [cards, setCards] = useState<Array<{ id: string; data: Collection }>>([]);
+  const [categories, setCategories] = useState<Array<{ id: string; data: Category }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
     try {
-      const [r, s, c] = await Promise.all([
+      const [r, s, c, cat] = await Promise.all([
         listAll<Recommendation>('recommendations_v2'),
         listAll<Show>('shows_v2'),
-        listAll<Collection>('collections_v2'),
+        listAll<Collection>('collections_v2').catch(
+          () => [] as Array<{ id: string; data: Collection }>,
+        ),
+        listAll<Category>('categories_v2').catch(
+          () => [] as Array<{ id: string; data: Category }>,
+        ),
       ]);
       setRecs(r.sort((a, b) => a.id.localeCompare(b.id)));
       setShows(s.sort((a, b) => a.id.localeCompare(b.id)));
       setCards(c.sort((a, b) => a.id.localeCompare(b.id)));
+      setCategories(cat.sort((a, b) => a.id.localeCompare(b.id)));
     } catch (e) {
       showToast('שגיאה בטעינה: ' + (e as Error).message, 'error');
     } finally {
@@ -71,6 +79,43 @@ export default function RecommendationsTab({ showToast }: Props) {
   useEffect(() => {
     load();
   }, []);
+
+  // Hooks must run on every render — keep all of them above any early return.
+  const showsById = useMemo(
+    () => Object.fromEntries(shows.map((s) => [s.id, s.data])),
+    [shows],
+  );
+  // Legacy recommendations stored linkedTarget.kind = 'collection' pointing at
+  // the old collections_v2 ids. After the category refactor those same ids
+  // live in categories_v2. We look up new first, fall back to legacy.
+  const targetsById = useMemo(() => {
+    const map: Record<string, { title: string }> = {};
+    for (const c of cards) map[c.id] = { title: c.data.title };
+    for (const c of categories) map[c.id] = { title: c.data.title }; // wins
+    return map;
+  }, [cards, categories]);
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return recs;
+    return recs.filter((r) => {
+      const d = r.data;
+      const target = d.linkedTarget;
+      const targetTitle =
+        target?.kind === 'show'
+          ? showsById[target.id]?.title || ''
+          : target?.kind === 'collection'
+            ? targetsById[target.id]?.title || ''
+            : '';
+      return (
+        r.id.toLowerCase().includes(q) ||
+        (d.recommenderName || '').toLowerCase().includes(q) ||
+        (d.recommenderRole || '').toLowerCase().includes(q) ||
+        (d.content || '').toLowerCase().includes(q) ||
+        targetTitle.toLowerCase().includes(q)
+      );
+    });
+  }, [recs, search, showsById, targetsById]);
 
   if (loading) return <p className="v2-empty">טוען...</p>;
 
@@ -93,31 +138,6 @@ export default function RecommendationsTab({ showToast }: Props) {
     );
   }
 
-  const showsById = Object.fromEntries(shows.map((s) => [s.id, s.data]));
-  const cardsById = Object.fromEntries(cards.map((c) => [c.id, c.data]));
-
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return recs;
-    return recs.filter((r) => {
-      const d = r.data;
-      const target = d.linkedTarget;
-      const targetTitle =
-        target?.kind === 'show'
-          ? showsById[target.id]?.title || ''
-          : target?.kind === 'collection'
-            ? cardsById[target.id]?.title || ''
-            : '';
-      return (
-        r.id.toLowerCase().includes(q) ||
-        (d.recommenderName || '').toLowerCase().includes(q) ||
-        (d.recommenderRole || '').toLowerCase().includes(q) ||
-        (d.content || '').toLowerCase().includes(q) ||
-        targetTitle.toLowerCase().includes(q)
-      );
-    });
-  }, [recs, search, showsById, cardsById]);
-
   function describeLink(rec: Recommendation): { label: string; muted: boolean } {
     if (!rec.linkedTarget) return { label: 'כללי', muted: true };
     if (rec.linkedTarget.kind === 'show') {
@@ -125,8 +145,8 @@ export default function RecommendationsTab({ showToast }: Props) {
       return { label: '📺 ' + (t?.title || `הצגה לא נמצאה (${rec.linkedTarget.id})`), muted: false };
     }
     if (rec.linkedTarget.kind === 'collection') {
-      const t = cardsById[rec.linkedTarget.id];
-      return { label: '🗂️ ' + (t?.title || `אוסף לא נמצא (${rec.linkedTarget.id})`), muted: false };
+      const t = targetsById[rec.linkedTarget.id];
+      return { label: '🗂️ ' + (t?.title || `קטגוריה לא נמצאה (${rec.linkedTarget.id})`), muted: false };
     }
     return { label: 'כללי', muted: true };
   }
