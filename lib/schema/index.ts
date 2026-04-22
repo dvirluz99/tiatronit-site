@@ -5,6 +5,8 @@ export * from './recommendation';
 export * from './page';
 export * from './setting';
 export * from './clip';
+export * from './category';
+export * from './homepage';
 export { LABELS } from './labels';
 
 export const V2_COLLECTIONS = {
@@ -15,6 +17,12 @@ export const V2_COLLECTIONS = {
   settings: 'settings_v2',
   clips: 'clips_v2',
   customerClips: 'customer_clips_v2',
+  categories: 'categories_v2',
+} as const;
+
+export const SETTINGS_DOCS = {
+  homepage: 'homepage',
+  homeGallery: 'homeGallery',
 } as const;
 
 export const V1_COLLECTIONS = {

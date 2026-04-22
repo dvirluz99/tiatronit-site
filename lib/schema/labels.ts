@@ -3,13 +3,19 @@
 
 export const LABELS = {
   show: {
-    _entity: 'הצגה',
-    _entityPlural: 'הצגות',
+    _entity: 'הצגה / סדנא',
+    _entityPlural: 'הצגות וסדנאות',
     id: 'מזהה (ID)',
     slug: 'כתובת URL ידידותית (אופציונלי)',
-    title: 'שם ההצגה',
+    title: 'שם ההצגה / סדנא',
     category: 'קהל יעד',
     priority: 'חשיבות תצוגה',
+    kind: 'סוג',
+    kindOptions: {
+      show: 'הצגה רגילה',
+      workshop: 'סדנא (כוללת הצגות בתוכה)',
+    },
+    containedShowIds: 'הצגות הכלולות בסדנא',
     mainImg: 'תמונה ראשית',
     presentationFormats: 'גרסאות של ההצגה (למשל: תיאטרון בובות, הצגת יחיד)',
     presentationFormatsItem: {
@@ -45,7 +51,7 @@ export const LABELS = {
     id: 'מזהה (ID)',
     youtubeId: 'מזהה YouTube',
     caption: 'כותרת / תיאור',
-    linkedShowId: 'שייך להצגה (לתיוג בלבד — לא משפיע על האתר)',
+    linkedTarget: 'שייך ל (לתיוג בלבד — לא משפיע על האתר)',
   },
 
   customerClip: {
@@ -54,7 +60,35 @@ export const LABELS = {
     id: 'מזהה (ID)',
     youtubeId: 'מזהה YouTube',
     caption: 'כותרת / שם הממליץ',
-    linkedShowId: 'שייך להצגה (לתיוג בלבד — לא משפיע על האתר)',
+    linkedTarget: 'שייך ל (לתיוג בלבד — לא משפיע על האתר)',
+  },
+
+  category: {
+    _entity: 'קטגוריה',
+    _entityPlural: 'קטגוריות',
+    id: 'מזהה (ID)',
+    slug: 'כתובת URL ידידותית (אופציונלי)',
+    title: 'שם הקטגוריה',
+    description: 'תיאור קצר',
+    mainImg: 'תמונה ראשית',
+    itemIds: 'הצגות וסדנאות בקטגוריה (סדר התצוגה)',
+    trailers: 'טריילרים (מזהי YouTube)',
+    clipIds: 'טעימות נוספות מהספרייה',
+    customerClipIds: 'עדויות נוספות מהספרייה',
+    recommendationIds: 'המלצות מקושרות',
+    gallery: 'גלריית תמונות',
+    extendedHtml: 'תוכן נוסף (HTML)',
+  },
+
+  homepage: {
+    _entity: 'דף הבית',
+    items: 'כרטיסיות בדף הבית (סדר התצוגה)',
+    itemKind: 'סוג',
+    itemKindOptions: {
+      show: 'הצגה / סדנא',
+      category: 'קטגוריה',
+    },
+    itemId: 'בחר/י פריט',
   },
 
   collection: {

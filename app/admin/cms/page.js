@@ -4,7 +4,8 @@ import { useCallback, useState } from 'react';
 import AdminGuard from '../../../components/admin/AdminGuard';
 import Toast from '../../../components/admin/Toast';
 import ShowsTab from '../../../components/admin/v2/ShowsTab';
-import CollectionsTab from '../../../components/admin/v2/CollectionsTab';
+import HomepageTab from '../../../components/admin/v2/HomepageTab';
+import CategoriesTab from '../../../components/admin/v2/CategoriesTab';
 import RecommendationsTab from '../../../components/admin/v2/RecommendationsTab';
 import ClipsLibraryTab from '../../../components/admin/v2/ClipsLibraryTab';
 import PagesTab from '../../../components/admin/v2/PagesTab';
@@ -12,15 +13,16 @@ import Link from 'next/link';
 import '../../../components/admin/v2/admin-v2.css';
 
 const TABS = [
-  { id: 'shows', label: 'הצגות', Component: ShowsTab },
-  { id: 'collections', label: 'כרטיסיות ואוספים', Component: CollectionsTab },
+  { id: 'homepage', label: 'דף הבית', Component: HomepageTab },
+  { id: 'shows', label: 'הצגות וסדנאות', Component: ShowsTab },
+  { id: 'categories', label: 'קטגוריות', Component: CategoriesTab },
   { id: 'recommendations', label: 'המלצות', Component: RecommendationsTab },
   { id: 'clips', label: 'ספריית סרטונים', Component: ClipsLibraryTab },
   { id: 'pages', label: 'עמודים והגדרות', Component: PagesTab },
 ];
 
 export default function CMSPage() {
-  const [activeTab, setActiveTab] = useState('shows');
+  const [activeTab, setActiveTab] = useState('homepage');
   const [toast, setToast] = useState(null);
 
   const showToast = useCallback((message, type = 'success') => {

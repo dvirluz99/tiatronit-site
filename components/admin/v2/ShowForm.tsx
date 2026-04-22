@@ -24,6 +24,7 @@ type Props = {
   initial: Show;
   isNew: boolean;
   existingIds: string[];
+  allShows: Array<{ id: string; data: Show }>;
   recommendations: Array<{ id: string; data: Recommendation }>;
   clips: Array<{ id: string; data: Clip }>;
   customerClips: Array<{ id: string; data: CustomerClip }>;
@@ -40,6 +41,7 @@ export default function ShowForm({
   initial,
   isNew,
   existingIds,
+  allShows,
   recommendations,
   clips,
   customerClips,
@@ -110,24 +112,30 @@ export default function ShowForm({
     }
   }
 
-  // Sort the library options so anything tagged for THIS show appears first,
-  // then "general" (no linkedShowId), then anything tagged for other shows.
-  // Items already selected on the show stay in their selection order regardless.
-  function sortByRelevance<T extends { data: { linkedShowId?: string } }>(items: T[]): T[] {
+  // Sort library options so anything tagged for THIS show floats to the top,
+  // then untagged ("general"), then items tagged for other shows / categories.
+  function isTaggedForThisShow(target: { kind: string; id: string } | null | undefined): boolean {
+    return !!target && target.kind === 'show' && target.id === show.id;
+  }
+  function sortByRelevance<T extends { data: { linkedTarget?: { kind: string; id: string } | null } }>(
+    items: T[],
+  ): T[] {
     const score = (it: T) => {
-      const lid = it.data.linkedShowId || '';
-      if (lid === show.id) return 0;
-      if (!lid) return 1;
+      const t = it.data.linkedTarget;
+      if (isTaggedForThisShow(t)) return 0;
+      if (!t) return 1;
       return 2;
     };
     return [...items].sort((a, b) => score(a) - score(b));
   }
 
-  function annotateLabel(caption: string | undefined, id: string, linkedShowId: string | undefined): string {
+  function annotateLabel(
+    caption: string | undefined,
+    id: string,
+    target: { kind: string; id: string } | null | undefined,
+  ): string {
     const base = caption ? `${caption} (${id})` : id;
-    if (linkedShowId === show.id) return `★ ${base}`;
-    if (!linkedShowId) return base;
-    return base;
+    return isTaggedForThisShow(target) ? `★ ${base}` : base;
   }
 
   const recScore = (r: { data: Recommendation }) => {
@@ -148,12 +156,12 @@ export default function ShowForm({
 
   const clipOptions = sortByRelevance(clips).map((c) => ({
     value: c.id,
-    label: annotateLabel(c.data.caption, c.id, c.data.linkedShowId),
+    label: annotateLabel(c.data.caption, c.id, c.data.linkedTarget),
   }));
 
   const customerClipOptions = sortByRelevance(customerClips).map((c) => ({
     value: c.id,
-    label: annotateLabel(c.data.caption, c.id, c.data.linkedShowId),
+    label: annotateLabel(c.data.caption, c.id, c.data.linkedTarget),
   }));
 
   return (
@@ -206,6 +214,16 @@ export default function ShowForm({
 
           <div className="v2-row">
             <SelectField
+              label={L.kind}
+              value={show.kind}
+              onChange={(v) => set('kind', v as Show['kind'])}
+              options={[
+                { value: 'show', label: L.kindOptions.show },
+                { value: 'workshop', label: L.kindOptions.workshop },
+              ]}
+              error={errors.kind}
+            />
+            <SelectField
               label={L.category}
               value={show.category}
               onChange={(v) => set('category', v as Show['category'])}
@@ -227,6 +245,19 @@ export default function ShowForm({
               error={errors.priority}
             />
           </div>
+
+          {show.kind === 'workshop' && (
+            <MultiSelectField
+              label={L.containedShowIds}
+              selected={show.containedShowIds}
+              options={allShows
+                .filter((s) => s.id !== show.id && s.data.kind !== 'workshop')
+                .map((s) => ({ value: s.id, label: s.data.title || s.id }))}
+              onChange={(next) => set('containedShowIds', next)}
+              hint="הצגות שבתוך הסדנא — יופיעו כרשימה בעמוד הסדנא, מעל התיאור"
+              emptyText="אין הצגות אחרות במערכת — תחילה הוסיפי הצגות, ואז קשרי אותן לסדנא"
+            />
+          )}
 
           <TextareaField
             label={L.description}

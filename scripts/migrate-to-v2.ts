@@ -151,6 +151,8 @@ function transformShow(id: string, v1: AnyRecord): Show {
     recommendationIds: Array.isArray(v1.linkRec) ? (v1.linkRec as string[]) : [],
     clipIds: [],
     customerClipIds: [],
+    kind: 'show' as const,
+    containedShowIds: [],
   };
   return ShowSchema.parse(parsed);
 }

@@ -7,7 +7,9 @@ import {
   CustomerClipSchema,
   type Clip,
   type CustomerClip,
+  type ClipLinkedTarget,
   type Show,
+  type Category,
 } from '../../../lib/schema';
 import { listAll, saveValidated, removeDoc } from '../../../lib/firestore-v2';
 import TextField from './fields/TextField';
@@ -72,7 +74,23 @@ type Mode = { kind: 'list' } | { kind: 'edit'; id: string } | { kind: 'new' };
 type AnyClip = Clip | CustomerClip;
 
 function emptyItem(): AnyClip {
-  return { id: '', youtubeId: '', caption: '', linkedShowId: '' };
+  return { id: '', youtubeId: '', caption: '', linkedTarget: null };
+}
+
+// Encode/decode the linkedTarget for a single SelectField value of the form
+// "show:p1" / "category:kids" / "" (general).
+function encodeTarget(t: ClipLinkedTarget | null | undefined): string {
+  if (!t) return '';
+  return `${t.kind}:${t.id}`;
+}
+function decodeTarget(value: string): ClipLinkedTarget | null {
+  if (!value) return null;
+  const i = value.indexOf(':');
+  if (i < 1) return null;
+  const kind = value.slice(0, i);
+  const id = value.slice(i + 1);
+  if ((kind !== 'show' && kind !== 'category') || !id) return null;
+  return { kind, id };
 }
 
 function nextId(existing: string[], prefix: string): string {
@@ -91,18 +109,21 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
   const [mode, setMode] = useState<Mode>({ kind: 'list' });
   const [items, setItems] = useState<Array<{ id: string; data: AnyClip }>>([]);
   const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
+  const [categories, setCategories] = useState<Array<{ id: string; data: Category }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
     try {
-      const [list, showList] = await Promise.all([
+      const [list, showList, catList] = await Promise.all([
         listAll<AnyClip>(cfg.collection),
         listAll<Show>('shows_v2'),
+        listAll<Category>('categories_v2').catch(() => [] as Array<{ id: string; data: Category }>),
       ]);
       setItems(list.sort((a, b) => a.id.localeCompare(b.id)));
       setShows(showList.sort((a, b) => a.id.localeCompare(b.id)));
+      setCategories(catList.sort((a, b) => a.id.localeCompare(b.id)));
     } catch (e) {
       showToast('שגיאה בטעינה: ' + (e as Error).message, 'error');
     } finally {
@@ -119,6 +140,25 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
     for (const s of shows) map[s.id] = s.data;
     return map;
   }, [shows]);
+  const categoriesById = useMemo(() => {
+    const map: Record<string, Category> = {};
+    for (const c of categories) map[c.id] = c.data;
+    return map;
+  }, [categories]);
+
+  function describeTarget(t: ClipLinkedTarget | null | undefined): string | null {
+    if (!t) return null;
+    if (t.kind === 'show') {
+      const title = showsById[t.id]?.title;
+      const k = showsById[t.id]?.kind;
+      const prefix = k === 'workshop' ? '🎭 ' : '📺 ';
+      return prefix + (title || `הצגה לא נמצאה (${t.id})`);
+    }
+    if (t.kind === 'category') {
+      return '🗂️ ' + (categoriesById[t.id]?.title || `קטגוריה לא נמצאה (${t.id})`);
+    }
+    return null;
+  }
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -148,6 +188,7 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
         isNew={mode.kind === 'new'}
         existingIds={existingIds}
         shows={shows}
+        categories={categories}
         showToast={showToast}
         onSaved={() => {
           load();
@@ -186,9 +227,7 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
 
       <div className="v2-list-grid">
         {filtered.map(({ id, data }) => {
-          const linkedShowTitle = data.linkedShowId
-            ? showsById[data.linkedShowId]?.title || `הצגה לא נמצאה (${data.linkedShowId})`
-            : null;
+          const targetLabel = describeTarget(data.linkedTarget);
           return (
             <button
               key={id}
@@ -213,8 +252,8 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
                   <span dir="ltr">{data.youtubeId || '—'}</span>
                 </div>
                 <div className="v2-list-card-sub">
-                  {linkedShowTitle ? (
-                    <span className="v2-badge v2-badge-link">📺 {linkedShowTitle}</span>
+                  {targetLabel ? (
+                    <span className="v2-badge v2-badge-link">{targetLabel}</span>
                   ) : (
                     <span className="v2-badge v2-badge-muted">כללי</span>
                   )}
@@ -235,6 +274,7 @@ function ItemEditor({
   isNew,
   existingIds,
   shows,
+  categories,
   showToast,
   onSaved,
   onCancel,
@@ -245,6 +285,7 @@ function ItemEditor({
   isNew: boolean;
   existingIds: string[];
   shows: Array<{ id: string; data: Show }>;
+  categories: Array<{ id: string; data: Category }>;
   showToast: Props['showToast'];
   onSaved: () => void;
   onCancel: () => void;
@@ -365,14 +406,21 @@ function ItemEditor({
           />
 
           <SelectField
-            label={cfg.labels.linkedShowId}
-            value={item.linkedShowId || ''}
-            onChange={(v) => set('linkedShowId', v)}
+            label={cfg.labels.linkedTarget}
+            value={encodeTarget(item.linkedTarget)}
+            onChange={(v) => set('linkedTarget', decodeTarget(v))}
             options={[
               { value: '', label: '— כללי —' },
-              ...shows.map((s) => ({ value: s.id, label: s.data.title || s.id })),
+              ...shows.map((s) => ({
+                value: `show:${s.id}`,
+                label: `${s.data.kind === 'workshop' ? '🎭' : '📺'} ${s.data.title || s.id}`,
+              })),
+              ...categories.map((c) => ({
+                value: `category:${c.id}`,
+                label: `🗂️ ${c.data.title || c.id}`,
+              })),
             ]}
-            error={errors.linkedShowId}
+            error={errors.linkedTarget}
           />
         </section>
 

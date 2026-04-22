@@ -17,6 +17,8 @@ function emptyShow(): Show {
     title: '',
     category: 'adults',
     priority: 'normal',
+    kind: 'show',
+    containedShowIds: [],
     mainImg: '',
     presentationFormats: [],
     gallery: [],
@@ -99,6 +101,7 @@ export default function ShowsTab({ showToast }: Props) {
         initial={initial}
         isNew
         existingIds={existingIds}
+        allShows={shows}
         recommendations={recs}
         clips={clips}
         customerClips={customerClips}
@@ -123,6 +126,7 @@ export default function ShowsTab({ showToast }: Props) {
         initial={current.data}
         isNew={false}
         existingIds={existingIds}
+        allShows={shows}
         recommendations={recs}
         clips={clips}
         customerClips={customerClips}

@@ -69,12 +69,17 @@ export default async function ShowPage({ params }) {
   const heroImage = show.mainImg || formats[0]?.image;
 
   const trailers = show.video?.trailers || [];
-  const [clipsLibrary, customerClipsLibrary] = await Promise.all([
+  const [clipsLibrary, customerClipsLibrary, allShows] = await Promise.all([
     getClips(),
     getCustomerClips(),
+    getAllShows(),
   ]);
   const clips = resolveShowClips(show, clipsLibrary);
   const customerClips = resolveShowCustomerClips(show, customerClipsLibrary);
+
+  const isWorkshop = show.kind === 'workshop';
+  const containedShowIds = Array.isArray(show.containedShowIds) ? show.containedShowIds : [];
+  const containedShows = containedShowIds.map((cid) => allShows[cid]).filter(Boolean);
 
   const categoryLabel = CATEGORY_LABEL[show.category] || show.category;
 
@@ -170,8 +175,49 @@ export default async function ShowPage({ params }) {
         </ScrollReveal>
       )}
 
+      {isWorkshop && containedShows.length > 0 && (
+        <section className="cards-section" style={{ paddingTop: 'var(--sp-6)' }}>
+          <ScrollReveal className="cards-section-header" variant="fade">
+            <h2 className="cards-title">ההצגות שבסדנא</h2>
+            <div className="cards-divider" aria-hidden="true"></div>
+          </ScrollReveal>
+          <div className="continer_main_for_all">
+            {containedShows.map((item, index) => {
+              const importanceClass =
+                item.priority === 'featured' ? 'importance-recommended' : '';
+              return (
+                <ScrollReveal
+                  key={item.id}
+                  as="div"
+                  className={`div_card ${importanceClass}`}
+                  delay={Math.min(index * 60, 360)}
+                  variant="up"
+                >
+                  <Link href={`/show/${item.id}`} aria-label={item.title}>
+                    <figure>
+                      <Image
+                        src={item.mainImg || item.presentationFormats?.[0]?.image || ''}
+                        alt={item.title}
+                        className="img_for_card"
+                        width={500}
+                        height={500}
+                      />
+                      <figcaption
+                        className={item.priority === 'featured' ? 'caption-highlight' : ''}
+                      >
+                        {item.title}
+                      </figcaption>
+                    </figure>
+                  </Link>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       <ScrollReveal className="show-details-container">
-        <h2 className="show-title">על ההצגה</h2>
+        <h2 className="show-title">{isWorkshop ? 'על הסדנא' : 'על ההצגה'}</h2>
         {show.description && <p className="show-description">{show.description}</p>}
 
         {(show.creatorName || show.creatorIntro || show.creatorCredentials) && (
