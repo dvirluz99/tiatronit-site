@@ -4,6 +4,7 @@ export * from './collection';
 export * from './recommendation';
 export * from './page';
 export * from './setting';
+export * from './clip';
 export { LABELS } from './labels';
 
 export const V2_COLLECTIONS = {
@@ -12,6 +13,8 @@ export const V2_COLLECTIONS = {
   recommendations: 'recommendations_v2',
   pages: 'pages_v2',
   settings: 'settings_v2',
+  clips: 'clips_v2',
+  customerClips: 'customer_clips_v2',
 } as const;
 
 export const V1_COLLECTIONS = {

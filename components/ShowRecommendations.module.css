@@ -152,3 +152,33 @@
   color: var(--c-primary-900);
   font-weight: var(--fw-semibold);
 }
+
+/* ——— Toggle button (ראו עוד / סגור) ——— */
+
+.toggleWrap {
+  margin-top: var(--sp-5);
+  display: flex;
+  justify-content: center;
+}
+
+.toggleBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.7rem 1.6rem;
+  background: transparent;
+  color: var(--c-primary-700);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-base);
+  border: 1.5px solid var(--c-border-strong);
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all var(--dur-base) var(--ease-out);
+}
+
+.toggleBtn:hover {
+  border-color: var(--c-primary-700);
+  background: var(--c-primary-50);
+  color: var(--c-primary-800);
+}

@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getShowById, getAllShows } from '../../../lib/data';
+import {
+  getShowById,
+  getAllShows,
+  getClips,
+  getCustomerClips,
+  resolveShowClips,
+  resolveShowCustomerClips,
+} from '../../../lib/data';
 import dynamic from 'next/dynamic';
 import ScrollReveal from '../../../components/ScrollReveal';
 
@@ -62,8 +69,12 @@ export default async function ShowPage({ params }) {
   const heroImage = show.mainImg || formats[0]?.image;
 
   const trailers = show.video?.trailers || [];
-  const clips = show.video?.clips || [];
-  const customerClips = show.video?.customerClips || [];
+  const [clipsLibrary, customerClipsLibrary] = await Promise.all([
+    getClips(),
+    getCustomerClips(),
+  ]);
+  const clips = resolveShowClips(show, clipsLibrary);
+  const customerClips = resolveShowCustomerClips(show, customerClipsLibrary);
 
   const categoryLabel = CATEGORY_LABEL[show.category] || show.category;
 

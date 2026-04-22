@@ -149,6 +149,8 @@ function transformShow(id: string, v1: AnyRecord): Show {
       customerClips: extractClips(vidue.customers),
     },
     recommendationIds: Array.isArray(v1.linkRec) ? (v1.linkRec as string[]) : [],
+    clipIds: [],
+    customerClipIds: [],
   };
   return ShowSchema.parse(parsed);
 }

@@ -35,6 +35,24 @@ export const LABELS = {
       },
     },
     recommendationIds: 'המלצות מקושרות',
+    clipIds: 'טעימות מההצגה (מהספרייה)',
+    customerClipIds: 'אנשים מדברים (מהספרייה)',
+  },
+
+  clip: {
+    _entity: 'טעימה',
+    _entityPlural: 'טעימות מההצגות',
+    id: 'מזהה (ID)',
+    youtubeId: 'מזהה YouTube',
+    caption: 'כותרת / תיאור',
+  },
+
+  customerClip: {
+    _entity: 'עדות לקוח',
+    _entityPlural: 'אנשים מדברים על ההצגות',
+    id: 'מזהה (ID)',
+    youtubeId: 'מזהה YouTube',
+    caption: 'כותרת / שם הממליץ',
   },
 
   collection: {

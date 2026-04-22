@@ -42,6 +42,13 @@ export const ShowSchema = z.object({
 
   video: ShowVideoSchema.default({ trailers: [], clips: [], customerClips: [] }),
 
+  // Library-backed video selections — IDs into clips_v2 / customer_clips_v2.
+  // Order in the array = display order on the show page.
+  // (video.clips / video.customerClips remain for backward compatibility and
+  // act as a fallback when these arrays are empty.)
+  clipIds: z.array(z.string()).default([]),
+  customerClipIds: z.array(z.string()).default([]),
+
   recommendationIds: z.array(z.string()).default([]),
 
   ...Timestamped,
@@ -63,4 +70,6 @@ export const ShowReadSchema = ShowSchema.partial({
   phone: true,
   video: true,
   recommendationIds: true,
+  clipIds: true,
+  customerClipIds: true,
 });

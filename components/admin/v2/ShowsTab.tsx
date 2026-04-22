@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import type { Show, Recommendation } from '../../../lib/schema';
+import type { Show, Recommendation, Clip, CustomerClip } from '../../../lib/schema';
 import { LABELS } from '../../../lib/schema';
 import { listAll } from '../../../lib/firestore-v2';
 import ShowForm from './ShowForm';
@@ -29,6 +29,8 @@ function emptyShow(): Show {
     phone: '0542043429',
     video: { trailers: [], clips: [], customerClips: [] },
     recommendationIds: [],
+    clipIds: [],
+    customerClipIds: [],
   };
 }
 
@@ -48,18 +50,24 @@ export default function ShowsTab({ showToast }: Props) {
   const [mode, setMode] = useState<Mode>({ kind: 'list' });
   const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
   const [recs, setRecs] = useState<Array<{ id: string; data: Recommendation }>>([]);
+  const [clips, setClips] = useState<Array<{ id: string; data: Clip }>>([]);
+  const [customerClips, setCustomerClips] = useState<Array<{ id: string; data: CustomerClip }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
     try {
-      const [s, r] = await Promise.all([
+      const [s, r, c, cc] = await Promise.all([
         listAll<Show>('shows_v2'),
         listAll<Recommendation>('recommendations_v2'),
+        listAll<Clip>('clips_v2'),
+        listAll<CustomerClip>('customer_clips_v2'),
       ]);
       setShows(s.sort((a, b) => a.id.localeCompare(b.id)));
       setRecs(r.sort((a, b) => a.id.localeCompare(b.id)));
+      setClips(c.sort((a, b) => a.id.localeCompare(b.id)));
+      setCustomerClips(cc.sort((a, b) => a.id.localeCompare(b.id)));
     } catch (e) {
       showToast('שגיאה בטעינה: ' + (e as Error).message, 'error');
     } finally {
@@ -92,6 +100,8 @@ export default function ShowsTab({ showToast }: Props) {
         isNew
         existingIds={existingIds}
         recommendations={recs}
+        clips={clips}
+        customerClips={customerClips}
         showToast={showToast}
         onSaved={() => {
           load();
@@ -114,6 +124,8 @@ export default function ShowsTab({ showToast }: Props) {
         isNew={false}
         existingIds={existingIds}
         recommendations={recs}
+        clips={clips}
+        customerClips={customerClips}
         showToast={showToast}
         onSaved={() => {
           load();

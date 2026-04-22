@@ -6,6 +6,8 @@ import {
   ShowSchema,
   type Show,
   type Recommendation,
+  type Clip,
+  type CustomerClip,
 } from '../../../lib/schema';
 import { saveValidated, removeDoc } from '../../../lib/firestore-v2';
 import TextField from './fields/TextField';
@@ -23,6 +25,8 @@ type Props = {
   isNew: boolean;
   existingIds: string[];
   recommendations: Array<{ id: string; data: Recommendation }>;
+  clips: Array<{ id: string; data: Clip }>;
+  customerClips: Array<{ id: string; data: CustomerClip }>;
   onSaved: (show: Show) => void;
   onCancel: () => void;
   onDeleted: () => void;
@@ -37,6 +41,8 @@ export default function ShowForm({
   isNew,
   existingIds,
   recommendations,
+  clips,
+  customerClips,
   onSaved,
   onCancel,
   onDeleted,
@@ -107,6 +113,16 @@ export default function ShowForm({
   const recOptions = recommendations.map((r) => ({
     value: r.id,
     label: `${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`,
+  }));
+
+  const clipOptions = clips.map((c) => ({
+    value: c.id,
+    label: c.data.caption ? `${c.data.caption} (${c.id})` : c.id,
+  }));
+
+  const customerClipOptions = customerClips.map((c) => ({
+    value: c.id,
+    label: c.data.caption ? `${c.data.caption} (${c.id})` : c.id,
   }));
 
   return (
@@ -286,48 +302,22 @@ export default function ShowForm({
             )}
           />
 
-          <ArrayField
-            label={L.video.clips}
-            items={show.video.clips}
-            emptyItem={() => ({ youtubeId: '', caption: '' })}
-            addLabel="קטע"
-            onChange={(next) => updateVideo('clips', next)}
-            renderItem={(item, idx, update) => (
-              <>
-                <YouTubeIdField
-                  label={L.video.clipItem.youtubeId}
-                  value={item.youtubeId}
-                  onChange={(youtubeId) => update({ ...item, youtubeId })}
-                />
-                <TextField
-                  label={L.video.clipItem.caption}
-                  value={item.caption}
-                  onChange={(caption) => update({ ...item, caption })}
-                />
-              </>
-            )}
+          <MultiSelectField
+            label={L.clipIds}
+            selected={show.clipIds}
+            options={clipOptions}
+            onChange={(next) => set('clipIds', next)}
+            hint='בוחרים מתוך "ספריית סרטונים → טעימות מההצגות". להוספת סרטון חדש — היכנסי ללשונית הספרייה.'
+            emptyText='אין סרטונים בספרייה — לכי ל"ספריית סרטונים" כדי להוסיף.'
           />
 
-          <ArrayField
-            label={L.video.customerClips}
-            items={show.video.customerClips}
-            emptyItem={() => ({ youtubeId: '', caption: '' })}
-            addLabel="עדות"
-            onChange={(next) => updateVideo('customerClips', next)}
-            renderItem={(item, idx, update) => (
-              <>
-                <YouTubeIdField
-                  label={L.video.clipItem.youtubeId}
-                  value={item.youtubeId}
-                  onChange={(youtubeId) => update({ ...item, youtubeId })}
-                />
-                <TextField
-                  label={L.video.clipItem.caption}
-                  value={item.caption}
-                  onChange={(caption) => update({ ...item, caption })}
-                />
-              </>
-            )}
+          <MultiSelectField
+            label={L.customerClipIds}
+            selected={show.customerClipIds}
+            options={customerClipOptions}
+            onChange={(next) => set('customerClipIds', next)}
+            hint='בוחרים מתוך "ספריית סרטונים → אנשים מדברים על ההצגות".'
+            emptyText='אין עדויות בספרייה — לכי ל"ספריית סרטונים" כדי להוסיף.'
           />
         </section>
 
