@@ -19,11 +19,15 @@ export default function MultiSelectField({
   hint,
   emptyText = 'לא נבחרו פריטים',
 }: Props) {
+  // Be defensive: legacy docs from Firestore may not have the array field at
+  // all (undefined). Treat missing as empty so the component never crashes.
+  const current = Array.isArray(selected) ? selected : [];
+
   const toggle = (value: string) => {
-    if (selected.includes(value)) {
-      onChange(selected.filter((v) => v !== value));
+    if (current.includes(value)) {
+      onChange(current.filter((v) => v !== value));
     } else {
-      onChange([...selected, value]);
+      onChange([...current, value]);
     }
   };
 
@@ -36,7 +40,7 @@ export default function MultiSelectField({
           <p className="v2-empty">{emptyText}</p>
         ) : (
           options.map((o) => {
-            const isOn = selected.includes(o.value);
+            const isOn = current.includes(o.value);
             return (
               <button
                 key={o.value}
