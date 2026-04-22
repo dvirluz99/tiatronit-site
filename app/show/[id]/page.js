@@ -6,6 +6,7 @@ import ScrollReveal from '../../../components/ScrollReveal';
 
 const Gallery = dynamic(() => import('../../../components/Gallery'));
 const ShowRecommendations = dynamic(() => import('../../../components/ShowRecommendations'));
+const VideoSectionToggle = dynamic(() => import('../../../components/VideoSectionToggle'));
 
 const CATEGORY_LABEL = { kids: 'ילדים', youth: 'בני נוער', adults: 'מבוגרים' };
 
@@ -189,24 +190,12 @@ export default async function ShowPage({ params }) {
       />
 
       {clips.length > 0 && (
-        <ScrollReveal className="show-clips-section">
-          <h3 className="clips-title">טעימות מההצגה</h3>
-          <div className="clips-grid">
-            {clips.map((clip, index) => (
-              <div key={index} className="clip-card">
-                <div className="video-responsive">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${clip.youtubeId}`}
-                    title={clip.caption || 'קטע מההצגה'}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                </div>
-                {clip.caption && <p className="clip-caption">{clip.caption}</p>}
-              </div>
-            ))}
-          </div>
+        <ScrollReveal>
+          <VideoSectionToggle
+            videos={clips}
+            title="טעימות מההצגה"
+            defaultCount={2}
+          />
         </ScrollReveal>
       )}
 

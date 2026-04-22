@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { getRecommendations } from '../lib/data';
 import { plainTextToHtml } from '../lib/recommendationContent';
-import styles from './ShowRecommendations.module.css'; 
+import VideoSectionToggle from './VideoSectionToggle';
+import styles from './ShowRecommendations.module.css';
 
 // הוספנו את userVideos לכאן
 export default async function ShowRecommendations({ recommendationIds, showId, userVideos }) {
@@ -61,33 +62,15 @@ export default async function ShowRecommendations({ recommendationIds, showId, u
         </>
       )}
 
-      {/* --- חלק 2: סרטוני לקוחות (חדש!) --- */}
       {hasVideos && (
-            <div className={styles.videoSection}>
-                <h3 className={styles.subTitle}>אנשים מדברים</h3>
-                
-                <div className={styles.videoGrid}>
-                    {userVideos.map((video, index) => (
-                        <div key={index} className={styles.videoCard}>
-                            {/* המעטפת ששומרת על יחס גובה-רוחב */}
-                            <div className={styles.videoResponsive}>
-                                <iframe 
-                                    src={`https://www.youtube.com/embed/${video.youtubeId}`} 
-                                    title={video.caption || "User review"}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                    allowFullScreen
-                                    loading="lazy"
-                                ></iframe>
-                            </div>
-
-                            {video.caption && (
-                                <div className={styles.videoCaption}>{video.caption}</div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-        )}
+        <div className={styles.videoSection}>
+          <VideoSectionToggle
+            videos={userVideos}
+            title="אנשים מדברים"
+            defaultCount={2}
+          />
+        </div>
+      )}
 
     </div>
   );
