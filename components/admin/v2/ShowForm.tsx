@@ -110,19 +110,50 @@ export default function ShowForm({
     }
   }
 
-  const recOptions = recommendations.map((r) => ({
-    value: r.id,
-    label: `${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`,
+  // Sort the library options so anything tagged for THIS show appears first,
+  // then "general" (no linkedShowId), then anything tagged for other shows.
+  // Items already selected on the show stay in their selection order regardless.
+  function sortByRelevance<T extends { data: { linkedShowId?: string } }>(items: T[]): T[] {
+    const score = (it: T) => {
+      const lid = it.data.linkedShowId || '';
+      if (lid === show.id) return 0;
+      if (!lid) return 1;
+      return 2;
+    };
+    return [...items].sort((a, b) => score(a) - score(b));
+  }
+
+  function annotateLabel(caption: string | undefined, id: string, linkedShowId: string | undefined): string {
+    const base = caption ? `${caption} (${id})` : id;
+    if (linkedShowId === show.id) return `★ ${base}`;
+    if (!linkedShowId) return base;
+    return base;
+  }
+
+  const recScore = (r: { data: Recommendation }) => {
+    const t = r.data.linkedTarget;
+    if (t?.kind === 'show' && t.id === show.id) return 0;
+    if (!t) return 1;
+    return 2;
+  };
+  const recOptions = [...recommendations]
+    .sort((a, b) => recScore(a) - recScore(b))
+    .map((r) => {
+      const star = r.data.linkedTarget?.kind === 'show' && r.data.linkedTarget.id === show.id ? '★ ' : '';
+      return {
+        value: r.id,
+        label: `${star}${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`,
+      };
+    });
+
+  const clipOptions = sortByRelevance(clips).map((c) => ({
+    value: c.id,
+    label: annotateLabel(c.data.caption, c.id, c.data.linkedShowId),
   }));
 
-  const clipOptions = clips.map((c) => ({
+  const customerClipOptions = sortByRelevance(customerClips).map((c) => ({
     value: c.id,
-    label: c.data.caption ? `${c.data.caption} (${c.id})` : c.id,
-  }));
-
-  const customerClipOptions = customerClips.map((c) => ({
-    value: c.id,
-    label: c.data.caption ? `${c.data.caption} (${c.id})` : c.id,
+    label: annotateLabel(c.data.caption, c.id, c.data.linkedShowId),
   }));
 
   return (

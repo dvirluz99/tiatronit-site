@@ -45,6 +45,7 @@ export const LABELS = {
     id: 'מזהה (ID)',
     youtubeId: 'מזהה YouTube',
     caption: 'כותרת / תיאור',
+    linkedShowId: 'שייך להצגה (לתיוג בלבד — לא משפיע על האתר)',
   },
 
   customerClip: {
@@ -53,6 +54,7 @@ export const LABELS = {
     id: 'מזהה (ID)',
     youtubeId: 'מזהה YouTube',
     caption: 'כותרת / שם הממליץ',
+    linkedShowId: 'שייך להצגה (לתיוג בלבד — לא משפיע על האתר)',
   },
 
   collection: {

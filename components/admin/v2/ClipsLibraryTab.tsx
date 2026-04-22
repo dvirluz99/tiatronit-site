@@ -7,10 +7,12 @@ import {
   CustomerClipSchema,
   type Clip,
   type CustomerClip,
+  type Show,
 } from '../../../lib/schema';
 import { listAll, saveValidated, removeDoc } from '../../../lib/firestore-v2';
 import TextField from './fields/TextField';
 import YouTubeIdField from './fields/YouTubeIdField';
+import SelectField from './fields/SelectField';
 
 const C = LABELS.common;
 
@@ -70,7 +72,7 @@ type Mode = { kind: 'list' } | { kind: 'edit'; id: string } | { kind: 'new' };
 type AnyClip = Clip | CustomerClip;
 
 function emptyItem(): AnyClip {
-  return { id: '', youtubeId: '', caption: '' };
+  return { id: '', youtubeId: '', caption: '', linkedShowId: '' };
 }
 
 function nextId(existing: string[], prefix: string): string {
@@ -88,14 +90,19 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
   const cfg = KIND_CONFIG[kind];
   const [mode, setMode] = useState<Mode>({ kind: 'list' });
   const [items, setItems] = useState<Array<{ id: string; data: AnyClip }>>([]);
+  const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
     try {
-      const list = await listAll<AnyClip>(cfg.collection);
+      const [list, showList] = await Promise.all([
+        listAll<AnyClip>(cfg.collection),
+        listAll<Show>('shows_v2'),
+      ]);
       setItems(list.sort((a, b) => a.id.localeCompare(b.id)));
+      setShows(showList.sort((a, b) => a.id.localeCompare(b.id)));
     } catch (e) {
       showToast('שגיאה בטעינה: ' + (e as Error).message, 'error');
     } finally {
@@ -106,6 +113,12 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
   useEffect(() => {
     load();
   }, [kind]);
+
+  const showsById = useMemo(() => {
+    const map: Record<string, Show> = {};
+    for (const s of shows) map[s.id] = s.data;
+    return map;
+  }, [shows]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -134,6 +147,7 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
         initial={initial}
         isNew={mode.kind === 'new'}
         existingIds={existingIds}
+        shows={shows}
         showToast={showToast}
         onSaved={() => {
           load();
@@ -171,32 +185,44 @@ function LibraryEditor({ kind, showToast }: { kind: Kind; showToast: Props['show
       </div>
 
       <div className="v2-list-grid">
-        {filtered.map(({ id, data }) => (
-          <button
-            key={id}
-            type="button"
-            className="v2-list-card"
-            onClick={() => setMode({ kind: 'edit', id })}
-          >
-            <div className="v2-list-card-img">
-              {data.youtubeId ? (
-                <img
-                  src={`https://img.youtube.com/vi/${data.youtubeId}/mqdefault.jpg`}
-                  alt=""
-                />
-              ) : (
-                <div className="v2-list-card-empty">ללא תצוגה</div>
-              )}
-            </div>
-            <div className="v2-list-card-meta">
-              <div className="v2-list-card-title">{data.caption || 'ללא כותרת'}</div>
-              <div className="v2-list-card-sub">
-                <span>{id}</span>
-                <span dir="ltr">{data.youtubeId || '—'}</span>
+        {filtered.map(({ id, data }) => {
+          const linkedShowTitle = data.linkedShowId
+            ? showsById[data.linkedShowId]?.title || `הצגה לא נמצאה (${data.linkedShowId})`
+            : null;
+          return (
+            <button
+              key={id}
+              type="button"
+              className="v2-list-card"
+              onClick={() => setMode({ kind: 'edit', id })}
+            >
+              <div className="v2-list-card-img">
+                {data.youtubeId ? (
+                  <img
+                    src={`https://img.youtube.com/vi/${data.youtubeId}/mqdefault.jpg`}
+                    alt=""
+                  />
+                ) : (
+                  <div className="v2-list-card-empty">ללא תצוגה</div>
+                )}
               </div>
-            </div>
-          </button>
-        ))}
+              <div className="v2-list-card-meta">
+                <div className="v2-list-card-title">{data.caption || 'ללא כותרת'}</div>
+                <div className="v2-list-card-sub">
+                  <span>{id}</span>
+                  <span dir="ltr">{data.youtubeId || '—'}</span>
+                </div>
+                <div className="v2-list-card-sub">
+                  {linkedShowTitle ? (
+                    <span className="v2-badge v2-badge-link">📺 {linkedShowTitle}</span>
+                  ) : (
+                    <span className="v2-badge v2-badge-muted">כללי</span>
+                  )}
+                </div>
+              </div>
+            </button>
+          );
+        })}
         {filtered.length === 0 && <p className="v2-empty">לא נמצאו פריטים</p>}
       </div>
     </div>
@@ -208,6 +234,7 @@ function ItemEditor({
   initial,
   isNew,
   existingIds,
+  shows,
   showToast,
   onSaved,
   onCancel,
@@ -217,6 +244,7 @@ function ItemEditor({
   initial: AnyClip;
   isNew: boolean;
   existingIds: string[];
+  shows: Array<{ id: string; data: Show }>;
   showToast: Props['showToast'];
   onSaved: () => void;
   onCancel: () => void;
@@ -334,6 +362,17 @@ function ItemEditor({
             onChange={(v) => set('caption', v)}
             placeholder={cfg.placeholderCaption}
             error={errors.caption}
+          />
+
+          <SelectField
+            label={cfg.labels.linkedShowId}
+            value={item.linkedShowId || ''}
+            onChange={(v) => set('linkedShowId', v)}
+            options={[
+              { value: '', label: '— כללי —' },
+              ...shows.map((s) => ({ value: s.id, label: s.data.title || s.id })),
+            ]}
+            error={errors.linkedShowId}
           />
         </section>
 

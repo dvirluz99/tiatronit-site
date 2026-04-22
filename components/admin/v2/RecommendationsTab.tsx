@@ -48,6 +48,7 @@ export default function RecommendationsTab({ showToast }: Props) {
   const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
   const [cards, setCards] = useState<Array<{ id: string; data: Collection }>>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
@@ -92,36 +93,91 @@ export default function RecommendationsTab({ showToast }: Props) {
     );
   }
 
+  const showsById = Object.fromEntries(shows.map((s) => [s.id, s.data]));
+  const cardsById = Object.fromEntries(cards.map((c) => [c.id, c.data]));
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return recs;
+    return recs.filter((r) => {
+      const d = r.data;
+      const target = d.linkedTarget;
+      const targetTitle =
+        target?.kind === 'show'
+          ? showsById[target.id]?.title || ''
+          : target?.kind === 'collection'
+            ? cardsById[target.id]?.title || ''
+            : '';
+      return (
+        r.id.toLowerCase().includes(q) ||
+        (d.recommenderName || '').toLowerCase().includes(q) ||
+        (d.recommenderRole || '').toLowerCase().includes(q) ||
+        (d.content || '').toLowerCase().includes(q) ||
+        targetTitle.toLowerCase().includes(q)
+      );
+    });
+  }, [recs, search, showsById, cardsById]);
+
+  function describeLink(rec: Recommendation): { label: string; muted: boolean } {
+    if (!rec.linkedTarget) return { label: 'כללי', muted: true };
+    if (rec.linkedTarget.kind === 'show') {
+      const t = showsById[rec.linkedTarget.id];
+      return { label: '📺 ' + (t?.title || `הצגה לא נמצאה (${rec.linkedTarget.id})`), muted: false };
+    }
+    if (rec.linkedTarget.kind === 'collection') {
+      const t = cardsById[rec.linkedTarget.id];
+      return { label: '🗂️ ' + (t?.title || `אוסף לא נמצא (${rec.linkedTarget.id})`), muted: false };
+    }
+    return { label: 'כללי', muted: true };
+  }
+
   return (
     <div className="v2-list-pane">
       <div className="v2-list-header">
         <h2>{L._entityPlural}</h2>
-        <button type="button" className="v2-btn v2-btn-primary" onClick={() => setMode({ kind: 'new' })}>
-          + {L._entity} חדשה
-        </button>
+        <div className="v2-list-actions">
+          <input
+            type="search"
+            className="v2-input v2-search"
+            placeholder="חיפוש לפי שם / תפקיד / תוכן / הצגה משויכת..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="button" className="v2-btn v2-btn-primary" onClick={() => setMode({ kind: 'new' })}>
+            + {L._entity} חדשה
+          </button>
+        </div>
       </div>
 
       <div className="v2-rec-list">
-        {recs.map(({ id, data }) => (
-          <button
-            key={id}
-            type="button"
-            className="v2-rec-card"
-            onClick={() => setMode({ kind: 'edit', id })}
-          >
-            <div className="v2-rec-top">
-              <strong>{data.recommenderName || 'ללא שם'}</strong>
-              <span className="v2-rec-id">{id}</span>
-            </div>
-            <div className="v2-rec-role">{data.recommenderRole}</div>
-            <div className="v2-rec-snippet">
-              {(data.content || '').replace(/<[^>]+>/g, '').slice(0, 120)}
-              {(data.content || '').length > 120 ? '...' : ''}
-            </div>
-            {data.date && <div className="v2-rec-date">{data.date}</div>}
-          </button>
-        ))}
-        {recs.length === 0 && <p className="v2-empty">אין המלצות עדיין</p>}
+        {filtered.map(({ id, data }) => {
+          const link = describeLink(data);
+          return (
+            <button
+              key={id}
+              type="button"
+              className="v2-rec-card"
+              onClick={() => setMode({ kind: 'edit', id })}
+            >
+              <div className="v2-rec-top">
+                <strong>{data.recommenderName || 'ללא שם'}</strong>
+                <span className="v2-rec-id">{id}</span>
+              </div>
+              <div className="v2-rec-role">{data.recommenderRole}</div>
+              <div className="v2-rec-snippet">
+                {(data.content || '').replace(/<[^>]+>/g, '').slice(0, 120)}
+                {(data.content || '').length > 120 ? '...' : ''}
+              </div>
+              <div className="v2-rec-bottom">
+                <span className={`v2-badge ${link.muted ? 'v2-badge-muted' : 'v2-badge-link'}`}>
+                  {link.label}
+                </span>
+                {data.date && <span className="v2-rec-date">{data.date}</span>}
+              </div>
+            </button>
+          );
+        })}
+        {filtered.length === 0 && <p className="v2-empty">לא נמצאו המלצות</p>}
       </div>
     </div>
   );

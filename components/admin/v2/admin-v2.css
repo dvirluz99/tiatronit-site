@@ -210,6 +210,27 @@
   color: var(--c-accent-700);
 }
 
+.v2-badge-link {
+  background: var(--c-primary-50);
+  color: var(--c-primary-800);
+  font-weight: var(--fw-medium);
+}
+
+.v2-badge-muted {
+  background: var(--c-bg-subtle);
+  color: var(--c-text-muted);
+  font-weight: var(--fw-medium);
+}
+
+.v2-rec-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+  flex-wrap: wrap;
+}
+
 /* Recommendations list */
 
 .v2-rec-list {

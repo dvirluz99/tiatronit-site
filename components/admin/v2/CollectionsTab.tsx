@@ -57,6 +57,18 @@ export default function CollectionsTab({ showToast }: Props) {
   const [shows, setShows] = useState<Array<{ id: string; data: Show }>>([]);
   const [recs, setRecs] = useState<Array<{ id: string; data: Recommendation }>>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return cards;
+    return cards.filter(
+      (c) =>
+        c.id.toLowerCase().includes(q) ||
+        (c.data.title || '').toLowerCase().includes(q) ||
+        (c.data.description || '').toLowerCase().includes(q),
+    );
+  }, [cards, search]);
 
   async function load() {
     setLoading(true);
@@ -106,13 +118,22 @@ export default function CollectionsTab({ showToast }: Props) {
     <div className="v2-list-pane">
       <div className="v2-list-header">
         <h2>{L._entityPlural}</h2>
-        <button type="button" className="v2-btn v2-btn-primary" onClick={() => setMode({ kind: 'new' })}>
-          + {L._entity} חדש
-        </button>
+        <div className="v2-list-actions">
+          <input
+            type="search"
+            className="v2-input v2-search"
+            placeholder="חיפוש לפי כותרת / תיאור / מזהה..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="button" className="v2-btn v2-btn-primary" onClick={() => setMode({ kind: 'new' })}>
+            + {L._entity} חדש
+          </button>
+        </div>
       </div>
 
       <div className="v2-list-grid">
-        {cards.map(({ id, data }) => (
+        {filtered.map(({ id, data }) => (
           <button
             key={id}
             type="button"
@@ -131,7 +152,7 @@ export default function CollectionsTab({ showToast }: Props) {
             </div>
           </button>
         ))}
-        {cards.length === 0 && <p className="v2-empty">לא נמצאו אוספים</p>}
+        {filtered.length === 0 && <p className="v2-empty">לא נמצאו אוספים</p>}
       </div>
     </div>
   );
