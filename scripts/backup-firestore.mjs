@@ -18,7 +18,23 @@ const firebaseConfig = {
   appId: '1:176098529719:web:2834d5b28615a5588c5832',
 };
 
-const COLLECTIONS = ['shows', 'collections', 'recommendations', 'pages', 'settings'];
+const COLLECTIONS = [
+  // v1 (original)
+  'shows',
+  'collections',
+  'recommendations',
+  'pages',
+  'settings',
+  // v2 (current live data)
+  'shows_v2',
+  'categories_v2',
+  'collections_v2',
+  'recommendations_v2',
+  'clips_v2',
+  'customer_clips_v2',
+  'pages_v2',
+  'settings_v2',
+];
 
 function timestamp() {
   const d = new Date();

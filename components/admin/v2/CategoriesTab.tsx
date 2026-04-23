@@ -217,6 +217,8 @@ function CategoryEditor({
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  const storageFolder = `categories/${cat.id || 'draft'}`;
+
   const idError = useMemo(() => {
     if (!cat.id.trim()) return 'שדה חובה';
     if (!/^[a-z0-9_-]+$/i.test(cat.id))
@@ -343,6 +345,7 @@ function CategoryEditor({
             label={L.mainImg}
             value={cat.mainImg}
             onChange={(v) => set('mainImg', v)}
+            subfolder={storageFolder}
           />
         </section>
 
@@ -399,6 +402,7 @@ function CategoryEditor({
             label={L.gallery}
             images={cat.gallery}
             onChange={(next) => set('gallery', next)}
+            subfolder={storageFolder}
           />
         </section>
 

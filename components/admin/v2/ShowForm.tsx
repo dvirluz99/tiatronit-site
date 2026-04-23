@@ -55,6 +55,8 @@ export default function ShowForm({
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  const storageFolder = `shows/${show.id || 'draft'}`;
+
   const idError = useMemo(() => {
     if (!show.id.trim()) return 'שדה חובה';
     if (!/^[a-z0-9_-]+$/i.test(show.id)) return 'מזהה יכול להכיל אותיות, מספרים, מקף או קו תחתון';
@@ -315,6 +317,7 @@ export default function ShowForm({
             label={L.mainImg}
             value={show.mainImg}
             onChange={(v) => set('mainImg', v)}
+            subfolder={storageFolder}
             hint="התמונה הראשית שמופיעה בכרטיסיית ההצגה"
             error={errors.mainImg}
           />
@@ -332,6 +335,7 @@ export default function ShowForm({
                   label={L.presentationFormatsItem.image}
                   value={item.image}
                   onChange={(image) => update({ ...item, image })}
+                  subfolder={storageFolder}
                 />
                 <TextField
                   label={L.presentationFormatsItem.caption}
@@ -346,6 +350,7 @@ export default function ShowForm({
             label={L.gallery}
             images={show.gallery}
             onChange={(next) => set('gallery', next)}
+            subfolder={storageFolder}
             hint="גלריית תמונות נוספות שמופיעות בתחתית עמוד ההצגה"
           />
         </section>

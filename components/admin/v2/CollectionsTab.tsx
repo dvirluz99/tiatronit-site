@@ -184,6 +184,8 @@ function CollectionEditor({
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
+  const storageFolder = `collections/${card.id || 'draft'}`;
+
   function set(key: string, value: unknown) {
     setCard((prev) => ({ ...prev, [key]: value } as Collection));
   }
@@ -280,7 +282,7 @@ function CollectionEditor({
               { value: 'normal', label: C.priorityOptions.normal },
               { value: 'featured', label: C.priorityOptions.featured },
             ]} />
-          <ImageField label={L.mainImg} value={card.mainImg} onChange={(v) => set('mainImg', v)} />
+          <ImageField label={L.mainImg} value={card.mainImg} onChange={(v) => set('mainImg', v)} subfolder={storageFolder} />
         </section>
 
         <section className="v2-section">
@@ -314,7 +316,7 @@ function CollectionEditor({
           <h3 className="v2-section-title">תוכן נוסף</h3>
           <TextareaField label={L.extendedHtml} value={card.extendedHtml} onChange={(v) => set('extendedHtml', v)} rows={6}
             hint="HTML עשיר שמופיע ליד הסרטונים באוסף" />
-          <GalleryField label={L.gallery} images={card.gallery} onChange={(next) => set('gallery', next)} />
+          <GalleryField label={L.gallery} images={card.gallery} onChange={(next) => set('gallery', next)} subfolder={storageFolder} />
           <ArrayField
             label={L.videos}
             items={card.videos}

@@ -1,0 +1,24 @@
+rules_version = '2';
+
+// Firebase Storage security rules — deployed to project "teatronit-db".
+// Source of truth lives in this file; deploy with:
+//   npx firebase-tools deploy --only storage
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Allowlist of admin UIDs. Must match firestore.rules::isAdmin().
+    function isAdmin() {
+      return request.auth != null && request.auth.uid in [
+        'vpsUQFeSx9d4ncb1Oeduy9KfD2j2', // ronitluz@gmail.com (רונית)
+        'FqZ6ZSjCpVeOZPlGyx99HyCSJsk2'  // dvirluz99@gmail.com (דביר)
+      ];
+    }
+
+    match /{allPaths=**} {
+      // Public reads — images are served from the site.
+      allow read: if true;
+      // Only admins can upload or delete.
+      allow write: if isAdmin();
+    }
+  }
+}

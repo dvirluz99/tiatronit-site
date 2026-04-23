@@ -122,7 +122,7 @@ function AboutEditor({ showToast }: { showToast: Props['showToast'] }) {
 
         <section className="v2-section">
           <TextField label={CA.title} value={data.title} onChange={(v) => set('title', v)} error={errors.title} />
-          <ImageField label={CA.mainImage} value={data.mainImage} onChange={(v) => set('mainImage', v)} />
+          <ImageField label={CA.mainImage} value={data.mainImage} onChange={(v) => set('mainImage', v)} subfolder="pages/about" />
           <TextareaField label={CA.mainDescription} value={data.mainDescription} onChange={(v) => set('mainDescription', v)} rows={8} error={errors.mainDescription} />
         </section>
 
@@ -277,7 +277,7 @@ function HomeGalleryEditor({ showToast }: { showToast: Props['showToast'] }) {
         </div>
 
         <section className="v2-section">
-          <GalleryField label={CG.images} images={data.images} onChange={(next) => setData({ ...data, images: next })} />
+          <GalleryField label={CG.images} images={data.images} onChange={(next) => setData({ ...data, images: next })} subfolder="pages/homeGallery" />
         </section>
       </div>
     </div>
