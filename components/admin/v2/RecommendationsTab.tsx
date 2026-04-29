@@ -10,9 +10,14 @@ import {
   type Category,
 } from '../../../lib/schema';
 import { listAll, saveValidated, removeDoc } from '../../../lib/firestore-v2';
+import {
+  formatRecommendationForClipboard,
+  copyToClipboard,
+} from '../../../lib/recommendationClipboard';
 import TextField from './fields/TextField';
 import TextareaField from './fields/TextareaField';
 import SelectField from './fields/SelectField';
+import ImageField from './fields/ImageField';
 
 type Mode = { kind: 'list' } | { kind: 'edit'; id: string } | { kind: 'new' };
 
@@ -24,6 +29,7 @@ function emptyRec(): Recommendation {
     id: '',
     recommenderName: '',
     recommenderRole: '',
+    recommenderImage: '',
     contactInfo: '',
     date: '',
     content: '',
@@ -51,6 +57,14 @@ export default function RecommendationsTab({ showToast }: Props) {
   const [categories, setCategories] = useState<Array<{ id: string; data: Category }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  // Filter format:
+  //   ''                   → all
+  //   'general'            → no linkedTarget
+  //   'show:<id>'          → linked to that show
+  //   'collection:<id>'    → linked to that category/collection
+  //   'kind:show'          → all show-linked
+  //   'kind:collection'    → all category-linked
+  const [linkFilter, setLinkFilter] = useState<string>('');
 
   async function load() {
     setLoading(true);
@@ -95,10 +109,23 @@ export default function RecommendationsTab({ showToast }: Props) {
     return map;
   }, [cards, categories]);
 
+  function matchesLinkFilter(rec: Recommendation): boolean {
+    if (!linkFilter) return true;
+    const t = rec.linkedTarget;
+    if (linkFilter === 'general') return !t;
+    if (linkFilter === 'kind:show') return t?.kind === 'show';
+    if (linkFilter === 'kind:collection') return t?.kind === 'collection';
+    if (linkFilter.startsWith('show:')) return t?.kind === 'show' && t.id === linkFilter.slice(5);
+    if (linkFilter.startsWith('collection:'))
+      return t?.kind === 'collection' && t.id === linkFilter.slice(11);
+    return true;
+  }
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return recs;
     return recs.filter((r) => {
+      if (!matchesLinkFilter(r.data)) return false;
+      if (!q) return true;
       const d = r.data;
       const target = d.linkedTarget;
       const targetTitle =
@@ -115,7 +142,23 @@ export default function RecommendationsTab({ showToast }: Props) {
         targetTitle.toLowerCase().includes(q)
       );
     });
-  }, [recs, search, showsById, targetsById]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recs, search, showsById, targetsById, linkFilter]);
+
+  // Counts per linked target — drives the badges in the filter dropdown so the
+  // user knows at a glance how many recommendations each show/category has.
+  const counts = useMemo(() => {
+    const byShow: Record<string, number> = {};
+    const byCollection: Record<string, number> = {};
+    let general = 0;
+    for (const r of recs) {
+      const t = r.data.linkedTarget;
+      if (!t) general++;
+      else if (t.kind === 'show') byShow[t.id] = (byShow[t.id] || 0) + 1;
+      else if (t.kind === 'collection') byCollection[t.id] = (byCollection[t.id] || 0) + 1;
+    }
+    return { byShow, byCollection, general, total: recs.length };
+  }, [recs]);
 
   if (loading) return <p className="v2-empty">טוען...</p>;
 
@@ -151,11 +194,98 @@ export default function RecommendationsTab({ showToast }: Props) {
     return { label: 'כללי', muted: true };
   }
 
+  function linkedTitleForCopy(rec: Recommendation): string {
+    const t = rec.linkedTarget;
+    if (!t) return '';
+    if (t.kind === 'show') return showsById[t.id]?.title || '';
+    if (t.kind === 'collection') return targetsById[t.id]?.title || '';
+    return '';
+  }
+
+  async function copyRecToClipboard(rec: Recommendation) {
+    const linkedTitle = linkedTitleForCopy(rec);
+    const permalink =
+      typeof window !== 'undefined' ? `${window.location.origin}/recommendation/${rec.id}` : '';
+    const ok = await copyToClipboard(
+      formatRecommendationForClipboard(rec, { linkedTitle, permalink }),
+    );
+    showToast(
+      ok ? 'הועתק ללוח 📋' : 'לא ניתן להעתיק אוטומטית — פתחי את הדף והעתיקי ידנית',
+      ok ? 'success' : 'error',
+    );
+  }
+
+  // Build the filter dropdown options. Sorted by count desc inside each group.
+  const showFilterOptions = shows
+    .map((s) => ({
+      id: s.id,
+      title: s.data.title || s.id,
+      kind: s.data.kind,
+      count: counts.byShow[s.id] || 0,
+    }))
+    .filter((o) => o.count > 0)
+    .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, 'he'));
+
+  const categoryFilterOptions = categories
+    .map((c) => ({
+      id: c.id,
+      title: c.data.title || c.id,
+      count: counts.byCollection[c.id] || 0,
+    }))
+    .filter((o) => o.count > 0)
+    .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, 'he'));
+
+  // Legacy collections that still hold linked recommendations but don't
+  // currently exist in categories_v2 — surface them too so the user can find
+  // those recommendations.
+  const legacyCollectionIds = Object.keys(counts.byCollection).filter(
+    (id) => !categoryFilterOptions.some((o) => o.id === id),
+  );
+
   return (
     <div className="v2-list-pane">
       <div className="v2-list-header">
         <h2>{L._entityPlural}</h2>
         <div className="v2-list-actions">
+          <select
+            className="v2-input"
+            value={linkFilter}
+            onChange={(e) => setLinkFilter(e.target.value)}
+            aria-label="סינון לפי שיוך"
+            title="סינון לפי שיוך"
+          >
+            <option value="">כל ההמלצות ({counts.total})</option>
+            <option value="general">כלליות — ללא קישור ({counts.general})</option>
+            {showFilterOptions.length > 0 && (
+              <>
+                <option disabled value="kind:show">
+                  ── מקושרות להצגות ({Object.values(counts.byShow).reduce((a, b) => a + b, 0)}) ──
+                </option>
+                {showFilterOptions.map((o) => (
+                  <option key={`show:${o.id}`} value={`show:${o.id}`}>
+                    {o.kind === 'workshop' ? '🎭' : '📺'} {o.title} ({o.count})
+                  </option>
+                ))}
+              </>
+            )}
+            {(categoryFilterOptions.length > 0 || legacyCollectionIds.length > 0) && (
+              <>
+                <option disabled value="kind:collection">
+                  ── מקושרות לקטגוריות ({Object.values(counts.byCollection).reduce((a, b) => a + b, 0)}) ──
+                </option>
+                {categoryFilterOptions.map((o) => (
+                  <option key={`collection:${o.id}`} value={`collection:${o.id}`}>
+                    🗂️ {o.title} ({o.count})
+                  </option>
+                ))}
+                {legacyCollectionIds.map((id) => (
+                  <option key={`collection:${id}`} value={`collection:${id}`}>
+                    🗂️ (מזהה ישן: {id}) ({counts.byCollection[id]})
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
           <input
             type="search"
             className="v2-input v2-search"
@@ -173,12 +303,25 @@ export default function RecommendationsTab({ showToast }: Props) {
         {filtered.map(({ id, data }) => {
           const link = describeLink(data);
           return (
-            <button
+            <div
               key={id}
-              type="button"
-              className="v2-rec-card"
+              role="button"
+              tabIndex={0}
+              className="v2-rec-card v2-rec-card--clickable"
               onClick={() => setMode({ kind: 'edit', id })}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setMode({ kind: 'edit', id });
+                }
+              }}
             >
+              <div className="v2-rec-link-row">
+                <span className={`v2-badge ${link.muted ? 'v2-badge-muted' : 'v2-badge-link'}`}>
+                  {link.label}
+                </span>
+                {data.date && <span className="v2-rec-date">{data.date}</span>}
+              </div>
               <div className="v2-rec-top">
                 <strong>{data.recommenderName || 'ללא שם'}</strong>
                 <span className="v2-rec-id">{id}</span>
@@ -188,16 +331,29 @@ export default function RecommendationsTab({ showToast }: Props) {
                 {(data.content || '').replace(/<[^>]+>/g, '').slice(0, 120)}
                 {(data.content || '').length > 120 ? '...' : ''}
               </div>
-              <div className="v2-rec-bottom">
-                <span className={`v2-badge ${link.muted ? 'v2-badge-muted' : 'v2-badge-link'}`}>
-                  {link.label}
-                </span>
-                {data.date && <span className="v2-rec-date">{data.date}</span>}
-              </div>
-            </button>
+              <button
+                type="button"
+                className="v2-rec-copy-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copyRecToClipboard(data);
+                }}
+                onKeyDown={(e) => e.stopPropagation()}
+                title="העתק את ההמלצה המלאה ללוח (מוכן לוואטסאפ)"
+                aria-label="העתק את ההמלצה המלאה ללוח"
+              >
+                📋 העתק
+              </button>
+            </div>
           );
         })}
-        {filtered.length === 0 && <p className="v2-empty">לא נמצאו המלצות</p>}
+        {filtered.length === 0 && (
+          <p className="v2-empty">
+            {linkFilter || search
+              ? 'אין המלצות שתואמות את הסינון'
+              : 'לא נמצאו המלצות'}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -239,6 +395,27 @@ function RecommendationEditor({
     if (isNew && existingIds.includes(rec.id)) return 'מזהה קיים כבר';
     return errors.id;
   }, [rec.id, isNew, existingIds, errors.id]);
+
+  async function copyToClipboardFromEditor() {
+    const t = rec.linkedTarget;
+    let linkedTitle = '';
+    if (t?.kind === 'show') {
+      linkedTitle = shows.find((s) => s.id === t.id)?.data.title || '';
+    } else if (t?.kind === 'collection') {
+      linkedTitle = cards.find((c) => c.id === t.id)?.data.title || '';
+    }
+    const permalink =
+      typeof window !== 'undefined' && rec.id
+        ? `${window.location.origin}/recommendation/${rec.id}`
+        : '';
+    const ok = await copyToClipboard(
+      formatRecommendationForClipboard(rec, { linkedTitle, permalink }),
+    );
+    showToast(
+      ok ? 'הועתק ללוח 📋' : 'לא ניתן להעתיק אוטומטית — פתחי את הדף והעתיקי ידנית',
+      ok ? 'success' : 'error',
+    );
+  }
 
   async function save() {
     if (idError) {
@@ -290,6 +467,16 @@ function RecommendationEditor({
         <div className="v2-editor-header">
           <h2>{isNew ? 'המלצה חדשה' : `עריכת ${rec.recommenderName || rec.id}`}</h2>
           <div className="v2-editor-actions">
+            {!isNew && (
+              <button
+                type="button"
+                className="v2-btn v2-btn-secondary"
+                onClick={copyToClipboardFromEditor}
+                title="העתק את ההמלצה המלאה ללוח (מוכן לשליחה בוואטסאפ / מייל)"
+              >
+                📋 העתק
+              </button>
+            )}
             <button type="button" className="v2-btn v2-btn-secondary" onClick={onCancel}>{C.actions.cancel}</button>
             {!isNew && (
               <button type="button" className="v2-btn v2-btn-danger" onClick={() => setConfirmDelete(true)}>{C.actions.delete}</button>
@@ -306,6 +493,14 @@ function RecommendationEditor({
             hint={isNew ? 'ברירת מחדל: rec + מספר' : 'קבוע'} error={idError} />
           <TextField label={L.recommenderName} value={rec.recommenderName} onChange={(v) => set('recommenderName', v)} error={errors.recommenderName} />
           <TextField label={L.recommenderRole} value={rec.recommenderRole} onChange={(v) => set('recommenderRole', v)} />
+          <ImageField
+            label={L.recommenderImage}
+            value={rec.recommenderImage || ''}
+            onChange={(v) => set('recommenderImage', v)}
+            subfolder={`recommendations/${rec.id || 'draft'}`}
+            hint="תופיע בעיגול ליד שם הממליץ/ה בדף ההמלצה ובכרטיסי ההצגה. אופציונלי."
+            error={errors.recommenderImage}
+          />
           <TextField label={L.contactInfo} value={rec.contactInfo} onChange={(v) => set('contactInfo', v)} dir="ltr" />
           <TextField label={L.date} value={rec.date} onChange={(v) => set('date', v)} placeholder="17.12.2024" dir="ltr" />
         </section>

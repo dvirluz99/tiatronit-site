@@ -1,5 +1,5 @@
 /* ============================================================
-   Testimonials carousel — warm, understated
+   Testimonials carousel — stacked deck
    ============================================================ */
 
 .carousel-section {
@@ -38,67 +38,146 @@
   position: relative;
 }
 
-.carousel-track {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-6);
+/* The deck — relative positioning context for absolute-positioned cards. */
+.carousel-deck {
+  position: relative;
+  flex: 1;
   width: 100%;
-  transition: all var(--dur-base) var(--ease-out);
+  max-width: 640px;
+  min-height: 320px;
+  perspective: 1200px;
 }
 
+/* All cards stack on top of each other; data-state controls position. */
 .carousel-card {
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 580px;
   background: var(--c-surface);
   border: 1px solid var(--c-border);
   border-radius: var(--r-lg);
-  padding: clamp(1.5rem, 2.5vw, 2.25rem);
-  box-shadow: var(--shadow-sm);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  box-shadow: var(--shadow-md);
   text-align: start;
-  cursor: pointer;
-  transition:
-    transform var(--dur-base) var(--ease-out),
-    box-shadow var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out);
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 240px;
-  text-decoration: none;
-  position: relative;
-  animation: fadeIn var(--dur-slow) var(--ease-gentle) forwards;
+  min-height: 280px;
+  overflow: hidden;
+  transform-origin: center center;
+  transition:
+    transform 360ms var(--ease-out),
+    opacity 360ms var(--ease-out),
+    box-shadow 240ms var(--ease-out),
+    border-color 240ms var(--ease-out);
+  will-change: transform, opacity;
 }
 
-.carousel-card:hover {
-  transform: translateY(-6px);
+/* Front card — fully visible, slight lift on hover. */
+.carousel-card--front {
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  opacity: 1;
+  z-index: 3;
+  cursor: pointer;
+}
+.carousel-card--front:hover {
+  transform: translate3d(0, -4px, 0) scale(1.005);
   box-shadow: var(--shadow-lg);
   border-color: var(--c-accent-300);
 }
 
+/* Behind cards — peek out behind the front card, shrunk and rotated. */
+/* In RTL the visual "next" peeks from the left side, "next-next" from further left. */
+.carousel-card--behind-1 {
+  transform: translate3d(-3.5%, 12px, 0) scale(0.94) rotate(-3deg);
+  opacity: 0.55;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.carousel-card--behind-2 {
+  transform: translate3d(-7%, 22px, 0) scale(0.88) rotate(-5.5deg);
+  opacity: 0.3;
+  z-index: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Hidden cards stay parked behind the deepest behind layer so they can slide in. */
+.carousel-card--hidden {
+  transform: translate3d(-9%, 30px, 0) scale(0.82) rotate(-7deg);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Exit animations — front card flies out toward the user's swipe direction. */
+.carousel-card--exit-next {
+  transform: translate3d(120%, -20px, 0) scale(0.92) rotate(8deg);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.carousel-card--exit-prev {
+  transform: translate3d(-120%, -20px, 0) scale(0.92) rotate(-8deg);
+  opacity: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Watermark quote glyph behind the text. */
+.carousel-watermark {
+  position: absolute;
+  inset-inline-start: -10px;
+  inset-block-start: -30px;
+  font-family: var(--font-serif);
+  font-size: clamp(7rem, 14vw, 11rem);
+  line-height: 1;
+  color: var(--c-accent-300);
+  opacity: 0.15;
+  pointer-events: none;
+  user-select: none;
+  font-weight: var(--fw-bold);
+}
+
 .carousel-quote-icon {
   font-family: var(--font-serif);
-  font-size: 3rem;
-  color: var(--c-accent-300);
+  font-size: 2.4rem;
+  color: var(--c-accent-400);
   line-height: 0.5;
   margin-bottom: var(--sp-4);
+  position: relative;
+  z-index: 1;
 }
 
 .carousel-text {
-  font-size: var(--fs-base);
+  font-size: clamp(var(--fs-base), 1.6vw, var(--fs-lg));
   color: var(--c-text);
   line-height: var(--lh-relaxed);
   margin-bottom: var(--sp-5);
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-style: normal;
+  position: relative;
+  z-index: 1;
+}
+
+.carousel-attribution {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--c-border);
+  padding-top: var(--sp-3);
 }
 
 .carousel-author {
   font-weight: var(--fw-bold);
   color: var(--c-primary-900);
   font-size: var(--fs-base);
-  border-top: 1px solid var(--c-border);
-  padding-top: var(--sp-3);
   font-family: var(--font-sans);
 }
 
@@ -129,11 +208,11 @@
     color var(--dur-base) var(--ease-out),
     transform var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
-  z-index: 2;
+  z-index: 4;
   flex-shrink: 0;
 }
 
-.carousel-btn:hover {
+.carousel-btn:hover:not(:disabled) {
   background: var(--c-primary-700);
   color: var(--c-text-inverse);
   border-color: var(--c-primary-700);
@@ -141,17 +220,63 @@
   box-shadow: var(--shadow-md);
 }
 
-.carousel-btn:active {
+.carousel-btn:active:not(:disabled) {
   transform: scale(0.96);
 }
 
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ——— Pagination dots ——— */
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-6);
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-border);
+  border: none;
+  cursor: pointer;
+  transition:
+    width 240ms var(--ease-out),
+    background-color 240ms var(--ease-out);
+}
+
+.carousel-dot:hover {
+  background: var(--c-accent-300);
+}
+
+.carousel-dot.active {
+  width: 28px;
+  background: var(--c-accent-500, var(--c-accent-400));
+}
+
+/* ——— Mobile ——— */
 @media (max-width: 768px) {
-  .carousel-track {
-    grid-template-columns: 1fr;
+  .carousel-deck {
+    min-height: 340px;
   }
-  .carousel-card:nth-child(2) {
-    display: none;
+
+  /* Tone down the deck on small screens — only one peek card stays. */
+  .carousel-card--behind-1 {
+    transform: translate3d(-2.5%, 10px, 0) scale(0.96) rotate(-2deg);
+    opacity: 0.4;
   }
+  .carousel-card--behind-2,
+  .carousel-card--hidden {
+    opacity: 0;
+    transform: translate3d(-4%, 16px, 0) scale(0.9) rotate(-3deg);
+  }
+
   .carousel-section {
     padding-bottom: calc(var(--section-padding-y) * 0.7);
   }
@@ -165,7 +290,13 @@
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Honor reduced-motion preferences — drop the transitions, just swap state. */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-card {
+    transition: opacity 120ms linear;
+  }
+  .carousel-card--exit-next,
+  .carousel-card--exit-prev {
+    transform: none;
+  }
 }

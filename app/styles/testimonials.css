@@ -106,6 +106,42 @@
   z-index: 1;
 }
 
+/* When an avatar is present, the inner text block sits next to the image. */
+.recommender-info:has(.rec-avatar) {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.recommender-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* Clickable testimonial card — opens the individual recommendation. */
+.testimonial-card--clickable {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.testimonial-card--clickable:hover {
+  text-decoration: none;
+}
+
+.testimonial-card--clickable .details-btn {
+  color: var(--c-accent-600);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-sm);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.testimonial-card--clickable:hover .details-btn {
+  transform: translateX(-3px);
+}
+
 .recommender-name {
   font-family: var(--font-serif);
   font-size: var(--fs-xl);

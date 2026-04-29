@@ -184,6 +184,7 @@ function transformRecommendation(id: string, v1: AnyRecord): Recommendation {
     id,
     recommenderName: String(v1.recommenderName ?? '').trim(),
     recommenderRole: String(v1.recommenderRole ?? ''),
+    recommenderImage: String(v1.recommenderImage ?? ''),
     contactInfo: String(v1.contactInfo ?? ''),
     date: String(v1.date ?? ''),
     content: String(v1.content ?? ''),

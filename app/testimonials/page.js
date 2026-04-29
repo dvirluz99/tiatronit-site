@@ -3,7 +3,6 @@ import {
   getRecommendations,
   getAllShows,
   getHomePageStructure,
-  linkedTargetHref,
   linkedTargetTitle,
 } from '../../lib/data';
 import { plainTextToHtml } from '../../lib/recommendationContent';
@@ -34,24 +33,37 @@ export default async function TestimonialsPage() {
 
       <div className="testimonials-grid">
         {allRecommendations.map((rec, index) => {
-          const href = linkedTargetHref(rec.linkedTarget);
           const title = linkedTargetTitle(rec.linkedTarget, shows, collectionsById);
 
           return (
-            <ScrollReveal
+            <Link
               key={rec.id}
-              as="div"
-              className="testimonial-card"
+              href={`/recommendation/${rec.id}`}
+              className="rec-card-link-wrapper"
+              aria-label={`קראו את ההמלצה של ${rec.recommenderName || ''}`}
+            >
+            <ScrollReveal
+              as="article"
+              className="testimonial-card testimonial-card--clickable"
               delay={Math.min((index % 6) * 60, 360)}
             >
               <div className="quote-icon-large" aria-hidden="true">❝</div>
 
               <div className="recommender-info">
-                <span className="recommender-name">{rec.recommenderName}</span>
-                <span className="recommender-role">{rec.recommenderRole}</span>
-                {rec.date && (
-                  <span className="recommender-role" style={{ opacity: 0.75 }}>{rec.date}</span>
+                {rec.recommenderImage && (
+                  <img
+                    className="rec-avatar rec-avatar--sm"
+                    src={rec.recommenderImage}
+                    alt=""
+                  />
                 )}
+                <div className="recommender-info-text">
+                  <span className="recommender-name">{rec.recommenderName}</span>
+                  <span className="recommender-role">{rec.recommenderRole}</span>
+                  {rec.date && (
+                    <span className="recommender-role" style={{ opacity: 0.75 }}>{rec.date}</span>
+                  )}
+                </div>
               </div>
 
               <div
@@ -61,13 +73,10 @@ export default async function TestimonialsPage() {
 
               <div className="card-footer">
                 {title && <span className="show-name">{title}</span>}
-                {href && (
-                  <Link href={href} className="details-btn">
-                    לפרטים על ההצגה ←
-                  </Link>
-                )}
+                <span className="details-btn">קראו עוד ←</span>
               </div>
             </ScrollReveal>
+            </Link>
           );
         })}
       </div>

@@ -7,6 +7,7 @@ export * from './setting';
 export * from './clip';
 export * from './category';
 export * from './homepage';
+export * from './homeTestimonials';
 export { LABELS } from './labels';
 
 export const V2_COLLECTIONS = {
@@ -23,6 +24,7 @@ export const V2_COLLECTIONS = {
 export const SETTINGS_DOCS = {
   homepage: 'homepage',
   homeGallery: 'homeGallery',
+  homeTestimonials: 'homeTestimonials',
 } as const;
 
 export const V1_COLLECTIONS = {

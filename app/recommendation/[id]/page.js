@@ -7,6 +7,7 @@ import {
 } from '../../../lib/data';
 import { plainTextToHtml } from '../../../lib/recommendationContent';
 import ScrollReveal from '../../../components/ScrollReveal';
+import RecommendationShareButton from '../../../components/RecommendationShareButton';
 
 export default async function RecommendationsPage({ params }) {
   const { id } = await params;
@@ -19,10 +20,18 @@ export default async function RecommendationsPage({ params }) {
 
   const collectionsById = Object.fromEntries(homePageStructure.map((c) => [c.id, c]));
 
+  // The page renders in two modes:
+  //   - single: id like "rec5" → show that one recommendation only, with a
+  //     share button so the URL can be sent to a customer.
+  //   - list: id is a show or category → show every recommendation linked to
+  //     it. Each card becomes a Link to /recommendation/<rec.id> so the
+  //     individual permalink is one click away.
   let relevant = [];
+  let mode = 'list';
 
   if (id.startsWith('rec')) {
     if (recommendationsData[id]) relevant.push(recommendationsData[id]);
+    mode = 'single';
   } else if (shows[id] && shows[id].recommendationIds) {
     relevant = shows[id].recommendationIds
       .map((recId) => recommendationsData[recId])
@@ -51,20 +60,32 @@ export default async function RecommendationsPage({ params }) {
       <div className="recommendation-page-wrapper">
 
         <ScrollReveal variant="fade" as="h2" className="recommendation-header">
-          המלצות חמות
+          {mode === 'single' ? 'המלצה' : 'המלצות חמות'}
         </ScrollReveal>
+
+        {mode === 'single' && (
+          <div className="recommendation-share-row">
+            <RecommendationShareButton />
+          </div>
+        )}
 
         <div className="recommendations-list-container">
           {relevant.map((rec, index) => {
             const title = linkedTargetTitle(rec.linkedTarget, shows, collectionsById);
-            return (
-              <ScrollReveal
-                key={rec.id}
-                as="article"
-                className="recommendation-card-full"
-                delay={Math.min(index * 80, 320)}
-              >
-                <div className="rec-meta">
+            const cardClass = `recommendation-card-full${
+              mode === 'list' ? ' recommendation-card-full--clickable' : ''
+            }`;
+
+            const cardInner = (
+              <>
+                <div className={`rec-meta${rec.recommenderImage ? ' rec-meta--with-avatar' : ''}`}>
+                  {rec.recommenderImage && (
+                    <img
+                      className="rec-avatar"
+                      src={rec.recommenderImage}
+                      alt={rec.recommenderName || ''}
+                    />
+                  )}
                   <span className="rec-role">
                     <strong>{rec.recommenderName}</strong>
                     {rec.recommenderRole && (
@@ -90,6 +111,36 @@ export default async function RecommendationsPage({ params }) {
                     {title}
                   </div>
                 )}
+              </>
+            );
+
+            if (mode === 'list') {
+              return (
+                <Link
+                  key={rec.id}
+                  href={`/recommendation/${rec.id}`}
+                  className="rec-card-link-wrapper"
+                  aria-label={`קראו את ההמלצה של ${rec.recommenderName || ''}`}
+                >
+                  <ScrollReveal
+                    as="article"
+                    className={cardClass}
+                    delay={Math.min(index * 80, 320)}
+                  >
+                    {cardInner}
+                  </ScrollReveal>
+                </Link>
+              );
+            }
+
+            return (
+              <ScrollReveal
+                key={rec.id}
+                as="article"
+                className={cardClass}
+                delay={Math.min(index * 80, 320)}
+              >
+                {cardInner}
               </ScrollReveal>
             );
           })}

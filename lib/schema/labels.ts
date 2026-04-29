@@ -119,6 +119,7 @@ export const LABELS = {
     id: 'מזהה (ID)',
     recommenderName: 'שם הממליץ/ה',
     recommenderRole: 'תפקיד / מוסד',
+    recommenderImage: 'תמונת הממליצ/ה (אופציונלי)',
     contactInfo: 'פרטי יצירת קשר',
     date: 'תאריך ההמלצה',
     content: 'תוכן ההמלצה (HTML)',
@@ -168,6 +169,42 @@ export const LABELS = {
   homeGallery: {
     _entity: 'גלריה בעמוד הבית',
     images: 'תמונות הגלריה',
+  },
+
+  homeTestimonials: {
+    _entity: 'המלצות בדף הבית',
+    activeSectionTitle: 'ההמלצות בקרוסלה (לפי סדר התצוגה)',
+    activeSectionHint: 'הכרטיס הראשון יוצג ראשון. החיצים ↑ ↓ מזיזים, × מסיר.',
+    librarySectionTitle: 'כל ההמלצות בספרייה',
+    librarySectionHint: 'כל ההמלצות שיש לך. ניתן להוסיף לקרוסלה או להעתיק את הטקסט המלא לשליחה ללקוח.',
+    autoplaySeconds: 'החלפה אוטומטית (שניות, 0 = מבוטל)',
+    unsavedHint: 'השינויים יישמרו רק לאחר לחיצה על ״שמירה״.',
+    overrides: {
+      _section: 'עקיפת תצוגה (אופציונלי)',
+      hint: 'אם השדה ריק — נשתמש במידע המקורי מההמלצה.',
+      quoteOverride: 'טקסט קצר לכרטיס',
+      authorOverride: 'שם להצגה',
+      fromShowTitleOverride: 'הצגה / הקשר',
+    },
+    actions: {
+      editDisplay: 'עריכת תצוגה',
+      closeEdit: 'סגירת עריכה',
+      addToCarousel: 'הוסיפי לקרוסלה',
+      alreadyInCarousel: 'בקרוסלה',
+      copyFullText: 'העתק טקסט מלא',
+    },
+    toasts: {
+      added: 'נוספה לקרוסלה — שמרי כדי לקבע',
+      copied: 'הועתק ללוח',
+      copyFailed: 'לא ניתן להעתיק אוטומטית — פתחי את דף ההמלצה והעתיקי ידנית',
+      saved: 'נשמר',
+      alreadyAdded: 'ההמלצה כבר נמצאת בקרוסלה',
+    },
+    emptyActive: 'אין כרגע המלצות בקרוסלה. הוסיפי מהספרייה למטה.',
+    emptyLibrary: 'אין המלצות זמינות — צרי המלצות בכרטיסיית ״המלצות״ תחילה.',
+    missingRecommendation: 'ההמלצה הזו לא נמצאת בספרייה — מומלץ להסיר',
+    librarySearchPlaceholder: 'חיפוש לפי שם / תפקיד / תוכן...',
+    libraryFilterAriaLabel: 'סינון לפי שיוך',
   },
 
   common: {

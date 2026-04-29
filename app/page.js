@@ -2,12 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   getHomePageStructure,
-  getAboutData,
   getHomeGalleryImages,
   getAllShows,
   getAllCategories,
   getHomepageManifest,
   resolveHomepageItems,
+  resolveHomeTestimonials,
 } from '../lib/data';
 import dynamic from 'next/dynamic';
 import ScrollReveal from '../components/ScrollReveal';
@@ -47,9 +47,9 @@ async function buildHomepageCards() {
 }
 
 export default async function Home() {
-  const [cards, aboutData, galleryImages] = await Promise.all([
+  const [cards, testimonialsConfig, galleryImages] = await Promise.all([
     buildHomepageCards(),
-    getAboutData(),
+    resolveHomeTestimonials(),
     getHomeGalleryImages(),
   ]);
 
@@ -103,7 +103,10 @@ export default async function Home() {
         </div>
       </section>
 
-      <TestimonialsCarousel aboutData={aboutData} />
+      <TestimonialsCarousel
+        testimonials={testimonialsConfig.testimonials}
+        autoplaySeconds={testimonialsConfig.autoplaySeconds}
+      />
     </main>
   );
 }
