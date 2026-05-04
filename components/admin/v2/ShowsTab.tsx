@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import type { Show, Recommendation, Clip, CustomerClip } from '../../../lib/schema';
+import type { Show, Recommendation, Clip, CustomerClip, Category } from '../../../lib/schema';
 import { LABELS } from '../../../lib/schema';
 import { listAll } from '../../../lib/firestore-v2';
 import ShowForm from './ShowForm';
@@ -54,22 +54,27 @@ export default function ShowsTab({ showToast }: Props) {
   const [recs, setRecs] = useState<Array<{ id: string; data: Recommendation }>>([]);
   const [clips, setClips] = useState<Array<{ id: string; data: Clip }>>([]);
   const [customerClips, setCustomerClips] = useState<Array<{ id: string; data: CustomerClip }>>([]);
+  const [categories, setCategories] = useState<Array<{ id: string; data: Category }>>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
   async function load() {
     setLoading(true);
     try {
-      const [s, r, c, cc] = await Promise.all([
+      const [s, r, c, cc, cats] = await Promise.all([
         listAll<Show>('shows_v2'),
         listAll<Recommendation>('recommendations_v2'),
         listAll<Clip>('clips_v2'),
         listAll<CustomerClip>('customer_clips_v2'),
+        listAll<Category>('categories_v2').catch(
+          () => [] as Array<{ id: string; data: Category }>,
+        ),
       ]);
       setShows(s.sort((a, b) => a.id.localeCompare(b.id)));
       setRecs(r.sort((a, b) => a.id.localeCompare(b.id)));
       setClips(c.sort((a, b) => a.id.localeCompare(b.id)));
       setCustomerClips(cc.sort((a, b) => a.id.localeCompare(b.id)));
+      setCategories(cats.sort((a, b) => a.id.localeCompare(b.id)));
     } catch (e) {
       showToast('שגיאה בטעינה: ' + (e as Error).message, 'error');
     } finally {
@@ -103,6 +108,7 @@ export default function ShowsTab({ showToast }: Props) {
         existingIds={existingIds}
         allShows={shows}
         recommendations={recs}
+        categories={categories}
         clips={clips}
         customerClips={customerClips}
         showToast={showToast}
@@ -128,6 +134,7 @@ export default function ShowsTab({ showToast }: Props) {
         existingIds={existingIds}
         allShows={shows}
         recommendations={recs}
+        categories={categories}
         clips={clips}
         customerClips={customerClips}
         showToast={showToast}

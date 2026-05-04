@@ -8,6 +8,7 @@ import {
   type Recommendation,
   type Clip,
   type CustomerClip,
+  type Category,
 } from '../../../lib/schema';
 import { saveValidated, removeDoc } from '../../../lib/firestore-v2';
 import TextField from './fields/TextField';
@@ -26,6 +27,7 @@ type Props = {
   existingIds: string[];
   allShows: Array<{ id: string; data: Show }>;
   recommendations: Array<{ id: string; data: Recommendation }>;
+  categories: Array<{ id: string; data: Category }>;
   clips: Array<{ id: string; data: Clip }>;
   customerClips: Array<{ id: string; data: CustomerClip }>;
   onSaved: (show: Show) => void;
@@ -43,6 +45,7 @@ export default function ShowForm({
   existingIds,
   allShows,
   recommendations,
+  categories,
   clips,
   customerClips,
   onSaved,
@@ -140,6 +143,29 @@ export default function ShowForm({
     return isTaggedForThisShow(target) ? `★ ${base}` : base;
   }
 
+  const showsById = useMemo(() => {
+    const m: Record<string, Show> = {};
+    for (const s of allShows) m[s.id] = s.data;
+    return m;
+  }, [allShows]);
+  const categoriesById = useMemo(() => {
+    const m: Record<string, Category> = {};
+    for (const c of categories) m[c.id] = c.data;
+    return m;
+  }, [categories]);
+
+  function describeRecLink(t: Recommendation['linkedTarget']): string {
+    if (!t) return 'כללי';
+    if (t.kind === 'show') {
+      if (t.id === show.id) return '';
+      return `📺 ${showsById[t.id]?.title || `הצגה לא נמצאה (${t.id})`}`;
+    }
+    if (t.kind === 'collection') {
+      return `🗂️ ${categoriesById[t.id]?.title || `קטגוריה לא נמצאה (${t.id})`}`;
+    }
+    return '';
+  }
+
   const recScore = (r: { data: Recommendation }) => {
     const t = r.data.linkedTarget;
     if (t?.kind === 'show' && t.id === show.id) return 0;
@@ -149,10 +175,15 @@ export default function ShowForm({
   const recOptions = [...recommendations]
     .sort((a, b) => recScore(a) - recScore(b))
     .map((r) => {
-      const star = r.data.linkedTarget?.kind === 'show' && r.data.linkedTarget.id === show.id ? '★ ' : '';
+      const t = r.data.linkedTarget;
+      const isThisShow = t?.kind === 'show' && t.id === show.id;
+      const star = isThisShow ? '★ ' : '';
+      const base = `${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`;
+      const linkText = describeRecLink(t);
+      const suffix = linkText ? ` · ${linkText}` : '';
       return {
         value: r.id,
-        label: `${star}${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`,
+        label: `${star}${base}${suffix}`,
       };
     });
 

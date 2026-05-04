@@ -117,6 +117,7 @@ export default function CategoriesTab({ showToast }: Props) {
         initial={initial}
         isNew={mode.kind === 'new'}
         existingIds={existingIds}
+        cats={cats}
         shows={shows}
         clips={clips}
         customerClips={customerClips}
@@ -191,6 +192,7 @@ function CategoryEditor({
   initial,
   isNew,
   existingIds,
+  cats,
   shows,
   clips,
   customerClips,
@@ -203,6 +205,7 @@ function CategoryEditor({
   initial: Category;
   isNew: boolean;
   existingIds: string[];
+  cats: Array<{ id: string; data: Category }>;
   shows: Array<{ id: string; data: Show }>;
   clips: Array<{ id: string; data: Clip }>;
   customerClips: Array<{ id: string; data: CustomerClip }>;
@@ -285,10 +288,49 @@ function CategoryEditor({
     value: c.id,
     label: c.data.caption ? `${c.data.caption} (${c.id})` : c.id,
   }));
-  const recOptions = recs.map((r) => ({
-    value: r.id,
-    label: `${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`,
-  }));
+  const showsById = useMemo(() => {
+    const m: Record<string, Show> = {};
+    for (const s of shows) m[s.id] = s.data;
+    return m;
+  }, [shows]);
+  const categoriesById = useMemo(() => {
+    const m: Record<string, Category> = {};
+    for (const c of cats) m[c.id] = c.data;
+    return m;
+  }, [cats]);
+
+  function describeRecLink(t: Recommendation['linkedTarget']): string {
+    if (!t) return 'כללי';
+    if (t.kind === 'show') {
+      return `📺 ${showsById[t.id]?.title || `הצגה לא נמצאה (${t.id})`}`;
+    }
+    if (t.kind === 'collection') {
+      if (t.id === cat.id) return '';
+      return `🗂️ ${categoriesById[t.id]?.title || `קטגוריה לא נמצאה (${t.id})`}`;
+    }
+    return '';
+  }
+
+  const recScore = (r: { data: Recommendation }) => {
+    const t = r.data.linkedTarget;
+    if (t?.kind === 'collection' && t.id === cat.id) return 0;
+    if (!t) return 1;
+    return 2;
+  };
+  const recOptions = [...recs]
+    .sort((a, b) => recScore(a) - recScore(b))
+    .map((r) => {
+      const t = r.data.linkedTarget;
+      const isThisCategory = t?.kind === 'collection' && t.id === cat.id;
+      const star = isThisCategory ? '★ ' : '';
+      const base = `${r.data.recommenderName} — ${r.data.recommenderRole || r.id}`;
+      const linkText = describeRecLink(t);
+      const suffix = linkText ? ` · ${linkText}` : '';
+      return {
+        value: r.id,
+        label: `${star}${base}${suffix}`,
+      };
+    });
 
   return (
     <div className="v2-editor v2-editor-single">
