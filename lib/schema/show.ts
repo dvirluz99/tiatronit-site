@@ -27,6 +27,37 @@ export type Priority = z.infer<typeof PriorityEnum>;
 export const ShowKindEnum = z.enum(['show', 'workshop']);
 export type ShowKind = z.infer<typeof ShowKindEnum>;
 
+// Optional per-show overrides for the hard-coded section headings on the
+// public show page. Empty string ⇒ fall back to the built-in default. We keep
+// every field as a plain optional string so adding fields later is cheap and
+// existing docs need no migration.
+export const ShowLabelsSchema = z.object({
+  heroEyebrowFeatured: z.string().default(''),
+  heroEyebrowDefault: z.string().default(''),
+  formatsLabel: z.string().default(''),
+  containedShowsTitle: z.string().default(''),
+  aboutTitle: z.string().default(''),
+  socialProofTitle: z.string().default(''),
+  clipsTitle: z.string().default(''),
+  galleryTitle: z.string().default(''),
+  textTestimonialsTitle: z.string().default(''),
+  videoTestimonialsTitle: z.string().default(''),
+});
+export type ShowLabels = z.infer<typeof ShowLabelsSchema>;
+
+const EMPTY_SHOW_LABELS: ShowLabels = {
+  heroEyebrowFeatured: '',
+  heroEyebrowDefault: '',
+  formatsLabel: '',
+  containedShowsTitle: '',
+  aboutTitle: '',
+  socialProofTitle: '',
+  clipsTitle: '',
+  galleryTitle: '',
+  textTestimonialsTitle: '',
+  videoTestimonialsTitle: '',
+};
+
 export const ShowSchema = z.object({
   id: z.string().min(1),
   slug: z.string().optional(),
@@ -62,6 +93,10 @@ export const ShowSchema = z.object({
 
   recommendationIds: z.array(z.string()).default([]),
 
+  // Per-entity overrides for hardcoded section headings. Each field is optional;
+  // an empty value means "use the built-in default" at render time.
+  labels: ShowLabelsSchema.default(EMPTY_SHOW_LABELS),
+
   ...Timestamped,
 });
 export type Show = z.infer<typeof ShowSchema>;
@@ -85,4 +120,5 @@ export const ShowReadSchema = ShowSchema.partial({
   recommendationIds: true,
   clipIds: true,
   customerClipIds: true,
+  labels: true,
 });

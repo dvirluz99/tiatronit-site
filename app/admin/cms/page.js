@@ -9,6 +9,7 @@ import HomeTestimonialsTab from '../../../components/admin/v2/HomeTestimonialsTa
 import CategoriesTab from '../../../components/admin/v2/CategoriesTab';
 import RecommendationsTab from '../../../components/admin/v2/RecommendationsTab';
 import ClipsLibraryTab from '../../../components/admin/v2/ClipsLibraryTab';
+import ImagesLibraryTab from '../../../components/admin/v2/ImagesLibraryTab';
 import PagesTab from '../../../components/admin/v2/PagesTab';
 import Link from 'next/link';
 import '../../../components/admin/v2/admin-v2.css';
@@ -20,6 +21,7 @@ const TABS = [
   { id: 'categories', label: 'קטגוריות', Component: CategoriesTab },
   { id: 'recommendations', label: 'המלצות', Component: RecommendationsTab },
   { id: 'clips', label: 'ספריית סרטונים', Component: ClipsLibraryTab },
+  { id: 'images', label: 'ספריית תמונות', Component: ImagesLibraryTab },
   { id: 'pages', label: 'עמודים והגדרות', Component: PagesTab },
 ];
 

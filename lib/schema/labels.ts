@@ -43,6 +43,20 @@ export const LABELS = {
     recommendationIds: 'המלצות מקושרות',
     clipIds: 'טעימות מההצגה (מהספרייה)',
     customerClipIds: 'אנשים מדברים (מהספרייה)',
+    labels: {
+      _section: 'טקסטים בעמוד ההצגה',
+      _hint: 'השאירי ריק כדי להשתמש בטקסט ברירת המחדל. שימושי להתאמה בין הצגה לסדנא או לכל ניסוח אישי.',
+      heroEyebrowFeatured: 'תווית עליונה — הצגה מומלצת',
+      heroEyebrowDefault: 'תווית עליונה — הצגה רגילה',
+      formatsLabel: 'תווית שתי גרסאות ההצגה',
+      containedShowsTitle: 'כותרת רשימת ההצגות שבסדנא',
+      aboutTitle: 'כותרת "על ההצגה / על הסדנא"',
+      socialProofTitle: 'כותרת "ניסיון וקהלים"',
+      clipsTitle: 'כותרת אזור הטעימות',
+      galleryTitle: 'כותרת הגלריה',
+      textTestimonialsTitle: 'כותרת ההמלצות הכתובות',
+      videoTestimonialsTitle: 'כותרת ההמלצות בוידאו',
+    },
   },
 
   clip: {
@@ -78,6 +92,17 @@ export const LABELS = {
     recommendationIds: 'המלצות מקושרות',
     gallery: 'גלריית תמונות',
     extendedHtml: 'תוכן נוסף (HTML)',
+    labels: {
+      _section: 'טקסטים בעמוד הקטגוריה',
+      _hint: 'השאירי ריק כדי להשתמש בטקסט ברירת המחדל.',
+      eyebrow: 'תווית עליונה ("קטגוריה")',
+      itemsTitle: 'כותרת רשימת ההצגות בקטגוריה',
+      trailersTitle: 'כותרת הטריילרים',
+      clipsTitle: 'כותרת הטעימות',
+      galleryTitle: 'כותרת הגלריה',
+      textTestimonialsTitle: 'כותרת ההמלצות הכתובות',
+      videoTestimonialsTitle: 'כותרת ההמלצות בוידאו',
+    },
   },
 
   homepage: {

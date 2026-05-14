@@ -3,7 +3,12 @@ import RecommendationsToggle from './RecommendationsToggle';
 import VideoSectionToggle from './VideoSectionToggle';
 import styles from './ShowRecommendations.module.css';
 
-export default async function ShowRecommendations({ recommendationIds, userVideos }) {
+export default async function ShowRecommendations({
+  recommendationIds,
+  userVideos,
+  textTitle,
+  videoTitle,
+}) {
   const recommendationsData = await getRecommendations();
   const relevantRecs = recommendationIds
     ? recommendationIds.map((recId) => recommendationsData[recId]).filter(Boolean)
@@ -18,7 +23,7 @@ export default async function ShowRecommendations({ recommendationIds, userVideo
     <div className={styles.container}>
       {hasTextRecs && (
         <section>
-          <h3 className={styles.title}>משתפים על ההצגה</h3>
+          <h3 className={styles.title}>{textTitle || 'משתפים על ההצגה'}</h3>
           <RecommendationsToggle recommendations={relevantRecs} defaultCount={3} />
         </section>
       )}
@@ -27,7 +32,7 @@ export default async function ShowRecommendations({ recommendationIds, userVideo
         <div className={styles.videoSection}>
           <VideoSectionToggle
             videos={userVideos}
-            title="אנשים מדברים"
+            title={videoTitle || 'אנשים מדברים'}
             defaultCount={2}
           />
         </div>

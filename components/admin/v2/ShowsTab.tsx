@@ -33,6 +33,18 @@ function emptyShow(): Show {
     recommendationIds: [],
     clipIds: [],
     customerClipIds: [],
+    labels: {
+      heroEyebrowFeatured: '',
+      heroEyebrowDefault: '',
+      formatsLabel: '',
+      containedShowsTitle: '',
+      aboutTitle: '',
+      socialProofTitle: '',
+      clipsTitle: '',
+      galleryTitle: '',
+      textTestimonialsTitle: '',
+      videoTestimonialsTitle: '',
+    },
   };
 }
 

@@ -5,6 +5,7 @@ import {
   LABELS,
   ShowSchema,
   type Show,
+  type ShowLabels,
   type Recommendation,
   type Clip,
   type CustomerClip,
@@ -80,6 +81,25 @@ export default function ShowForm({
 
   function updateVideo<K extends keyof Show['video']>(key: K, value: Show['video'][K]) {
     setShow((prev) => ({ ...prev, video: { ...prev.video, [key]: value } }));
+  }
+
+  function setLabel<K extends keyof ShowLabels>(key: K, value: string) {
+    const empty: ShowLabels = {
+      heroEyebrowFeatured: '',
+      heroEyebrowDefault: '',
+      formatsLabel: '',
+      containedShowsTitle: '',
+      aboutTitle: '',
+      socialProofTitle: '',
+      clipsTitle: '',
+      galleryTitle: '',
+      textTestimonialsTitle: '',
+      videoTestimonialsTitle: '',
+    };
+    setShow((prev) => ({
+      ...prev,
+      labels: { ...empty, ...(prev.labels || {}), [key]: value },
+    }));
   }
 
   async function save() {
@@ -428,6 +448,75 @@ export default function ShowForm({
             onChange={(next) => set('recommendationIds', next)}
             emptyText="אין המלצות במערכת — הוסף/י המלצות לפני קישור"
           />
+        </section>
+
+        <section className="v2-section">
+          <details className="v2-labels-details">
+            <summary className="v2-section-title">{L.labels._section}</summary>
+            <p className="v2-field-hint">{L.labels._hint}</p>
+            <TextField
+              label={L.labels.heroEyebrowFeatured}
+              value={show.labels?.heroEyebrowFeatured || ''}
+              onChange={(v) => setLabel('heroEyebrowFeatured', v)}
+              placeholder="ההצגה המועברת ביותר"
+            />
+            <TextField
+              label={L.labels.heroEyebrowDefault}
+              value={show.labels?.heroEyebrowDefault || ''}
+              onChange={(v) => setLabel('heroEyebrowDefault', v)}
+              placeholder="הצגה / סדנא"
+            />
+            <TextField
+              label={L.labels.formatsLabel}
+              value={show.labels?.formatsLabel || ''}
+              onChange={(v) => setLabel('formatsLabel', v)}
+              placeholder="שתי מתכונות הצגה"
+            />
+            {show.kind === 'workshop' && (
+              <TextField
+                label={L.labels.containedShowsTitle}
+                value={show.labels?.containedShowsTitle || ''}
+                onChange={(v) => setLabel('containedShowsTitle', v)}
+                placeholder="ההצגות שבסדנא"
+              />
+            )}
+            <TextField
+              label={L.labels.aboutTitle}
+              value={show.labels?.aboutTitle || ''}
+              onChange={(v) => setLabel('aboutTitle', v)}
+              placeholder={show.kind === 'workshop' ? 'על הסדנא' : 'על ההצגה'}
+            />
+            <TextField
+              label={L.labels.socialProofTitle}
+              value={show.labels?.socialProofTitle || ''}
+              onChange={(v) => setLabel('socialProofTitle', v)}
+              placeholder="ניסיון וקהלים"
+            />
+            <TextField
+              label={L.labels.clipsTitle}
+              value={show.labels?.clipsTitle || ''}
+              onChange={(v) => setLabel('clipsTitle', v)}
+              placeholder="טעימות מההצגה"
+            />
+            <TextField
+              label={L.labels.galleryTitle}
+              value={show.labels?.galleryTitle || ''}
+              onChange={(v) => setLabel('galleryTitle', v)}
+              placeholder="גלריית תמונות"
+            />
+            <TextField
+              label={L.labels.textTestimonialsTitle}
+              value={show.labels?.textTestimonialsTitle || ''}
+              onChange={(v) => setLabel('textTestimonialsTitle', v)}
+              placeholder="משתפים על ההצגה"
+            />
+            <TextField
+              label={L.labels.videoTestimonialsTitle}
+              value={show.labels?.videoTestimonialsTitle || ''}
+              onChange={(v) => setLabel('videoTestimonialsTitle', v)}
+              placeholder="אנשים מדברים"
+            />
+          </details>
         </section>
 
         {confirmDelete && (

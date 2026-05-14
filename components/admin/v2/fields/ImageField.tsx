@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import ImageUploadComponent from '../../ImageUploadComponent';
+import ImagePickerModal from './ImagePickerModal';
+import type { LibraryImage } from '../../../../lib/imageLibrary';
 
 type Props = {
   label: string;
@@ -9,9 +12,21 @@ type Props = {
   subfolder?: string;
   hint?: string;
   error?: string;
+  // If provided, the picker uses this pre-aggregated list instead of fetching.
+  imageLibrary?: LibraryImage[];
 };
 
-export default function ImageField({ label, value, onChange, subfolder = 'general_photo', hint, error }: Props) {
+export default function ImageField({
+  label,
+  value,
+  onChange,
+  subfolder = 'general_photo',
+  hint,
+  error,
+  imageLibrary,
+}: Props) {
+  const [pickerOpen, setPickerOpen] = useState(false);
+
   return (
     <div className="v2-field">
       <label className="v2-field-label">{label}</label>
@@ -32,6 +47,13 @@ export default function ImageField({ label, value, onChange, subfolder = 'genera
             onUpload={(url: string) => onChange(url)}
             label=""
           />
+          <button
+            type="button"
+            className="v2-btn v2-btn-secondary"
+            onClick={() => setPickerOpen(true)}
+          >
+            בחרי מתמונות קיימות
+          </button>
           <div className="v2-image-or">או הדבק קישור:</div>
           <input
             type="url"
@@ -45,6 +67,15 @@ export default function ImageField({ label, value, onChange, subfolder = 'genera
       </div>
 
       {error && <p className="v2-field-error">{error}</p>}
+
+      <ImagePickerModal
+        isOpen={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onPick={onChange}
+        preloaded={imageLibrary}
+        currentValue={value}
+        title={`${label} — בחרי תמונה קיימת`}
+      />
     </div>
   );
 }

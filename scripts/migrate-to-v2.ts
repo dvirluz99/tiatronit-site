@@ -153,6 +153,18 @@ function transformShow(id: string, v1: AnyRecord): Show {
     customerClipIds: [],
     kind: 'show' as const,
     containedShowIds: [],
+    labels: {
+      heroEyebrowFeatured: '',
+      heroEyebrowDefault: '',
+      formatsLabel: '',
+      containedShowsTitle: '',
+      aboutTitle: '',
+      socialProofTitle: '',
+      clipsTitle: '',
+      galleryTitle: '',
+      textTestimonialsTitle: '',
+      videoTestimonialsTitle: '',
+    },
   };
   return ShowSchema.parse(parsed);
 }

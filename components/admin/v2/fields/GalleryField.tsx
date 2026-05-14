@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import ImageUploadComponent from '../../ImageUploadComponent';
+import ImagePickerModal from './ImagePickerModal';
+import type { LibraryImage } from '../../../../lib/imageLibrary';
 
 type Props = {
   label: string;
@@ -9,14 +11,24 @@ type Props = {
   onChange: (next: string[]) => void;
   subfolder?: string;
   hint?: string;
+  imageLibrary?: LibraryImage[];
 };
 
-export default function GalleryField({ label, images, onChange, subfolder = 'general_photo', hint }: Props) {
+export default function GalleryField({
+  label,
+  images,
+  onChange,
+  subfolder = 'general_photo',
+  hint,
+  imageLibrary,
+}: Props) {
   const [url, setUrl] = useState('');
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   const add = (value: string) => {
     const trimmed = (value || '').trim();
     if (!trimmed) return;
+    if (images.includes(trimmed)) return; // skip duplicates
     onChange([...images, trimmed]);
     setUrl('');
   };
@@ -51,6 +63,13 @@ export default function GalleryField({ label, images, onChange, subfolder = 'gen
 
       <div className="v2-gallery-add">
         <ImageUploadComponent subfolder={subfolder} onUpload={(u: string) => add(u)} label="העלאת תמונה" />
+        <button
+          type="button"
+          className="v2-btn v2-btn-secondary"
+          onClick={() => setPickerOpen(true)}
+        >
+          בחרי מתמונות קיימות
+        </button>
         <span className="v2-image-or">או קישור:</span>
         <input
           type="url"
@@ -64,6 +83,15 @@ export default function GalleryField({ label, images, onChange, subfolder = 'gen
           הוסף
         </button>
       </div>
+
+      <ImagePickerModal
+        isOpen={pickerOpen}
+        onClose={() => setPickerOpen(false)}
+        onPick={(u) => add(u)}
+        preloaded={imageLibrary}
+        currentValue={images}
+        title={`${label} — בחרי תמונה קיימת`}
+      />
     </div>
   );
 }

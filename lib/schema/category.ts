@@ -1,6 +1,29 @@
 import { z } from 'zod';
 import { UrlString, YoutubeId, Timestamped } from './common';
 
+// Optional per-category overrides for hard-coded section headings on the
+// public category page. Empty string ⇒ fall back to the built-in default.
+export const CategoryLabelsSchema = z.object({
+  eyebrow: z.string().default(''),
+  itemsTitle: z.string().default(''),
+  trailersTitle: z.string().default(''),
+  clipsTitle: z.string().default(''),
+  galleryTitle: z.string().default(''),
+  textTestimonialsTitle: z.string().default(''),
+  videoTestimonialsTitle: z.string().default(''),
+});
+export type CategoryLabels = z.infer<typeof CategoryLabelsSchema>;
+
+const EMPTY_CATEGORY_LABELS: CategoryLabels = {
+  eyebrow: '',
+  itemsTitle: '',
+  trailersTitle: '',
+  clipsTitle: '',
+  galleryTitle: '',
+  textTestimonialsTitle: '',
+  videoTestimonialsTitle: '',
+};
+
 // A pure grouping of shows/workshops with its own page. Replaces the old
 // `collections_v2` (type='collection') concept. Like a show, a category can
 // carry its own intro content (trailers, library clips, customer clips,
@@ -25,6 +48,9 @@ export const CategorySchema = z.object({
 
   // Free-form rich content (HTML).
   extendedHtml: z.string().default(''),
+
+  // Per-entity overrides for hardcoded section headings (see CategoryLabelsSchema).
+  labels: CategoryLabelsSchema.default(EMPTY_CATEGORY_LABELS),
 
   ...Timestamped,
 });

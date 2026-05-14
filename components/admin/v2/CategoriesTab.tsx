@@ -5,6 +5,7 @@ import {
   LABELS,
   CategorySchema,
   type Category,
+  type CategoryLabels,
   type Show,
   type Clip,
   type CustomerClip,
@@ -24,6 +25,18 @@ type Mode = { kind: 'list' } | { kind: 'edit'; id: string } | { kind: 'new' };
 const L = LABELS.category;
 const C = LABELS.common;
 
+function emptyCategoryLabels(): CategoryLabels {
+  return {
+    eyebrow: '',
+    itemsTitle: '',
+    trailersTitle: '',
+    clipsTitle: '',
+    galleryTitle: '',
+    textTestimonialsTitle: '',
+    videoTestimonialsTitle: '',
+  };
+}
+
 function emptyCategory(): Category {
   return {
     id: '',
@@ -37,6 +50,7 @@ function emptyCategory(): Category {
     recommendationIds: [],
     gallery: [],
     extendedHtml: '',
+    labels: emptyCategoryLabels(),
   };
 }
 
@@ -239,6 +253,13 @@ function CategoryEditor({
         return next;
       });
     }
+  }
+
+  function setLabel<K extends keyof CategoryLabels>(key: K, value: string) {
+    setCat((prev) => {
+      const current: CategoryLabels = { ...emptyCategoryLabels(), ...(prev.labels || {}) };
+      return { ...prev, labels: { ...current, [key]: value } };
+    });
   }
 
   async function save() {
@@ -456,6 +477,55 @@ function CategoryEditor({
             rows={6}
             hint="HTML עשיר שמופיע בעמוד הקטגוריה"
           />
+        </section>
+
+        <section className="v2-section">
+          <details className="v2-labels-details">
+            <summary className="v2-section-title">{L.labels._section}</summary>
+            <p className="v2-field-hint">{L.labels._hint}</p>
+            <TextField
+              label={L.labels.eyebrow}
+              value={cat.labels?.eyebrow || ''}
+              onChange={(v) => setLabel('eyebrow', v)}
+              placeholder="קטגוריה"
+            />
+            <TextField
+              label={L.labels.itemsTitle}
+              value={cat.labels?.itemsTitle || ''}
+              onChange={(v) => setLabel('itemsTitle', v)}
+              placeholder="הצגות וסדנאות בקטגוריה"
+            />
+            <TextField
+              label={L.labels.trailersTitle}
+              value={cat.labels?.trailersTitle || ''}
+              onChange={(v) => setLabel('trailersTitle', v)}
+              placeholder="טריילרים"
+            />
+            <TextField
+              label={L.labels.clipsTitle}
+              value={cat.labels?.clipsTitle || ''}
+              onChange={(v) => setLabel('clipsTitle', v)}
+              placeholder="טעימות"
+            />
+            <TextField
+              label={L.labels.galleryTitle}
+              value={cat.labels?.galleryTitle || ''}
+              onChange={(v) => setLabel('galleryTitle', v)}
+              placeholder="גלריית תמונות"
+            />
+            <TextField
+              label={L.labels.textTestimonialsTitle}
+              value={cat.labels?.textTestimonialsTitle || ''}
+              onChange={(v) => setLabel('textTestimonialsTitle', v)}
+              placeholder="משתפים על ההצגה"
+            />
+            <TextField
+              label={L.labels.videoTestimonialsTitle}
+              value={cat.labels?.videoTestimonialsTitle || ''}
+              onChange={(v) => setLabel('videoTestimonialsTitle', v)}
+              placeholder="אנשים מדברים"
+            />
+          </details>
         </section>
 
         {confirmDelete && (
