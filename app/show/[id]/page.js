@@ -82,6 +82,7 @@ export default async function ShowPage({ params }) {
   const containedShows = containedShowIds.map((cid) => allShows[cid]).filter(Boolean);
 
   const categoryLabel = CATEGORY_LABEL[show.category] || show.category;
+  const L = show.labels || {};
 
   return (
     <main className="div_presentation">
@@ -89,7 +90,9 @@ export default async function ShowPage({ params }) {
       <section className="show-hero">
         <ScrollReveal variant="slide-right" className="show-hero-text">
           <span className="show-eyebrow">
-            {show.priority === 'featured' ? 'ההצגה המועברת ביותר' : 'הצגה / סדנא'}
+            {show.priority === 'featured'
+              ? (L.heroEyebrowFeatured || 'ההצגה המועברת ביותר')
+              : (L.heroEyebrowDefault || 'הצגה / סדנא')}
           </span>
 
           <h1 className="presentation-page-title">{show.title}</h1>
@@ -125,7 +128,7 @@ export default async function ShowPage({ params }) {
 
         {hasFormats ? (
           <ScrollReveal variant="slide-left" className="show-hero-formats" delay={120}>
-            <span className="show-hero-formats-label">שתי מתכונות הצגה</span>
+            <span className="show-hero-formats-label">{L.formatsLabel || 'שתי מתכונות הצגה'}</span>
             {formats.slice(0, 2).map((f, i) => (
               <div key={i} className="show-format-card">
                 <div className="show-format-card-img">
@@ -176,9 +179,9 @@ export default async function ShowPage({ params }) {
       )}
 
       {isWorkshop && containedShows.length > 0 && (
-        <section className="cards-section" style={{ paddingTop: 'var(--sp-6)' }}>
+        <section className="cards-section">
           <ScrollReveal className="cards-section-header" variant="fade">
-            <h2 className="cards-title">ההצגות שבסדנא</h2>
+            <h2 className="cards-title">{L.containedShowsTitle || 'ההצגות שבסדנא'}</h2>
             <div className="cards-divider" aria-hidden="true"></div>
           </ScrollReveal>
           <div className="continer_main_for_all">
@@ -217,7 +220,7 @@ export default async function ShowPage({ params }) {
       )}
 
       <ScrollReveal className="show-details-container">
-        <h2 className="show-title">{isWorkshop ? 'על הסדנא' : 'על ההצגה'}</h2>
+        <h2 className="show-title">{L.aboutTitle || (isWorkshop ? 'על הסדנא' : 'על ההצגה')}</h2>
         {show.description && <p className="show-description">{show.description}</p>}
 
         {(show.creatorName || show.creatorIntro || show.creatorCredentials) && (
@@ -234,7 +237,7 @@ export default async function ShowPage({ params }) {
 
         {show.socialProof && (
           <div className="social-proof">
-            <h4>ניסיון וקהלים</h4>
+            <h4>{L.socialProofTitle || 'ניסיון וקהלים'}</h4>
             <p>{show.socialProof}</p>
           </div>
         )}
@@ -244,23 +247,23 @@ export default async function ShowPage({ params }) {
         recommendationIds={show.recommendationIds}
         showId={show.id}
         userVideos={customerClips}
+        textTitle={L.textTestimonialsTitle}
+        videoTitle={L.videoTestimonialsTitle}
       />
 
       {clips.length > 0 && (
         <ScrollReveal>
           <VideoSectionToggle
             videos={clips}
-            title="טעימות מההצגה"
+            title={L.clipsTitle || 'טעימות מההצגה'}
             defaultCount={2}
           />
         </ScrollReveal>
       )}
 
       {show.gallery && show.gallery.length > 0 && (
-        <ScrollReveal>
-          <h3 className="gallery-title" style={{ display: 'block', textAlign: 'center' }}>
-            גלריית תמונות
-          </h3>
+        <ScrollReveal className="section-centered">
+          <h3 className="gallery-title">{L.galleryTitle || 'גלריית תמונות'}</h3>
           <Gallery images={show.gallery} />
         </ScrollReveal>
       )}

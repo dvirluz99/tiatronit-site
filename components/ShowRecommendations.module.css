@@ -2,10 +2,10 @@
    ShowRecommendations — compact, warm, fits show + collection pages
    ============================================================ */
 
+/* Lives inside the page shell on both /show/[id] and /category/[id] —
+   the shell already provides max-width and side padding, so this component
+   only manages internal flow. */
 .container {
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--content-pad);
   display: flex;
   flex-direction: column;
   gap: var(--sp-10);

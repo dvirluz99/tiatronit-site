@@ -2,22 +2,27 @@
    Show detail page — editorial, rich, responsive
    ============================================================ */
 
-.div_presentation {
+/* Shared page shell used by /show/[id] (via .div_presentation) and
+   /category/[id] (via .page-shell). One source of truth for max-width,
+   side padding, and vertical rhythm — sections inside should NOT redefine
+   any of these (see .cards-section / .collection-* overrides in cards.css). */
+.div_presentation,
+.page-shell {
   max-width: var(--content-max);
   margin: 0 auto;
   padding: clamp(2rem, 4vw, 4rem) var(--content-pad);
   display: flex;
   flex-direction: column;
   gap: var(--section-gap);
-  /* main is a flex/grid item of body; min-width:auto would honor the
-     intrinsic width of the widest descendant (gallery images are 1600px
-     natural) and blow out the mobile layout. */
+  /* min-width:0 lets descendants (galleries with 1600px natural images)
+     shrink instead of blowing out the layout on mobile. */
   min-width: 0;
   width: 100%;
 }
 
-/* Same reason as above: each section inside must be allowed to shrink. */
-.div_presentation > * {
+/* Each section inside must be allowed to shrink. */
+.div_presentation > *,
+.page-shell > * {
   min-width: 0;
   max-width: 100%;
 }
@@ -32,18 +37,35 @@
   position: relative;
 }
 
-.show-hero::after {
+.show-hero::after,
+.show-hero::before {
   content: '';
   position: absolute;
-  top: -3rem;
-  right: -6rem;
   width: 420px;
   height: 420px;
-  background: radial-gradient(circle, var(--c-accent-100), transparent 70%);
-  opacity: 0.7;
-  filter: blur(50px);
   z-index: 0;
   pointer-events: none;
+  filter: blur(50px);
+}
+
+/* Warm accent halo, top-right */
+.show-hero::after {
+  top: -3rem;
+  right: -6rem;
+  background: radial-gradient(circle, var(--c-accent-100), transparent 70%);
+  opacity: 0.7;
+}
+
+/* Cooler primary halo, bottom-left — counter-balances the accent halo
+   so the hero isn't lopsided on wide desktops. Smaller + softer so the
+   eye still leads to the right accent. */
+.show-hero::before {
+  bottom: -4rem;
+  left: -5rem;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, var(--c-primary-100), transparent 70%);
+  opacity: 0.55;
 }
 
 .show-hero-media {
@@ -328,16 +350,17 @@
   position: relative;
 }
 
+/* Decorative accent bar — sits flush with the inside of the right edge
+   (RTL "start" edge), no longer hanging halfway off the container. */
 .show-details-container::before {
   content: '';
   position: absolute;
-  top: 2rem;
-  right: 0;
-  width: 4px;
-  height: 56px;
+  top: var(--sp-5);
+  inset-inline-end: var(--sp-3);
+  width: 3px;
+  height: 36px;
   background: var(--c-accent-400);
   border-radius: var(--r-pill);
-  transform: translateX(50%);
 }
 
 .show-title {
@@ -347,6 +370,7 @@
   font-weight: var(--fw-bold);
   margin: 0;
   line-height: var(--lh-snug);
+  text-align: center;
 }
 
 .show-description {
@@ -426,6 +450,7 @@
   font-size: var(--fs-base);
   color: var(--c-primary-800);
   margin: 0;
+  text-align: center;
 }
 
 .social-proof p {
@@ -575,6 +600,13 @@
   transform: scale(1.06);
 }
 
+/* Utility: center a section's content. Used as a wrapper for inline-block
+   section titles (e.g. .gallery-title) whose own ::after divider relies on
+   the title's intrinsic width — so the parent must center the inline block. */
+.section-centered {
+  text-align: center;
+}
+
 /* ——— Responsive ——— */
 
 /* Single-column stack for phones (portrait + landscape) and small tablets */
@@ -585,7 +617,8 @@
     text-align: start;
     justify-items: stretch;
   }
-  .show-hero::after {
+  .show-hero::after,
+  .show-hero::before {
     display: none;
   }
   .show-hero-media {

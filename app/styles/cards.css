@@ -9,6 +9,28 @@
   padding: var(--section-padding-y) var(--content-pad);
 }
 
+/* When a section lives inside the page shell (show or category detail),
+   the shell already provides max-width, side padding, and vertical rhythm.
+   Strip the self-imposed wrapping so we don't double-pad / mis-align. */
+.div_presentation .cards-section,
+.page-shell .cards-section,
+.div_presentation .collection-media-section,
+.page-shell .collection-media-section {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header wrapper keeps its inner alignment but drops outer spacing —
+   the shell's section-gap handles vertical rhythm, the shell's padding
+   handles side-padding. */
+.div_presentation .collection-header-wrapper,
+.page-shell .collection-header-wrapper {
+  margin: 0 auto;
+  padding: 0;
+  /* keep max-width: 900px for the narrower hero text column */
+}
+
 .cards-section-header {
   text-align: center;
   margin-bottom: clamp(2rem, 4vw, 3.5rem);

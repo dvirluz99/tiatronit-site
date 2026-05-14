@@ -64,12 +64,13 @@ export default async function CategoryPage({ params }) {
   const recommendationIds = Array.isArray(category.recommendationIds)
     ? category.recommendationIds
     : [];
+  const L = category.labels || {};
 
   return (
-    <main>
-      <section className="cards-section" style={{ paddingBottom: 0 }}>
+    <main className="page-shell">
+      <section className="cards-section">
         <ScrollReveal variant="fade" className="collection-header-wrapper">
-          <span className="cards-eyebrow">קטגוריה</span>
+          <span className="cards-eyebrow">{L.eyebrow || 'קטגוריה'}</span>
           <h1 className="collection-title">{category.title}</h1>
           {category.description && (
             <p className="collection-description">{category.description}</p>
@@ -81,9 +82,9 @@ export default async function CategoryPage({ params }) {
              inside the category. This is section #1 per the requirement that
              the contained shows must not get buried. */}
       {items.length > 0 && (
-        <section className="cards-section" style={{ paddingTop: 'var(--sp-8)' }}>
+        <section className="cards-section">
           <ScrollReveal className="cards-section-header" variant="fade">
-            <h2 className="cards-title">הצגות וסדנאות בקטגוריה</h2>
+            <h2 className="cards-title">{L.itemsTitle || 'הצגות וסדנאות בקטגוריה'}</h2>
             <div className="cards-divider" aria-hidden="true"></div>
           </ScrollReveal>
           <div className="continer_main_for_all">
@@ -124,7 +125,7 @@ export default async function CategoryPage({ params }) {
       {trailers.length > 0 && (
         <section className="collection-media-section">
           <ScrollReveal>
-            <h2 className="collection-section-title">טריילרים</h2>
+            <h2 className="collection-section-title">{L.trailersTitle || 'טריילרים'}</h2>
             <div className="div_trailer">
               {trailers.map((youtubeId) => (
                 <iframe
@@ -143,7 +144,7 @@ export default async function CategoryPage({ params }) {
       )}
 
       {category.extendedHtml && (
-        <section className="cards-section" style={{ paddingBlock: 0 }}>
+        <section className="cards-section">
           <ScrollReveal
             className="collection-text-box"
             dangerouslySetInnerHTML={{ __html: category.extendedHtml }}
@@ -153,21 +154,21 @@ export default async function CategoryPage({ params }) {
 
       {clips.length > 0 && (
         <ScrollReveal>
-          <VideoSectionToggle videos={clips} title="טעימות" defaultCount={2} />
+          <VideoSectionToggle videos={clips} title={L.clipsTitle || 'טעימות'} defaultCount={2} />
         </ScrollReveal>
       )}
 
-      <ShowRecommendations recommendationIds={recommendationIds} userVideos={customerClips} />
+      <ShowRecommendations
+        recommendationIds={recommendationIds}
+        userVideos={customerClips}
+        textTitle={L.textTestimonialsTitle}
+        videoTitle={L.videoTestimonialsTitle}
+      />
 
       {gallery.length > 0 && (
-        <section className="cards-section" style={{ paddingTop: 0 }}>
+        <section className="cards-section section-centered">
           <ScrollReveal>
-            <h2
-              className="gallery-title"
-              style={{ display: 'block', textAlign: 'center', marginInline: 'auto' }}
-            >
-              גלריית תמונות
-            </h2>
+            <h2 className="gallery-title">{L.galleryTitle || 'גלריית תמונות'}</h2>
             <Gallery images={gallery} />
           </ScrollReveal>
         </section>
