@@ -33,9 +33,9 @@ export const metadata = {
     siteName: 'תיאטרונית',
     images: [
       {
-        url: '/AllDir/logo/logo1.jpg', // <--- הנתיב לתמונה הכי יפה באתר שלך (לוגו, תמונה ראשית)
-        width: 1200,
-        height: 630,
+        url: '/logo2.jpeg', // הנתיב ללוגו האמיתי של האתר בתיקיית public
+        width: 2048,
+        height: 1548,
         alt: 'רונית לוז, בובותרפיה',
       },
     ],

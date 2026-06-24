@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: category.title,
       description: category.description,
-      images: [category.mainImg || '/AllDir/logo/logo1.jpg'],
+      images: [category.mainImg || '/logo2.jpeg'],
     },
   };
 }

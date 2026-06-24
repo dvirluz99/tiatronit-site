@@ -30,7 +30,7 @@ export async function generateMetadata({ params }) {
 
   const title = show.title || 'הצגה';
   const description = show.description || 'תיאטרון בובות רגשי חברתי - רונית לוז';
-  const imageUrl = show.mainImg || show.presentationFormats?.[0]?.image || '/AllDir/logo/logo1.jpg';
+  const imageUrl = show.mainImg || show.presentationFormats?.[0]?.image || '/logo2.jpeg';
 
   return {
     title,
